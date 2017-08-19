@@ -7,7 +7,7 @@ import { AppComponent } from './components/app/app.component';
     bootstrap: [ AppComponent ],
     imports: [
         ServerModule,
-        AppModuleShared
+        AppModuleShared,
     ]
 })
 export class AppModule {

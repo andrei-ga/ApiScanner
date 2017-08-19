@@ -7,26 +7,88 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+
+// angular material modules
+import {
+    MdAutocompleteModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdCardModule,
+    MdCheckboxModule,
+    MdChipsModule,
+    MdCoreModule,
+    MdDatepickerModule,
+    MdDialogModule,
+    MdExpansionModule,
+    MdGridListModule,
+    MdIconModule,
+    MdInputModule,
+    MdListModule,
+    MdMenuModule,
+    MdNativeDateModule,
+    MdPaginatorModule,
+    MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdRadioModule,
+    MdRippleModule,
+    MdSelectModule,
+    MdSidenavModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+    MdSnackBarModule,
+    MdSortModule,
+    MdTableModule,
+    MdTabsModule,
+    MdToolbarModule,
+    MdTooltipModule,
+} from '@angular/material';
+import { CdkTableModule } from '@angular/cdk';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
         HomeComponent
     ],
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
+        CdkTableModule,
+        MdAutocompleteModule,
+        MdButtonModule,
+        MdButtonToggleModule,
+        MdCardModule,
+        MdCheckboxModule,
+        MdChipsModule,
+        MdCoreModule,
+        MdDatepickerModule,
+        MdDialogModule,
+        MdExpansionModule,
+        MdGridListModule,
+        MdIconModule,
+        MdInputModule,
+        MdListModule,
+        MdMenuModule,
+        MdNativeDateModule,
+        MdPaginatorModule,
+        MdProgressBarModule,
+        MdProgressSpinnerModule,
+        MdRadioModule,
+        MdRippleModule,
+        MdSelectModule,
+        MdSidenavModule,
+        MdSliderModule,
+        MdSlideToggleModule,
+        MdSnackBarModule,
+        MdSortModule,
+        MdTableModule,
+        MdTabsModule,
+        MdToolbarModule,
+        MdTooltipModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

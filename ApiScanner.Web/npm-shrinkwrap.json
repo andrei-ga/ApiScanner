@@ -4,8 +4,13 @@
   "dependencies": {
     "@angular/animations": {
       "version": "4.2.5",
-      "from": "@angular/animations@4.2.5",
+      "from": "https://registry.npmjs.org/@angular/animations/-/animations-4.2.5.tgz",
       "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-4.2.5.tgz"
+    },
+    "@angular/cdk": {
+      "version": "2.0.0-beta.8",
+      "from": "@angular/cdk@latest",
+      "resolved": "https://registry.npmjs.org/@angular/cdk/-/cdk-2.0.0-beta.8.tgz"
     },
     "@angular/common": {
       "version": "4.2.5",
@@ -43,6 +48,11 @@
       "version": "4.2.5",
       "from": "@angular/http@4.2.5",
       "resolved": "https://registry.npmjs.org/@angular/http/-/http-4.2.5.tgz"
+    },
+    "@angular/material": {
+      "version": "2.0.0-beta.8",
+      "from": "@angular/material@latest",
+      "resolved": "https://registry.npmjs.org/@angular/material/-/material-2.0.0-beta.8.tgz"
     },
     "@angular/platform-browser": {
       "version": "4.2.5",
@@ -1365,6 +1375,11 @@
       "version": "1.0.1",
       "from": "graceful-readlink@>=1.0.0",
       "resolved": "https://registry.npmjs.org/graceful-readlink/-/graceful-readlink-1.0.1.tgz"
+    },
+    "hammerjs": {
+      "version": "2.0.8",
+      "from": "hammerjs@latest",
+      "resolved": "https://registry.npmjs.org/hammerjs/-/hammerjs-2.0.8.tgz"
     },
     "has": {
       "version": "1.0.1",
