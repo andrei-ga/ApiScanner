@@ -14,3 +14,23 @@
 .menu-spacer {
     flex: 1 1 auto;
 }
+
+.menu-toolbar.mat-toolbar .mat-toolbar-row {
+    margin-top: -56px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 6px;
+    height: auto;
+}
+
+@media (max-width: 600px) {
+    .menu-toolbar.mat-toolbar .mat-toolbar-row {
+        margin-top: -51px;
+    }
+}

@@ -1,14 +1,16 @@
-<md-toolbar color="primary">
-    <button md-button class="menu-item" [routerLink]="['/home']">
-        <md-icon class="menu-subicon">assessment</md-icon>Api scanner
-    </button>
-    <span class="menu-spacer"></span>
-    <button md-button class="menu-item" [mdMenuTriggerFor]="menuAccount">
-        <md-icon class="menu-subicon">account_box</md-icon>{{ myUser ? myUser.email : 'Account' }}
-    </button>
-    <md-menu #menuAccount="mdMenu">
-        <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/login']">Login</button>
-        <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/register']">Register</button>
-        <button *ngIf="loggedIn" md-menu-item (click)="logout()">Logout</button>
-    </md-menu>
+<md-toolbar color="primary" class="menu-toolbar">
+    <md-toolbar-row>
+        <button md-button class="menu-item" [routerLink]="['/home']">
+            <md-icon class="menu-subicon">assessment</md-icon>Api scanner
+        </button>
+        <span class="menu-spacer"></span>
+        <button md-button class="menu-item" [mdMenuTriggerFor]="menuAccount">
+            <md-icon class="menu-subicon">account_box</md-icon>{{ myUser ? myUser.email : 'Account' }}
+        </button>
+        <md-menu #menuAccount="mdMenu">
+            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/login']">Login</button>
+            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/register']">Register</button>
+            <button *ngIf="loggedIn" md-menu-item (click)="logout()">Logout</button>
+        </md-menu>
+    </md-toolbar-row>
 </md-toolbar>
