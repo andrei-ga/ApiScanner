@@ -1,0 +1,26 @@
+﻿<div class="center-form">
+    <h1>Sign in</h1>
+
+    <section>
+        <md-input-container class="item-full-width">
+            <input mdInput placeholder="Email address" type="email" (keyup.enter)="loginAccount()" [(ngModel)]="account.email" required="" autofocus="">
+        </md-input-container>
+
+        <md-input-container class="item-full-width">
+            <input mdInput placeholder="Password" type="password" (keyup.enter)="loginAccount()" [(ngModel)]="account.password" class="form-control" required="">
+        </md-input-container>
+    </section>
+
+    <section>
+        <!--<md-checkbox [(ngModel)]="account.rememberLogin">Remember me</md-checkbox>-->
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" [(ngModel)]="account.rememberLogin"> Remember me
+            </label>
+        </div>
+    </section>
+
+    <section>
+        <button md-raised-button [disabled]="signing" (click)="loginAccount()">Login</button>
+    </section>   
+</div>

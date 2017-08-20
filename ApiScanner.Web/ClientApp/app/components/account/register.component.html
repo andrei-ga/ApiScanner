@@ -1,0 +1,29 @@
+﻿<div class="center-form">
+    <h1>New account</h1>
+
+    <section>
+        <md-input-container class="item-full-width">
+            <input mdInput placeholder="Email address" type="email" (keyup.enter)="registerAccount()" [(ngModel)]="account.email" required="" autofocus="">
+        </md-input-container>
+
+        <md-input-container class="item-full-width">
+            <input mdInput placeholder="Password" type="password" (keyup.enter)="registerAccount()" [(ngModel)]="account.password" class="form-control" required="">
+        </md-input-container>
+        <md-input-container class="item-full-width">
+            <input mdInput placeholder="Repeat password" type="password" (keyup.enter)="registerAccount()" [(ngModel)]="account.passwordRepeat" class="form-control" required="">
+        </md-input-container>
+    </section>
+
+    <section>
+        <!--<md-checkbox [(ngModel)]="account.subscribe">Subscribe to newsletter</md-checkbox>-->
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" [(ngModel)]="account.subscribe"> Subscribe to newsletter
+            </label>
+        </div>
+    </section>
+
+    <section>
+        <button md-raised-button [disabled]="registering" (click)="registerAccount()">Register</button>
+    </section>    
+</div>

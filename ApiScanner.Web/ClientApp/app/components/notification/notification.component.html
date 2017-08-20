@@ -1,0 +1,7 @@
+﻿<div *ngFor="let notification of notifications; let i = index" class="notification-panel animated fadeInDown alert"
+     [style.margin-top]="(10 + (i) * 60) + 'px'"
+     [class.alert-dismissable]="!notification.autoClose"
+     [ngClass]="notification.classStyle">
+    <a *ngIf="!notification.autoClose" (click)="closeNotification(notification.id)" class="close" aria-label="close" title="close">×</a>
+    <span>{{ notification.content }}</span>
+</div>

@@ -1,0 +1,9 @@
+﻿.center-form {
+    margin: 0 auto;
+    padding: 20px 70px 50px;
+    max-width: 900px;
+}
+
+.item-full-width {
+    width: 100%;
+}

@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ApiScanner.DataAccess;
+using ApiScanner.Entities.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ApiScanner.Web
 {
@@ -22,6 +21,25 @@ namespace ApiScanner.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Use a PostgreSQL database
+            IdentityContext.ConnectionString = Configuration.GetConnectionString("DataAccessPostgreSqlProvider");
+            services.AddDbContext<IdentityContext>();
+
+            // Identity framework
+            services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = true;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+            });
+
             services.AddMvc();
         }
 
@@ -40,6 +58,8 @@ namespace ApiScanner.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            AuthAppBuilderExtensions.UseAuthentication(app);
 
             app.UseStaticFiles();
 

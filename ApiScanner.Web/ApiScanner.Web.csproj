@@ -8,16 +8,59 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityServer4" Version="1.5.2" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup>    
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\app\components\account\account-data.service.ts" />
+    <None Remove="ClientApp\app\components\account\account.model.ts" />
+    <None Remove="ClientApp\app\components\account\account.service.ts" />
+    <None Remove="ClientApp\app\components\account\auth.guard.ts" />
+    <None Remove="ClientApp\app\components\account\login.component.ts" />
+    <None Remove="ClientApp\app\components\account\register.component.ts" />
+    <None Remove="ClientApp\app\components\notification\notification-data.service.ts" />
+    <None Remove="ClientApp\app\components\notification\notification.component.ts" />
+    <None Remove="ClientApp\app\components\notification\notification.model.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiScanner.Business\ApiScanner.Business.csproj" />
+    <ProjectReference Include="..\ApiScanner.DataAccess\ApiScanner.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\Shared\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\account\account-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\account.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\account.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\account\register.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\notification\notification-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\notification\notification.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\notification\notification.model.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
