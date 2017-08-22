@@ -12,6 +12,8 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+    public pageHeader: string;
+
     constructor(
         private router: Router,
         private titleService: Title,
@@ -27,6 +29,9 @@ export class AppComponent implements OnInit {
             })
             .filter(route => route.outlet === 'primary')
             .mergeMap(route => route.data)
-            .subscribe((event) => this.titleService.setTitle(event['title']));
+            .subscribe((event) => {
+                this.titleService.setTitle(event['title']);
+                this.pageHeader = event['pageHeader'];
+            });
     }
 }

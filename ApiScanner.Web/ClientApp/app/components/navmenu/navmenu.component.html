@@ -1,4 +1,4 @@
-<md-toolbar color="primary" class="menu-toolbar">
+<md-toolbar color="primary" class="menu-toolbar" [class.shadow-menu]="pageHeader">
     <md-toolbar-row>
         <button md-button class="menu-item" [routerLink]="['/home']">
             <md-icon class="menu-subicon">assessment</md-icon>Api scanner
@@ -13,4 +13,7 @@
             <button *ngIf="loggedIn" md-menu-item (click)="logout()">Logout</button>
         </md-menu>
     </md-toolbar-row>
+</md-toolbar>
+<md-toolbar color="primary" class="menu-header" *ngIf="pageHeader">
+    <span>{{ pageHeader }}</span>
 </md-toolbar>

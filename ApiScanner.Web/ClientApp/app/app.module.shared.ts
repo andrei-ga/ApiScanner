@@ -101,8 +101,8 @@ import { CdkTableModule } from '@angular/cdk';
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent, data: { title: 'Api Scanner' } },
-            { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner' }, canActivate: [GuardLogin] },
-            { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner' }, canActivate: [GuardLogin] },
+            { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'New account' }, canActivate: [GuardLogin] },
+            { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'Sign in' }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: 'home' }
         ])
     ],

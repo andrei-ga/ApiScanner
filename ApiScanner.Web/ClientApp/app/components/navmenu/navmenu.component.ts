@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
@@ -18,11 +18,13 @@ export class NavMenuComponent implements OnDestroy {
     public myUser?: AccountModel = undefined;
     public loggedIn: boolean = false;
 
+    @Input() pageHeader: string;
+
     private _subscribeAccount: Subscription;
 
     constructor(
         private _accountDataService: AccountDataService,
-        private router: Router,
+        private _router: Router,
         private _notificationDataService: NotificationDataService,
         private _accountService: AccountService) {
         this._subscribeAccount = this._accountDataService.account
@@ -49,7 +51,7 @@ export class NavMenuComponent implements OnDestroy {
                 if (data) {
                     this._notificationDataService.addNotification('Successfully logged out.', NotificationClassType.success, true);
                     this._accountDataService.refreshData();
-                    this.router.navigateByUrl('/login');
+                    this._router.navigate(['/']);
                 }
             });
     }
