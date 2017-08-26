@@ -1,12 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using ApiScanner.Entities.Models;
-using ApiScanner.Business.Utility;
 using ApiScanner.Entities.DTOs;
-using ApiScanner.Entities;
-using Microsoft.EntityFrameworkCore;
+using ApiScanner.Business.Identity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,56 +10,33 @@ namespace ApiScanner.Web.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RegexUtilities _regexUtilities;
+        private readonly IAccountService _accountService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(IAccountService accountservice)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _regexUtilities = new RegexUtilities();
+            _accountService = accountservice;
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] UserDTO user)
         {
-            if (!_regexUtilities.IsValidEmail(user.Email))
-                return BadRequest(Json(new string[1] { BadRequestType.InvalidEmail.ToString() }));
-
-            var newUser = new ApplicationUser
-            {
-                UserName = user.Email,
-                Email = user.Email,
-                Subscribe = user.Subscribe ?? false
-            };
-
-            var userCreationResult = await _userManager.CreateAsync(newUser, user.Password);
-            if (!userCreationResult.Succeeded)
-                return BadRequest(Json(userCreationResult.Errors.Select(e => e.Code)));
-
-            return Ok(true);
+            var result = await _accountService.Register(user);
+            if (result.Success)
+                return Ok(true);
+            return BadRequest(Json(result.Errors));
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] UserDTO user)
         {
-            var dbUser = await _userManager.FindByEmailAsync(user.Email);
-            if (dbUser == null)
-                return BadRequest(Json(BadRequestType.UserOrPassIncorrect.ToString()));
-            
-            if (!dbUser.EmailConfirmed && _userManager.Options.SignIn.RequireConfirmedEmail)
-                return BadRequest(Json(BadRequestType.EmailNotConfirmed.ToString()));
-
-            var passwordSignInResult = await _signInManager.PasswordSignInAsync(dbUser, user.Password, isPersistent: user.RememberLogin ?? false, lockoutOnFailure: false);
-            if (!passwordSignInResult.Succeeded)
-                return BadRequest(Json(BadRequestType.UserOrPassIncorrect.ToString()));
-
-            return Ok(new UserDTO()
-            {
-                Email = dbUser.Email,
-                Subscribe = dbUser.Subscribe
-            });
+            var result = await _accountService.Login(user);
+            if (result.Success)
+                return Ok(new UserDTO()
+                {
+                    Email = result.User.Email,
+                    Subscribe = result.User.Subscribe
+                });
+            return BadRequest(Json(result.Error));
         }
 
         [HttpGet("[action]")]
@@ -80,7 +52,9 @@ namespace ApiScanner.Web.Controllers
                 return NoContent();
 
             var name = User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(name);
+            var user = await _accountService.AccountData(name);
+            if (user == null)
+                return NoContent();
 
             return Ok(new UserDTO()
             {
@@ -92,25 +66,17 @@ namespace ApiScanner.Web.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _accountService.Logout();
             return Ok(true);
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> ResetPassword([FromBody] UserDTO user)
         {
-            var dbUser = await _userManager.Users.FirstOrDefaultAsync(u => u.Id.Equals(user.Id));
-            if (dbUser == null)
-                return BadRequest(Json(new string[1] { BadRequestType.UserNotFound.ToString() }));
-
-            if (user.Password != user.PasswordRepeat)
-                return BadRequest(Json(new string[1] { BadRequestType.PasswordMissmatch.ToString() }));
-
-            var resetPasswordResult = await _userManager.ResetPasswordAsync(dbUser, user.ResetToken, user.Password);
-            if (!resetPasswordResult.Succeeded)
-                return BadRequest(Json(resetPasswordResult.Errors.Select(e => e.Code)));
-
-            return Ok(true);
+            var result = await _accountService.ResetPassword(user);
+            if (result.Success)
+                return Ok(true);
+            return BadRequest(Json(result.Errors));
         }
     }
 }

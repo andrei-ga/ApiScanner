@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ApiScanner.DataAccess;
 using ApiScanner.Entities.Models;
 using Microsoft.AspNetCore.Identity;
+using ApiScanner.Business.Identity;
 
 namespace ApiScanner.Web
 {
@@ -27,6 +28,9 @@ namespace ApiScanner.Web
 
             // Identity framework
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
+
+            // Business services
+            services.AddTransient<IAccountService, AccountService>();
 
             services.Configure<IdentityOptions>(options =>
             {
