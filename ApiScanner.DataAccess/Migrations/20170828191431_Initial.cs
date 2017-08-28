@@ -72,6 +72,33 @@ namespace ApiScanner.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Apis",
+                columns: table => new
+                {
+                    ApiId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Body = table.Column<string>(type: "text", nullable: true),
+                    Enabled = table.Column<bool>(type: "bool", nullable: false),
+                    Headers = table.Column<string>(type: "text", nullable: true),
+                    Interval = table.Column<int>(type: "int4", nullable: false),
+                    Method = table.Column<int>(type: "int4", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    PublicRead = table.Column<bool>(type: "bool", nullable: false),
+                    PublicWrite = table.Column<bool>(type: "bool", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Apis", x => x.ApiId);
+                    table.ForeignKey(
+                        name: "FK_Apis_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -157,6 +184,11 @@ namespace ApiScanner.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Apis_UserId",
+                table: "Apis",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -196,6 +228,9 @@ namespace ApiScanner.DataAccess.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Apis");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

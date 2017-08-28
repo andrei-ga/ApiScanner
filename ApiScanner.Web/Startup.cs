@@ -22,15 +22,15 @@ namespace ApiScanner.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Use a PostgreSQL database
-            IdentityContext.ConnectionString = Configuration.GetConnectionString("DataAccessPostgreSqlProvider");
-            services.AddDbContext<IdentityContext>();
+            // Configure DataBase contexts
+            CoreContext.ConnectionString = Configuration.GetConnectionString("DataAccessPostgreSqlProvider");
+            services.AddDbContext<CoreContext>();
 
             // Identity framework
-            services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<CoreContext>().AddDefaultTokenProviders();
 
             // Business services
-            services.AddTransient<IAccountService, AccountService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             services.Configure<IdentityOptions>(options =>
             {
