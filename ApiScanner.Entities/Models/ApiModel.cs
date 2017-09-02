@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApiScanner.Entities.Models
@@ -19,11 +20,13 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Name of api.
         /// </summary>
+        [MaxLength(50)]
         public string Name { get; set; }
 
         /// <summary>
         /// Absolute url of api.
         /// </summary>
+        [MaxLength(500)]
         public string Url { get; set; }
 
         /// <summary>
@@ -65,5 +68,10 @@ namespace ApiScanner.Entities.Models
         /// User who created the api.
         /// </summary>
         public virtual ApplicationUser User { get; set; }
+
+        /// <summary>
+        /// Conditions of api.
+        /// </summary>
+        public virtual ICollection<ConditionModel> Conditions { get; set; }
     }
 }

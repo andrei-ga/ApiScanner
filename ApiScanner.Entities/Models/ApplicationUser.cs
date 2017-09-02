@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiScanner.Entities.Models
 {
@@ -9,6 +10,7 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Full name of user.
         /// </summary>
+        [MaxLength(150)]
         public string FullName { get; set; }
 
         /// <summary>

@@ -12,9 +12,10 @@ using System;
 namespace ApiScanner.DataAccess.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class CoreContextModelSnapshot : ModelSnapshot
+    [Migration("20170902114254_AddApiConditions")]
+    partial class AddApiConditions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,15 +37,13 @@ namespace ApiScanner.DataAccess.Migrations
 
                     b.Property<int>("Method");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(50);
+                    b.Property<string>("Name");
 
                     b.Property<bool>("PublicRead");
 
                     b.Property<bool>("PublicWrite");
 
-                    b.Property<string>("Url")
-                        .HasMaxLength(500);
+                    b.Property<string>("Url");
 
                     b.Property<Guid>("UserId");
 
@@ -93,8 +92,7 @@ namespace ApiScanner.DataAccess.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FullName")
-                        .HasMaxLength(150);
+                    b.Property<string>("FullName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -142,13 +140,11 @@ namespace ApiScanner.DataAccess.Migrations
 
                     b.Property<int>("CompareType");
 
-                    b.Property<string>("CompareValue")
-                        .HasMaxLength(100);
+                    b.Property<string>("CompareValue");
 
                     b.Property<int>("MatchType");
 
-                    b.Property<string>("MatchVar")
-                        .HasMaxLength(100);
+                    b.Property<string>("MatchVar");
 
                     b.Property<bool>("ShouldPass");
 

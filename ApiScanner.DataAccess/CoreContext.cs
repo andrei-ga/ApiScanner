@@ -14,8 +14,9 @@ namespace ApiScanner.DataAccess
 
         public static string ConnectionString { get; set; }
 
-        public DbSet<ApiModel> Apis { get; set; }
         public new DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<ApiModel> Apis { get; set; }
+        public DbSet<ConditionModel> Conditions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,29 +25,40 @@ namespace ApiScanner.DataAccess
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ApiModel>(Configure);
             builder.Entity<ApplicationUser>(Configure);
+            builder.Entity<ApiModel>(Configure);
             base.OnModelCreating(builder);
         }
 
         /// <summary>
-        /// Configure apis
-        /// </summary>
-        /// <param name="entity"></param>
-        private static void Configure(EntityTypeBuilder<ApiModel> entity)
-        {
-            entity.HasKey(e => e.ApiId);
-            entity.HasOne<ApplicationUser>(e => e.User).WithMany(e => e.Apis);
-        }
-
-        /// <summary>
-        /// Configure users
+        /// Configure users.
         /// </summary>
         /// <param name="entity"></param>
         private static void Configure(EntityTypeBuilder<ApplicationUser> entity)
         {
             entity.HasKey(e => e.Id);
             entity.HasMany<ApiModel>(e => e.Apis).WithOne(e => e.User);
+        }
+
+        /// <summary>
+        /// Configure apis.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<ApiModel> entity)
+        {
+            entity.HasKey(e => e.ApiId);
+            entity.HasOne<ApplicationUser>(e => e.User).WithMany(e => e.Apis);
+            entity.HasMany<ConditionModel>(e => e.Conditions).WithOne(e => e.Api);
+        }
+
+        /// <summary>
+        /// Configure conditions.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<ConditionModel> entity)
+        {
+            entity.HasKey(e => e.ConditionId);
+            entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.Conditions);
         }
     }
 }
