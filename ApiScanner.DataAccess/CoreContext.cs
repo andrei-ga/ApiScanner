@@ -17,6 +17,8 @@ namespace ApiScanner.DataAccess
         public new DbSet<ApplicationUser> Users { get; set; }
         public DbSet<ApiModel> Apis { get; set; }
         public DbSet<ConditionModel> Conditions { get; set; }
+        public DbSet<LocationModel> Locations { get; set; }
+        public DbSet<ApiLocationModel> ApiLocations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,6 +29,8 @@ namespace ApiScanner.DataAccess
         {
             builder.Entity<ApplicationUser>(Configure);
             builder.Entity<ApiModel>(Configure);
+            builder.Entity<LocationModel>(Configure);
+            builder.Entity<ApiLocationModel>(Configure);
             base.OnModelCreating(builder);
         }
 
@@ -59,6 +63,26 @@ namespace ApiScanner.DataAccess
         {
             entity.HasKey(e => e.ConditionId);
             entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.Conditions);
+        }
+
+        /// <summary>
+        /// Configure locations.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<LocationModel> entity)
+        {
+            entity.HasKey(e => e.LocationId);
+        }
+
+        /// <summary>
+        /// Configure api locations.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<ApiLocationModel> entity)
+        {
+            entity.HasKey(e => new { e.ApiId, e.LocationId });
+            entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.ApiLocations);
+            entity.HasOne<LocationModel>(e => e.Location).WithMany(e => e.ApiLocations);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using ApiScanner.Business.Utility;
-using ApiScanner.Entities;
 using ApiScanner.Entities.DTOs;
+using ApiScanner.Entities.Enums;
 using ApiScanner.Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

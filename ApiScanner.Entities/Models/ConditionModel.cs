@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiScanner.Entities.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApiScanner.Entities.Models

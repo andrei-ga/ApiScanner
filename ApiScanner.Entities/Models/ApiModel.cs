@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiScanner.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -73,5 +74,10 @@ namespace ApiScanner.Entities.Models
         /// Conditions of api.
         /// </summary>
         public virtual ICollection<ConditionModel> Conditions { get; set; }
+
+        /// <summary>
+        /// Locations of api.
+        /// </summary>
+        public ICollection<ApiLocationModel> ApiLocations { get; set; }
     }
 }

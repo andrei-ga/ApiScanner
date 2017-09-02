@@ -1,4 +1,4 @@
-﻿namespace ApiScanner.Entities
+﻿namespace ApiScanner.Entities.Enums
 {
     public enum ConditionType
     {
