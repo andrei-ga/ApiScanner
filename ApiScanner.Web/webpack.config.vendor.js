@@ -13,6 +13,7 @@ const treeShakableModules = [
     '@angular/platform-browser-dynamic',
     '@angular/router',
     'zone.js',
+    'reflect-metadata/Reflect.js',
 ];
 const nonTreeShakableModules = [
     'bootstrap',
