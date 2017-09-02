@@ -17,6 +17,11 @@ namespace ApiScanner.Web.Controllers
             _accountService = accountservice;
         }
 
+        /// <summary>
+        /// Register a new account.
+        /// </summary>
+        /// <param name="user">User model.</param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> Register([FromBody] UserDTO user)
         {
@@ -26,6 +31,11 @@ namespace ApiScanner.Web.Controllers
             return BadRequest(Json(result.Errors));
         }
 
+        /// <summary>
+        /// Login the specified user.
+        /// </summary>
+        /// <param name="user">User model.</param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] UserDTO user)
         {
@@ -39,12 +49,20 @@ namespace ApiScanner.Web.Controllers
             return BadRequest(Json(result.Error));
         }
 
+        /// <summary>
+        /// Checks whether current user is logged in or not.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public IActionResult LoggedIn()
         {
             return Ok(User.Identity.IsAuthenticated);
         }
 
+        /// <summary>
+        /// Get account data of current user. Returns 204 if not logged in.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("[action]")]
         public async Task<IActionResult> AccountData()
         {
@@ -63,6 +81,10 @@ namespace ApiScanner.Web.Controllers
             });
         }
 
+        /// <summary>
+        /// Loggs out the current user.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> Logout()
         {
@@ -70,6 +92,11 @@ namespace ApiScanner.Web.Controllers
             return Ok(true);
         }
 
+        /// <summary>
+        /// Reset a user password.
+        /// </summary>
+        /// <param name="user">User model.</param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> ResetPassword([FromBody] UserDTO user)
         {
