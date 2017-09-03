@@ -16,18 +16,21 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Id of user who created the api.
         /// </summary>
+        [Required]
         public Guid UserId { get; set; }
 
         /// <summary>
         /// Name of api.
         /// </summary>
         [MaxLength(50)]
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
         /// Absolute url of api.
         /// </summary>
         [MaxLength(500)]
+        [Required]
         public string Url { get; set; }
 
         /// <summary>

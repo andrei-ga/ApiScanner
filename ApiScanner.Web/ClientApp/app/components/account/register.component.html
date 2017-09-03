@@ -12,11 +12,11 @@
         </md-input-container>
     </section>
 
-    <section>
+    <section class="form-group">
         <md-checkbox [(ngModel)]="account.subscribe">Subscribe to newsletter</md-checkbox>
     </section>
 
     <section>
-        <button md-raised-button [disabled]="registering" (click)="registerAccount()">Register</button>
+        <button md-raised-button color="primary" [disabled]="registering" (click)="registerAccount()">Register</button>
     </section>    
 </div>

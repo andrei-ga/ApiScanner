@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
@@ -10,11 +10,13 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/account/register.component';
 import { LoginComponent } from './components/account/login.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ApiCreateComponent } from './components/api/create.component';
 
 import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
 import { NotificationDataService } from './components/notification/notification-data.service';
-import { GuardLogin } from './components/account/auth.guard';
+import { ApiService } from './components/api/api.service';
+import { GuardLogin, GuardLoggedIn } from './components/account/auth.guard';
 
 // angular material modules
 import {
@@ -60,10 +62,11 @@ import { CdkTableModule } from '@angular/cdk/table';
         RegisterComponent,
         LoginComponent,
         NotificationComponent,
+        ApiCreateComponent,
     ],
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
         CdkTableModule,
         MdAutocompleteModule,
@@ -99,18 +102,20 @@ import { CdkTableModule } from '@angular/cdk/table';
         MdTooltipModule,
 
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent, data: { title: 'Api Scanner' } },
+            { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
+            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'Create api' }, canActivate: [GuardLoggedIn] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'New account' }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'Sign in' }, canActivate: [GuardLogin] },
-            { path: '**', redirectTo: 'home' }
+            { path: '**', redirectTo: '' }
         ])
     ],
     providers: [
         AccountService,
         AccountDataService,
         NotificationDataService,
+        ApiService,
         GuardLogin,
+        GuardLoggedIn,
     ]
 })
 export class AppModuleShared {

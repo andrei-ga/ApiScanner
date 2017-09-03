@@ -36,16 +36,16 @@ export class RegisterComponent {
             this._accountService.registerAccount(this.account)
                 .subscribe(
                 data => {
-                    //this._notificationDataService.addNotification('Please confirm your email.', NotificationClassType.info, true);
-                    this._router.navigateByUrl('/login');
+                    //this._notificationDataService.addNotification('Please confirm your email.', NotificationClassType.info, true); TODO: add setting in config
+                    this._router.navigateByUrl('login');
                 },
-                err => {
+                error => {
                     let errorText = '';
-                    if (err.status == 429) {
+                    if (error.status == 429) {
                         errorText = 'Too many retries per minute.';
                     } else {
-                        for (let error of err.json().value) {
-                            switch (error) {
+                        for (let err of error.error.value) {
+                            switch (err) {
                                 case 'InvalidEmail':
                                     errorText += 'Email format is not valid.\n';
                                     break;

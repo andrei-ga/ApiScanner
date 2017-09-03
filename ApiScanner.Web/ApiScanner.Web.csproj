@@ -32,6 +32,10 @@
     <None Remove="ClientApp\app\components\account\auth.guard.ts" />
     <None Remove="ClientApp\app\components\account\login.component.ts" />
     <None Remove="ClientApp\app\components\account\register.component.ts" />
+    <None Remove="ClientApp\app\components\api\api.service.ts" />
+    <None Remove="ClientApp\app\components\api\create.component.ts" />
+    <None Remove="ClientApp\app\components\enums\compare.type.model.ts" />
+    <None Remove="ClientApp\app\components\enums\condition.type.model.ts" />
     <None Remove="ClientApp\app\components\notification\notification-data.service.ts" />
     <None Remove="ClientApp\app\components\notification\notification.component.ts" />
     <None Remove="ClientApp\app\components\notification\notification.model.ts" />
@@ -43,10 +47,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\content\main.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +62,14 @@
     <TypeScriptCompile Include="ClientApp\app\components\account\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\register.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api\api.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api\condition.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api\api.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api\create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\api.interval.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\compare.type.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\condition.type.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\http.method.type.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification-data.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.model.ts" />

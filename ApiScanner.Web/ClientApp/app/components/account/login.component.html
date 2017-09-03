@@ -9,11 +9,11 @@
         </md-input-container>
     </section>
 
-    <section>
+    <section class="form-group">
         <md-checkbox [(ngModel)]="account.rememberLogin">Remember me</md-checkbox>
     </section>
 
     <section>
-        <button md-raised-button [disabled]="signing" (click)="loginAccount()">Login</button>
-    </section>   
+        <button md-raised-button color="primary" [disabled]="signing" (click)="loginAccount()">Login</button>
+    </section>
 </div>

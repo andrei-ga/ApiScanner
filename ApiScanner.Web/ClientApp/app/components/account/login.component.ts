@@ -40,14 +40,14 @@ export class LoginComponent {
                 data => {
                     this._notificationDataService.addNotification('Successfully logged in.', NotificationClassType.success, true);
                     this._accountDataService.refreshData();
-                    this.router.navigateByUrl('/');
+                    this.router.navigateByUrl('');
                 },
-                err => {
+                error => {
                     let errorText = 'Login failed.';
-                    if (err.status == 429) {
+                    if (error.status == 429) {
                         errorText = 'Too many retries per minute.';
                     } else {
-                        switch (err.json().value) {
+                        switch (error.error.value) {
                             case 'UserOrPassIncorrect':
                                 errorText = 'Incorrect username or password.';
                                 break;

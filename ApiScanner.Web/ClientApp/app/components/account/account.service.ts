@@ -1,61 +1,39 @@
 ﻿import { Injectable, Inject } from '@angular/core';
-import { Http, Response, URLSearchParams, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 import { AccountModel } from './account.model';
 
 @Injectable()
 export class AccountService {
-    constructor(private _http: Http, @Inject('BASE_URL') private _baseUrl: string) { }
+    constructor(private _http: HttpClient, @Inject('BASE_URL') private _baseUrl: string) { }
 
-    registerAccount(account: AccountModel): Observable<Response> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        return this._http.post(`${this._baseUrl}/api/Account/Register`, JSON.stringify(account), { headers: headers })
-            .map((res: Response) => res.json());
+    public registerAccount(account: AccountModel) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.post(`${this._baseUrl}/api/account/register`, JSON.stringify(account), { headers: headers });
     }
 
-    loginAccount(account: AccountModel): Observable<Response> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        return this._http.post(`${this._baseUrl}/api/Account/Login`, JSON.stringify(account), { headers: headers })
-            .map((res: Response) => res.json());
+    public loginAccount(account: AccountModel) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.post(`${this._baseUrl}/api/account/login`, JSON.stringify(account), { headers: headers });
     }
 
-    isLoggedIn(): Observable<boolean> {
-        return this._http.get(`${this._baseUrl}/api/Account/LoggedIn`)
-            .map((res: Response) => res.json());
+    public isLoggedIn() {
+        return this._http.get(`${this._baseUrl}/api/account/logged`);
     }
 
-    logout(): Observable<boolean> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        return this._http.post(`${this._baseUrl}/api/Account/Logout`, { headers: headers })
-            .map((res: Response) => res.json());
+    public logout() {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.post(`${this._baseUrl}/api/account/logout`, { headers: headers });
     }
 
-    getAccountData(): Observable<AccountModel> {
-        return this._http.get(`${this._baseUrl}/api/Account/AccountData`)
-            .map((res: Response) => res.json());
+    public getAccountData() {
+        return this._http.get(`${this._baseUrl}/api/account/data`);
     }
 
-    forgotPassword(email: string): Observable<boolean> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        return this._http.post(`${this._baseUrl}/api/Account/ForgotPassword`, JSON.stringify({ value: email }), { headers: headers })
-            .map((res: Response) => res.json());
-    }
-
-    resetPassword(account: AccountModel): Observable<boolean> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        return this._http.post(`${this._baseUrl}/api/Account/ResetPassword`, JSON.stringify(account), { headers: headers })
-            .map((res: Response) => res.json());
+    public resetPassword(account: AccountModel) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.post(`${this._baseUrl}/api/account/reset`, JSON.stringify(account), { headers: headers });
     }
 }

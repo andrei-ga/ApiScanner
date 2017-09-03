@@ -7,6 +7,9 @@ using ApiScanner.DataAccess;
 using ApiScanner.Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using ApiScanner.Business.Identity;
+using Microsoft.AspNetCore.Http;
+using ApiScanner.Business.Managers;
+using ApiScanner.DataAccess.Repositories;
 
 namespace ApiScanner.Web
 {
@@ -30,7 +33,10 @@ namespace ApiScanner.Web
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<CoreContext>().AddDefaultTokenProviders();
 
             // Business services
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IApiManager, ApiManager>();
+            services.AddScoped<IApiRepository, ApiRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {

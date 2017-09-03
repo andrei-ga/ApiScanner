@@ -1,9 +1,16 @@
 <md-toolbar color="primary" class="menu-toolbar" [class.shadow-menu]="pageHeader">
     <md-toolbar-row>
-        <button md-button class="menu-item" [routerLink]="['/home']">
+        <button md-button class="menu-item" [routerLink]="['']">
             <md-icon class="menu-subicon">assessment</md-icon>Api scanner
         </button>
+
+        <button *ngIf="loggedIn" md-button class="menu-item" [mdMenuTriggerFor]="menuApi">Api</button>
+        <md-menu #menuApi="mdMenu">
+            <button md-menu-item [routerLink]="['apis/create']">Create new api</button>
+        </md-menu>
+
         <span class="menu-spacer"></span>
+
         <button md-button class="menu-item" [mdMenuTriggerFor]="menuAccount">
             <md-icon class="menu-subicon">account_box</md-icon>{{ myUser ? myUser.email : 'Account' }}
         </button>

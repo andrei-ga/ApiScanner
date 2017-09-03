@@ -28,11 +28,17 @@ namespace ApiScanner.Business.Identity
         Task Logout();
 
         /// <summary>
+        /// Return whether current user is logged in or not.
+        /// </summary>
+        /// <returns></returns>
+        bool LoggedIn();
+
+        /// <summary>
         /// Get account data for specific user. Returns null if not found.
         /// </summary>
         /// <param name="account">User account name.</param>
         /// <returns></returns>
-        Task<ApplicationUser> AccountData(string account);
+        Task<ApplicationUser> AccountData();
 
         /// <summary>
         /// Reset password for a user.

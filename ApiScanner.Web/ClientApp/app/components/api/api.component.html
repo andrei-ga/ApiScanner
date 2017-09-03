@@ -1,0 +1,125 @@
+﻿<div class="container-fluid">
+    <div class="row form-group">
+        <div class="col-lg-4">
+            <h3>Api details</h3>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <md-form-field class="full-width">
+                        <input mdInput placeholder="Name" maxlength="50" required [(ngModel)]="api.name">
+                    </md-form-field>
+                </div>
+                <div class="col-md-6">
+                    <md-form-field class="full-width">
+                        <input mdInput placeholder="URL" maxlength="500" required [(ngModel)]="api.url">
+                    </md-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <md-select placeholder="Http method" [(ngModel)]="api.method" class="full-width">
+                        <md-option *ngFor="let value of splitEnum(HttpMethodTypeModel)" [value]="HttpMethodTypeModel[value]">
+                            {{value}}
+                        </md-option>
+                    </md-select>
+                </div>
+                <div class="col-md-6">
+                    <md-select placeholder="Scan interval" [(ngModel)]="api.interval" class="full-width">
+                        <md-option *ngFor="let value of splitEnum(ApiIntervalModel)" [value]="ApiIntervalModel[value]">
+                            {{value}}
+                        </md-option>
+                    </md-select>
+                </div>
+            </div>
+
+            <p>
+                <md-form-field class="full-width">
+                    <textarea mdInput placeholder="Headers" [(ngModel)]="api.headers" rows="10"></textarea>
+                </md-form-field>
+                <md-form-field class="full-width">
+                    <textarea mdInput placeholder="Body" [(ngModel)]="api.body" rows="10"></textarea>
+                </md-form-field>
+            </p>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <md-slide-toggle [(ngModel)]="api.enabled">{{api.enabled ? 'Enabled' : 'Disabled'}}</md-slide-toggle>
+                </div>
+                <div class="col-md-4">
+                    <md-checkbox [(ngModel)]="api.publicRead">Anyone can see</md-checkbox>
+                </div>
+                <div class="col-md-4">
+                    <md-checkbox [(ngModel)]="api.publicWrite">Anyone can edit</md-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h3>Log conditions</h3>
+
+            <div *ngFor="let condition of api.conditions; let i = index">
+                <div class="row">
+                    <div class="col-md-6">
+                        <md-select placeholder="Type" [(ngModel)]="condition.matchType" (change)="conditionTypeChanged(i)" class="full-width">
+                            <md-option *ngFor="let value of splitEnum(ConditionTypeModel)" [value]="ConditionTypeModel[value]">
+                                {{value}}
+                            </md-option>
+                        </md-select>
+                    </div>
+                    <div class="col-md-6">
+                        <md-form-field class="full-width">
+                            <input mdInput [disabled]="condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime"
+                                   [required]="!(condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime)"
+                                   placeholder="Variable" maxlength="100" [(ngModel)]="condition.matchVar">
+                        </md-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <md-select placeholder="Compare type" [(ngModel)]="condition.compareType" class="full-width">
+                            <md-option *ngFor="let value of splitEnum(CompareTypeModel)" [value]="CompareTypeModel[value]">
+                                {{value}}
+                            </md-option>
+                        </md-select>
+                    </div>
+                    <div class="col-md-6">
+                        <md-form-field class="full-width">
+                            <input mdInput placeholder="Compare value" maxlength="100" required [(ngModel)]="condition.compareValue">
+                        </md-form-field>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <md-slide-toggle [(ngModel)]="condition.shouldPass">{{condition.shouldPass ? 'Log a success' : 'Log a fail'}}</md-slide-toggle>
+                    </div>
+                    <div class="col-md-6">
+                        <button md-mini-fab (click)="removeCondition(i)" class="pull-right">
+                            <md-icon class="menu-subicon">remove</md-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <hr *ngIf="i < api.conditions.length - 1" />
+            </div>
+
+            <button md-mini-fab color="primary" (click)="addCondition()">
+                <md-icon class="menu-subicon">add</md-icon>
+            </button>
+        </div>
+
+        <div class="col-lg-4">
+            <h3>Locations to run api</h3>
+
+            TODO
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-4">
+            <button md-raised-button color="primary" (click)="createApi()">Create api</button>
+        </div>
+    </div>
+</div>

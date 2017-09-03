@@ -22,7 +22,7 @@ namespace ApiScanner.Web.Controllers
         /// </summary>
         /// <param name="user">User model.</param>
         /// <returns></returns>
-        [HttpPost("[action]")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserDTO user)
         {
             var result = await _accountService.Register(user);
@@ -36,7 +36,7 @@ namespace ApiScanner.Web.Controllers
         /// </summary>
         /// <param name="user">User model.</param>
         /// <returns></returns>
-        [HttpPost("[action]")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserDTO user)
         {
             var result = await _accountService.Login(user);
@@ -53,24 +53,20 @@ namespace ApiScanner.Web.Controllers
         /// Checks whether current user is logged in or not.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("logged")]
         public IActionResult LoggedIn()
         {
-            return Ok(User.Identity.IsAuthenticated);
+            return Ok(_accountService.LoggedIn());
         }
 
         /// <summary>
         /// Get account data of current user. Returns 204 if not logged in.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("[action]")]
+        [HttpGet("data")]
         public async Task<IActionResult> AccountData()
         {
-            if (!User.Identity.IsAuthenticated)
-                return NoContent();
-
-            var name = User.Identity.Name;
-            var user = await _accountService.AccountData(name);
+            var user = await _accountService.AccountData();
             if (user == null)
                 return NoContent();
 
@@ -85,7 +81,7 @@ namespace ApiScanner.Web.Controllers
         /// Loggs out the current user.
         /// </summary>
         /// <returns></returns>
-        [HttpPost("[action]")]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             await _accountService.Logout();
@@ -97,7 +93,7 @@ namespace ApiScanner.Web.Controllers
         /// </summary>
         /// <param name="user">User model.</param>
         /// <returns></returns>
-        [HttpPost("[action]")]
+        [HttpPost("reset")]
         public async Task<IActionResult> ResetPassword([FromBody] UserDTO user)
         {
             var result = await _accountService.ResetPassword(user);

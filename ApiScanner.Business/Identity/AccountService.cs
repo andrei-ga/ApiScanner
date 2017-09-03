@@ -2,6 +2,7 @@
 using ApiScanner.Entities.DTOs;
 using ApiScanner.Entities.Enums;
 using ApiScanner.Entities.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -15,12 +16,14 @@ namespace ApiScanner.Business.Identity
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RegexUtilities _regexUtilities;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IHttpContextAccessor httpContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _regexUtilities = new RegexUtilities();
+            _httpContext = httpContext;
         }
 
         public async Task<(bool Success, IEnumerable<string> Errors)> Register(UserDTO user)
@@ -65,9 +68,16 @@ namespace ApiScanner.Business.Identity
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<ApplicationUser> AccountData(string account)
+        public bool LoggedIn()
         {
-            var user = await _userManager.FindByNameAsync(account);
+            return _httpContext.HttpContext.User?.Identity?.IsAuthenticated ?? false;
+        }
+
+        public async Task<ApplicationUser> AccountData()
+        {
+            if (!_httpContext.HttpContext.User?.Identity?.IsAuthenticated ?? false)
+                return null;
+            var user = await _userManager.FindByNameAsync(_httpContext.HttpContext.User?.Identity?.Name);
             return user;
         }
 
