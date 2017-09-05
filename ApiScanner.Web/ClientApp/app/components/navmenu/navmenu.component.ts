@@ -9,6 +9,8 @@ import { NotificationDataService } from '../notification/notification-data.servi
 import { NotificationClassType } from '../notification/notification.model';
 import { AccountModel } from '../account/account.model';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
     selector: 'nav-menu',
     templateUrl: './navmenu.component.html',
@@ -26,7 +28,8 @@ export class NavMenuComponent implements OnDestroy {
         private _accountDataService: AccountDataService,
         private _router: Router,
         private _notificationDataService: NotificationDataService,
-        private _accountService: AccountService) {
+        private _accountService: AccountService,
+        private translate: TranslateService) {
         this._subscribeAccount = this._accountDataService.account
             .subscribe(
             data => {
@@ -51,8 +54,12 @@ export class NavMenuComponent implements OnDestroy {
                 if (data) {
                     this._notificationDataService.addNotification('Successfully logged out.', NotificationClassType.success, true);
                     this._accountDataService.refreshData();
-                    this._router.navigate(['/']);
+                    this._router.navigate(['']);
                 }
             });
+    }
+
+    public switchLanguage(language: string) {
+        this.translate.use(language);
     }
 }

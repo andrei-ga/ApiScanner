@@ -2,13 +2,13 @@
 {
     public enum HttpMethodType
     {
-        HEAD = 0,
-        GET = 1,
-        POST = 2,
-        PUT = 3,
-        PATCH = 4,
-        DELETE = 5,
-        OPTIONS = 6,
-        CONNECT = 7
+        Head = 0,
+        Get = 1,
+        Post = 2,
+        Put = 3,
+        Patch = 4,
+        Delete = 5,
+        Options = 6,
+        Connect = 7
     }
 }

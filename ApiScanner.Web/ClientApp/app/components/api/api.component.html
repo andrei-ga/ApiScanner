@@ -20,14 +20,14 @@
                 <div class="col-md-6">
                     <md-select placeholder="Http method" [(ngModel)]="api.method" class="full-width">
                         <md-option *ngFor="let value of splitEnum(HttpMethodTypeModel)" [value]="HttpMethodTypeModel[value]">
-                            {{value}}
+                            {{'HttpMethodType_' + value | translate}}
                         </md-option>
                     </md-select>
                 </div>
                 <div class="col-md-6">
                     <md-select placeholder="Scan interval" [(ngModel)]="api.interval" class="full-width">
                         <md-option *ngFor="let value of splitEnum(ApiIntervalModel)" [value]="ApiIntervalModel[value]">
-                            {{value}}
+                            {{'ApiInterval_' + value | translate}}
                         </md-option>
                     </md-select>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <md-select placeholder="Type" [(ngModel)]="condition.matchType" (change)="conditionTypeChanged(i)" class="full-width">
                             <md-option *ngFor="let value of splitEnum(ConditionTypeModel)" [value]="ConditionTypeModel[value]">
-                                {{value}}
+                                {{'ConditionType_' + value | translate}}
                             </md-option>
                         </md-select>
                     </div>
@@ -80,7 +80,7 @@
                     <div class="col-md-6">
                         <md-select placeholder="Compare type" [(ngModel)]="condition.compareType" class="full-width">
                             <md-option *ngFor="let value of splitEnum(CompareTypeModel)" [value]="CompareTypeModel[value]">
-                                {{value}}
+                                {{'CompareType_' + value | translate}}
                             </md-option>
                         </md-select>
                     </div>

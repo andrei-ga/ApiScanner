@@ -25,7 +25,7 @@ const nonTreeShakableModules = [
     'es6-shim',
     'event-source-polyfill',
     'jquery',
-    './wwwroot/content/main.css',
+    './wwwroot/assets/css/main.css',
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 

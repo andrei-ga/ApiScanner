@@ -7,6 +7,8 @@ import { platformDynamicServer, PlatformState, INITIAL_CONFIG } from '@angular/p
 import { createServerRenderer, RenderResult } from 'aspnet-prerendering';
 import { AppModule } from './app/app.module.server';
 
+import { ORIGIN_URL } from './app/components/shared/constants/baseurl.constants';
+
 enableProdMode();
 
 export default createServerRenderer(params => {
@@ -14,6 +16,7 @@ export default createServerRenderer(params => {
         { provide: INITIAL_CONFIG, useValue: { document: '<app></app>', url: params.url } },
         { provide: APP_BASE_HREF, useValue: params.baseUrl },
         { provide: 'BASE_URL', useValue: params.origin + params.baseUrl },
+        { provide: ORIGIN_URL, useValue: params.origin },
     ];
 
     return platformDynamicServer(providers).bootstrapModule(AppModule).then(moduleRef => {

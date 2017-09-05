@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
@@ -17,6 +17,11 @@ import { AccountDataService } from './components/account/account-data.service';
 import { NotificationDataService } from './components/notification/notification-data.service';
 import { ApiService } from './components/api/api.service';
 import { GuardLogin, GuardLoggedIn } from './components/account/auth.guard';
+
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { ORIGIN_URL } from './components/shared/constants/baseurl.constants';
 
 // angular material modules
 import {
@@ -54,6 +59,50 @@ import {
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
+let materialModules = [
+    CdkTableModule,
+    MdAutocompleteModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdCardModule,
+    MdCheckboxModule,
+    MdChipsModule,
+    MdCoreModule,
+    MdDatepickerModule,
+    MdDialogModule,
+    MdExpansionModule,
+    MdGridListModule,
+    MdIconModule,
+    MdInputModule,
+    MdListModule,
+    MdMenuModule,
+    MdNativeDateModule,
+    MdPaginatorModule,
+    MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdRadioModule,
+    MdRippleModule,
+    MdSelectModule,
+    MdSidenavModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+    MdSnackBarModule,
+    MdSortModule,
+    MdTableModule,
+    MdTabsModule,
+    MdToolbarModule,
+    MdTooltipModule,
+];
+
+export function createTranslateLoader(http: HttpClient, baseHref: string) {
+    // Temporary Azure hack
+    if (baseHref === null && typeof window !== 'undefined') {
+        baseHref = window.location.origin;
+    }
+    // i18n files are in `wwwroot/assets/`
+    return new TranslateHttpLoader(http, `${baseHref}/assets/i18n/`, '.json');
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -68,46 +117,21 @@ import { CdkTableModule } from '@angular/cdk/table';
         CommonModule,
         HttpClientModule,
         FormsModule,
-        CdkTableModule,
-        MdAutocompleteModule,
-        MdButtonModule,
-        MdButtonToggleModule,
-        MdCardModule,
-        MdCheckboxModule,
-        MdChipsModule,
-        MdCoreModule,
-        MdDatepickerModule,
-        MdDialogModule,
-        MdExpansionModule,
-        MdGridListModule,
-        MdIconModule,
-        MdInputModule,
-        MdListModule,
-        MdMenuModule,
-        MdNativeDateModule,
-        MdPaginatorModule,
-        MdProgressBarModule,
-        MdProgressSpinnerModule,
-        MdRadioModule,
-        MdRippleModule,
-        MdSelectModule,
-        MdSidenavModule,
-        MdSliderModule,
-        MdSlideToggleModule,
-        MdSnackBarModule,
-        MdSortModule,
-        MdTableModule,
-        MdTabsModule,
-        MdToolbarModule,
-        MdTooltipModule,
-
+        ...materialModules,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
             { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'Create api' }, canActivate: [GuardLoggedIn] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'New account' }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'Sign in' }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }
-        ])
+        ]),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient, [ORIGIN_URL]]
+            }
+        }),
     ],
     providers: [
         AccountService,
@@ -116,6 +140,8 @@ import { CdkTableModule } from '@angular/cdk/table';
         ApiService,
         GuardLogin,
         GuardLoggedIn,
+        HttpClient,
+        TranslateService,
     ]
 })
 export class AppModuleShared {

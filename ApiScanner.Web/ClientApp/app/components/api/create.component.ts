@@ -29,7 +29,7 @@ export class ApiCreateComponent {
         private _router: Router) { }
 
     public api: ApiModel = {
-        method: HttpMethodTypeModel.GET,
+        method: HttpMethodTypeModel.Get,
         interval: ApiIntervalModel.Daily,
         conditions: new Array(),
         enabled: true

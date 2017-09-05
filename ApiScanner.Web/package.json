@@ -20,6 +20,8 @@
     "@angular/platform-server": "^4.3.6",
     "@angular/router": "^4.3.6",
     "@ngtools/webpack": "^1.6.2",
+    "@ngx-translate/core": "^7.2.1",
+    "@ngx-translate/http-loader": "^1.0.2",
     "@types/webpack-env": "1.13.0",
     "angular2-template-loader": "0.6.2",
     "aspnet-prerendering": "^3.0.1",
