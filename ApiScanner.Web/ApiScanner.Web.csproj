@@ -40,6 +40,7 @@
     <None Remove="ClientApp\app\components\notification\notification.component.ts" />
     <None Remove="ClientApp\app\components\notification\notification.model.ts" />
     <None Remove="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
+    <None Remove="ClientApp\app\components\shared\services\translation.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,6 +76,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\services\translation.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

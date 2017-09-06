@@ -17,6 +17,7 @@ import { AccountDataService } from './components/account/account-data.service';
 import { NotificationDataService } from './components/notification/notification-data.service';
 import { ApiService } from './components/api/api.service';
 import { GuardLogin, GuardLoggedIn } from './components/account/auth.guard';
+import { TranslationService } from './components/shared/services/translation.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -142,6 +143,7 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
         GuardLoggedIn,
         HttpClient,
         TranslateService,
+        TranslationService,
     ]
 })
 export class AppModuleShared {

@@ -9,7 +9,7 @@ import { NotificationDataService } from '../notification/notification-data.servi
 import { NotificationClassType } from '../notification/notification.model';
 import { AccountModel } from '../account/account.model';
 
-import { TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../shared/services/translation.service';
 
 @Component({
     selector: 'nav-menu',
@@ -19,18 +19,20 @@ import { TranslateService } from '@ngx-translate/core';
 export class NavMenuComponent implements OnDestroy {
     public myUser?: AccountModel = undefined;
     public loggedIn: boolean = false;
+    public myLanguage: string;
 
     @Input() pageHeader: string;
 
-    private _subscribeAccount: Subscription;
+    private subscribeAccount: Subscription;
+    private subscribeLanguage: Subscription;
 
     constructor(
         private _accountDataService: AccountDataService,
         private _router: Router,
         private _notificationDataService: NotificationDataService,
         private _accountService: AccountService,
-        private translate: TranslateService) {
-        this._subscribeAccount = this._accountDataService.account
+        private _translation: TranslationService) {
+        this.subscribeAccount = this._accountDataService.account
             .subscribe(
             data => {
                 if (data) {
@@ -41,10 +43,16 @@ export class NavMenuComponent implements OnDestroy {
                     this.loggedIn = false;
                 }
             });
+        this.subscribeLanguage = this._translation.language
+            .subscribe(
+            data => {
+                this.myLanguage = data ? data : 'en';
+            });
     }
 
     ngOnDestroy() {
-        this._subscribeAccount.unsubscribe();
+        this.subscribeAccount.unsubscribe();
+        this.subscribeLanguage.unsubscribe();
     }
 
     public logout(): void {
@@ -60,6 +68,6 @@ export class NavMenuComponent implements OnDestroy {
     }
 
     public switchLanguage(language: string) {
-        this.translate.use(language);
+        this._translation.changeLanguage(language);
     }
 }

@@ -15,9 +15,16 @@
             <md-icon class="menu-subicon">account_box</md-icon>{{ myUser ? myUser.email : 'Account' }}
         </button>
         <md-menu #menuAccount="mdMenu">
-            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/login']">Login</button>
-            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/register']">Register</button>
+            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['login']">Login</button>
+            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['register']">Register</button>
             <button *ngIf="loggedIn" md-menu-item (click)="logout()">Logout</button>
+        </md-menu>
+        <button *ngIf="myLanguage" md-button class="menu-item" [mdMenuTriggerFor]="menuLanguage">
+            <md-icon class="menu-subicon">language</md-icon>{{ myLanguage }}
+        </button>
+        <md-menu #menuLanguage="mdMenu">
+            <button md-menu-item (click)="switchLanguage('en')">EN</button>
+            <button md-menu-item (click)="switchLanguage('ro')">RO</button>
         </md-menu>
     </md-toolbar-row>
 </md-toolbar>
