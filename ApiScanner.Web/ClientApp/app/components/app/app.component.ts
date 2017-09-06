@@ -24,13 +24,14 @@ export class AppComponent implements OnInit {
         private _titleService: Title,
         private _activatedRoute: ActivatedRoute,
         private _translation: TranslationService,
-        private _translate: TranslateService) { }
+        private _translate: TranslateService) {
+        this._translate.setDefaultLang('en');
+    }
 
     ngOnInit() {
         // Client side code only
         if (isPlatformBrowser(this.platformId)) {
             // Initialize localization (translation) module
-            this._translate.setDefaultLang('en');
             let lang = localStorage.getItem('lang');
             if (lang == null) {
                 lang = 'en';

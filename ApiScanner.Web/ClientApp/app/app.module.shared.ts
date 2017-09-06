@@ -121,9 +121,9 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
         ...materialModules,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
-            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'Create api' }, canActivate: [GuardLoggedIn] },
-            { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'New account' }, canActivate: [GuardLogin] },
-            { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'Sign in' }, canActivate: [GuardLogin] },
+            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'CreateApi' }, canActivate: [GuardLoggedIn] },
+            { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'NewAccount' }, canActivate: [GuardLogin] },
+            { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'SignIn' }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }
         ]),
         TranslateModule.forRoot({

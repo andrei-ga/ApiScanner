@@ -1,19 +1,19 @@
 ﻿<div class="center-form">
     <section>
         <md-input-container class="item-full-width">
-            <input mdInput placeholder="Email address" type="email" (keyup.enter)="loginAccount()" [(ngModel)]="account.email" required="" autofocus="">
+            <input mdInput placeholder="{{ 'EmailAddress' | translate }}" type="email" (keyup.enter)="loginAccount()" [(ngModel)]="account.email" required="" autofocus="">
         </md-input-container>
 
         <md-input-container class="item-full-width">
-            <input mdInput placeholder="Password" type="password" (keyup.enter)="loginAccount()" [(ngModel)]="account.password" class="form-control" required="">
+            <input mdInput placeholder="{{ 'Password' | translate }}" type="password" (keyup.enter)="loginAccount()" [(ngModel)]="account.password" class="form-control" required="">
         </md-input-container>
     </section>
 
     <section class="form-group">
-        <md-checkbox [(ngModel)]="account.rememberLogin">Remember me</md-checkbox>
+        <md-checkbox [(ngModel)]="account.rememberLogin">{{ 'RememberMe' | translate }}</md-checkbox>
     </section>
 
     <section>
-        <button md-raised-button color="primary" [disabled]="signing" (click)="loginAccount()">Login</button>
+        <button md-raised-button color="primary" [disabled]="signing" (click)="loginAccount()">{{ 'Login' | translate }}</button>
     </section>
 </div>

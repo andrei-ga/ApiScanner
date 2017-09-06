@@ -1,22 +1,22 @@
 ﻿<div class="center-form">
     <section>
         <md-input-container class="item-full-width">
-            <input mdInput placeholder="Email address" type="email" (keyup.enter)="registerAccount()" [(ngModel)]="account.email" required="" autofocus="">
+            <input mdInput placeholder="{{ 'EmailAddress' | translate }}" type="email" (keyup.enter)="registerAccount()" [(ngModel)]="account.email" required="" autofocus="">
         </md-input-container>
 
         <md-input-container class="item-full-width">
-            <input mdInput placeholder="Password" type="password" (keyup.enter)="registerAccount()" [(ngModel)]="account.password" class="form-control" required="">
+            <input mdInput placeholder="{{ 'Password' | translate }}" type="password" (keyup.enter)="registerAccount()" [(ngModel)]="account.password" class="form-control" required="">
         </md-input-container>
         <md-input-container class="item-full-width">
-            <input mdInput placeholder="Repeat password" type="password" (keyup.enter)="registerAccount()" [(ngModel)]="account.passwordRepeat" class="form-control" required="">
+            <input mdInput placeholder="{{ 'PasswordRepeat' | translate }}" type="password" (keyup.enter)="registerAccount()" [(ngModel)]="account.passwordRepeat" class="form-control" required="">
         </md-input-container>
     </section>
 
     <section class="form-group">
-        <md-checkbox [(ngModel)]="account.subscribe">Subscribe to newsletter</md-checkbox>
+        <md-checkbox [(ngModel)]="account.subscribe">{{ 'SubscribeNews' | translate }}</md-checkbox>
     </section>
 
     <section>
-        <button md-raised-button color="primary" [disabled]="registering" (click)="registerAccount()">Register</button>
+        <button md-raised-button color="primary" [disabled]="registering" (click)="registerAccount()">{{ 'Register' | translate }}</button>
     </section>    
 </div>
