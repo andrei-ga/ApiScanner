@@ -17,3 +17,7 @@ Before running the project you need to apply database migrations with the follow
 `dotnet ef database update --startup-project '../ApiScanner.Web'`
 
 Now you can run the project.
+
+If you receive any rendering error you may need to fully compile webpack with
+
+`webpack --config webpack.config.vendor.js`
