@@ -12,7 +12,7 @@ You need to install the following
 - Set _ApiScanner.Web_ as startup project
 - Build it; it will take some time first since it will get all node modules
 
-Before running the project you need to apply database migrations with the following command inside _ApiScanner.DataAccess_ folder
+Before running the project you need to apply database migrations with the following command inside _ApiScanner.DataAccess_
 
 `dotnet ef database update --startup-project '../ApiScanner.Web'`
 
