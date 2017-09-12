@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/account/register.component';
 import { LoginComponent } from './components/account/login.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { ApiCreateComponent } from './components/api/create.component';
+import { ApiListComponent } from './components/api/list.component';
 
 import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
@@ -113,6 +114,7 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
         LoginComponent,
         NotificationComponent,
         ApiCreateComponent,
+        ApiListComponent,
     ],
     imports: [
         CommonModule,
@@ -122,6 +124,7 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
         RouterModule.forRoot([
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
             { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'CreateApi' }, canActivate: [GuardLoggedIn] },
+            { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: 'ListApis' }, canActivate: [GuardLoggedIn] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'NewAccount' }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'SignIn' }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }

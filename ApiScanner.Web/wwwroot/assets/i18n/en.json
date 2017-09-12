@@ -38,6 +38,7 @@
   "HttpMethodType_Connect": "CONNECT",
   "Lang_en": "English",
   "Lang_ro": "Romanian",
+  "ListApis": "List apis",
   "Login": "Login",
   "Logout": "Logout",
   "LogConditions": "Log conditions",

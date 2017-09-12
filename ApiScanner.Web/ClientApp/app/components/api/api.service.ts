@@ -13,4 +13,8 @@ export class ApiService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(`${this._baseUrl}/api/api`, JSON.stringify(api), { headers: headers });
     }
+
+    public getApis(): Observable<ApiModel[]> {
+        return this._http.get<ApiModel[]>(`${this._baseUrl}/api/api`);
+    }
 }

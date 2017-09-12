@@ -6,6 +6,7 @@
 
         <button *ngIf="loggedIn" md-button class="menu-item" [mdMenuTriggerFor]="menuApi">{{ 'Api' | translate }}</button>
         <md-menu #menuApi="mdMenu">
+            <button md-menu-item [routerLink]="['apis/list']">{{ 'ListApis' | translate }}</button>
             <button md-menu-item [routerLink]="['apis/create']">{{ 'CreateApiNew' | translate }}</button>
         </md-menu>
 

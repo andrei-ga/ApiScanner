@@ -26,5 +26,16 @@ namespace ApiScanner.Web.Controllers
             var result = await _apiManager.CreateAsync(api);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Get list of apis created by current user.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("")]
+        public async Task<IActionResult> Get()
+        {
+            var results = await _apiManager.GetApisAsync();
+            return Ok(results);
+        }
     }
 }
