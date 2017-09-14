@@ -17,4 +17,12 @@ export class ApiService {
     public getApis(): Observable<ApiModel[]> {
         return this._http.get<ApiModel[]>(`${this._baseUrl}/api/api`);
     }
+
+    public getApi(apiId: string): Observable<ApiModel> {
+        return this._http.get<ApiModel>(`${this._baseUrl}/api/api/${apiId}`);
+    }
+
+    public canSeeApi(apiId: string): Observable<boolean> {
+        return this._http.get<boolean>(`${this._baseUrl}/api/api/${apiId}/access`);
+    }
 }

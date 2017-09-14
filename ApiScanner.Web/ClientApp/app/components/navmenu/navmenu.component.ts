@@ -35,7 +35,7 @@ export class NavMenuComponent implements OnDestroy {
         this.subscribeAccount = this._accountDataService.account
             .subscribe(
             data => {
-                if (data) {
+                if (data.email) {
                     this.myUser = data;
                     this.loggedIn = true;
                 } else {
@@ -62,7 +62,7 @@ export class NavMenuComponent implements OnDestroy {
                 if (data) {
                     this._notificationDataService.addNotification('Successfully logged out.', NotificationClassType.success, true);
                     this._accountDataService.refreshData();
-                    this._router.navigate(['']);
+                    this._router.navigate(['/']);
                 }
             });
     }

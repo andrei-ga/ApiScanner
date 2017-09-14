@@ -1,13 +1,13 @@
 <md-toolbar color="primary" class="menu-toolbar" [class.shadow-menu]="pageHeader">
     <md-toolbar-row>
-        <button md-button class="menu-item" [routerLink]="['']">
+        <button md-button class="menu-item" [routerLink]="['/']">
             <md-icon class="menu-subicon">assessment</md-icon>Api scanner
         </button>
 
         <button *ngIf="loggedIn" md-button class="menu-item" [mdMenuTriggerFor]="menuApi">{{ 'Api' | translate }}</button>
         <md-menu #menuApi="mdMenu">
-            <button md-menu-item [routerLink]="['apis/list']">{{ 'ListApis' | translate }}</button>
-            <button md-menu-item [routerLink]="['apis/create']">{{ 'CreateApiNew' | translate }}</button>
+            <button md-menu-item [routerLink]="['/apis/list']">{{ 'ListApis' | translate }}</button>
+            <button md-menu-item [routerLink]="['/apis/create']">{{ 'CreateApiNew' | translate }}</button>
         </md-menu>
 
         <span class="menu-spacer"></span>
@@ -16,8 +16,8 @@
             <md-icon class="menu-subicon">account_box</md-icon>{{ myUser ? myUser.email : 'Account' }}
         </button>
         <md-menu #menuAccount="mdMenu">
-            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['login']">{{ 'Login' | translate }}</button>
-            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['register']">{{ 'Register' | translate }}</button>
+            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/login']">{{ 'Login' | translate }}</button>
+            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/register']">{{ 'Register' | translate }}</button>
             <button *ngIf="loggedIn" md-menu-item (click)="logout()">{{ 'Logout' | translate }}</button>
         </md-menu>
         <button *ngIf="myLanguage" md-button class="menu-item" [mdMenuTriggerFor]="menuLanguage">

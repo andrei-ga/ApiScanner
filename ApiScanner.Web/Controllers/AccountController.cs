@@ -73,7 +73,8 @@ namespace ApiScanner.Web.Controllers
             return Ok(new UserDTO()
             {
                 Email = user.Email,
-                Subscribe = user.Subscribe
+                Subscribe = user.Subscribe,
+                Id = user.Id
             });
         }
 

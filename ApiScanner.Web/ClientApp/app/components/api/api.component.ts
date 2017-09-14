@@ -1,15 +1,18 @@
 ﻿import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ApiModel } from './api.model';
 import { HttpMethodTypeModel } from '../enums/http.method.type.model';
 import { ApiIntervalModel } from '../enums/api.interval.model';
 import { ConditionTypeModel } from '../enums/condition.type.model';
 import { CompareTypeModel } from '../enums/compare.type.model';
+import { AccountModel } from '../account/account.model';
 
 import { ApiService } from './api.service';
 import { NotificationDataService } from '../notification/notification-data.service';
 import { NotificationClassType } from '../notification/notification.model';
+import { AccountDataService } from '../account/account-data.service';
 
 @Component({
     templateUrl: './api.component.html'
@@ -19,14 +22,28 @@ export class ApiCreateComponent {
     public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;
     public ConditionTypeModel: typeof ConditionTypeModel = ConditionTypeModel;
     public CompareTypeModel: typeof CompareTypeModel = CompareTypeModel;
-    public creating: boolean = false;
+    public processing: boolean = false;
+    public myUser?: AccountModel = undefined;
 
     private lastErrorNotifId: string = '';
+    private subParams: any;
+
+    private subscribeAccount: Subscription;
 
     constructor(
         private _apiService: ApiService,
         private _notificationDataService: NotificationDataService,
-        private _router: Router) { }
+        private _route: ActivatedRoute,
+        private _accountDataService: AccountDataService,
+        private _router: Router) {
+        this.subscribeAccount = this._accountDataService.account
+            .subscribe(
+            data => {
+                if (data.email) {
+                    this.myUser = data;
+                }
+            });
+    }
 
     public api: ApiModel = {
         method: HttpMethodTypeModel.Get,
@@ -35,8 +52,31 @@ export class ApiCreateComponent {
         enabled: true
     };
 
+    ngOnInit() {
+        this.subParams = this._route.params.subscribe(params => {
+            let id = params['id'];
+            if (id) {
+                this._apiService.getApi(id)
+                    .subscribe(
+                    data => {
+                        if (!data)
+                            this._router.navigateByUrl('/apis/list');
+                        this.api = data;
+                    },
+                    error => {
+                        this._router.navigateByUrl('/apis/list');
+                    });
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.subParams.unsubscribe();
+        this.subscribeAccount.unsubscribe();
+    }
+
     public splitEnum(myEnum: any): Array<string> {
-        var keys = Object.keys(myEnum);
+        let keys = Object.keys(myEnum);
         return keys.slice(keys.length / 2);
     }
 
@@ -58,8 +98,8 @@ export class ApiCreateComponent {
     }
 
     public createApi() {
-        if (!this.creating) {
-            this.creating = true;
+        if (!this.processing) {
+            this.processing = true;
             if (this.lastErrorNotifId != '') {
                 this._notificationDataService.removeNotification(this.lastErrorNotifId);
                 this.lastErrorNotifId = '';
@@ -67,12 +107,16 @@ export class ApiCreateComponent {
             this._apiService.createApi(this.api)
                 .subscribe(
                 data => {
-                    this._router.navigateByUrl('');
+                    this._router.navigateByUrl('/');
                 },
                 error => {
                     this.lastErrorNotifId = this._notificationDataService.addNotification("Could not create api.", NotificationClassType.danger, false);
-                    this.creating = false;
+                    this.processing = false;
                 });
         }
+    }
+
+    public saveApi() {
+
     }
 }

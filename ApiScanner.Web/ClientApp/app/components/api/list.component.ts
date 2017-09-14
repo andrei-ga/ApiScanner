@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { ApiModel } from './api.model';
+import { ApiIntervalModel } from '../enums/api.interval.model';
 
 import { ApiService } from './api.service';
 
@@ -9,6 +10,7 @@ import { ApiService } from './api.service';
 })
 export class ApiListComponent implements OnInit {
     public apis: ApiModel[] = new Array();
+    public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;
 
     constructor(
         private _apiService: ApiService) { }

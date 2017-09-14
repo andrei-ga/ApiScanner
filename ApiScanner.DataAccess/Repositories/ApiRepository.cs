@@ -23,11 +23,29 @@ namespace ApiScanner.DataAccess.Repositories
             return true;
         }
         
-        public async Task<IEnumerable<ApiModel>> GetApisAsync(Guid userId)
+        public async Task<IEnumerable<ApiModel>> GetApisAsync(Guid userId, bool includeConditions, bool includeLocations)
         {
-            return await _dbContext.Apis
+            var query = _dbContext.Apis.AsQueryable();
+            if (includeConditions)
+                query = query.Include(e => e.Conditions);
+            if (includeLocations)
+                query = query.Include(e => e.ApiLocations);
+
+            return await query
                 .Where(e => e.UserId == userId)
                 .ToListAsync();
+        }
+
+        public async Task<ApiModel> GetApiAsync(Guid apiId, bool includeConditions, bool includeLocations)
+        {
+            var query = _dbContext.Apis.AsQueryable();
+            if (includeConditions)
+                query = query.Include(e => e.Conditions);
+            if (includeLocations)
+                query = query.Include(e => e.ApiLocations);
+
+            return await query
+                .FirstOrDefaultAsync(e => e.ApiId == apiId);
         }
     }
 }

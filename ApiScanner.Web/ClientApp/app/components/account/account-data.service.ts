@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { AccountService } from './account.service';
 
@@ -7,7 +7,7 @@ import { AccountModel } from './account.model';
 
 @Injectable()
 export class AccountDataService {
-    public account = new Subject<AccountModel>();
+    public account = new BehaviorSubject<AccountModel>({});
 
     public refreshData() {
         this._accountService.getAccountData()
@@ -16,7 +16,7 @@ export class AccountDataService {
                 if (data)
                     this.account.next(data);
                 else
-                    this.account.next();
+                    this.account.next({});
             });
     }
 

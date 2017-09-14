@@ -10,14 +10,14 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/account/register.component';
 import { LoginComponent } from './components/account/login.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { ApiCreateComponent } from './components/api/create.component';
+import { ApiCreateComponent } from './components/api/api.component';
 import { ApiListComponent } from './components/api/list.component';
 
 import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
 import { NotificationDataService } from './components/notification/notification-data.service';
 import { ApiService } from './components/api/api.service';
-import { GuardLogin, GuardLoggedIn } from './components/account/auth.guard';
+import { GuardLogin, GuardLoggedIn, GuardSeeApi } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -125,6 +125,7 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
             { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'CreateApi' }, canActivate: [GuardLoggedIn] },
             { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: 'ListApis' }, canActivate: [GuardLoggedIn] },
+            { path: 'apis/:id', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: 'EditApi' }, canActivate: [GuardSeeApi] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'NewAccount' }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'SignIn' }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }
@@ -144,6 +145,7 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
         ApiService,
         GuardLogin,
         GuardLoggedIn,
+        GuardSeeApi,
         HttpClient,
         TranslateService,
         TranslationService,

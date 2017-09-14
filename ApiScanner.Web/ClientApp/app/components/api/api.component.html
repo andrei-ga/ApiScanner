@@ -1,4 +1,4 @@
-﻿<div class="container-fluid">
+﻿<div class="container-fluid" *ngIf="api">
     <div class="row form-group">
         <div class="col-lg-4">
             <h3>{{ 'ApiDetails' | translate }}</h3>
@@ -20,14 +20,14 @@
                 <div class="col-md-6">
                     <md-select placeholder="{{ 'HttpMethod' | translate }}" [(ngModel)]="api.method" class="full-width">
                         <md-option *ngFor="let value of splitEnum(HttpMethodTypeModel)" [value]="HttpMethodTypeModel[value]">
-                            {{'HttpMethodType_' + value | translate}}
+                            {{ 'HttpMethodType_' + value | translate }}
                         </md-option>
                     </md-select>
                 </div>
                 <div class="col-md-6">
                     <md-select placeholder="{{ 'ScanInterval' | translate }}" [(ngModel)]="api.interval" class="full-width">
                         <md-option *ngFor="let value of splitEnum(ApiIntervalModel)" [value]="ApiIntervalModel[value]">
-                            {{'ApiInterval_' + value | translate}}
+                            {{ 'ApiInterval_' + value | translate }}
                         </md-option>
                     </md-select>
                 </div>
@@ -119,7 +119,8 @@
     <hr />
     <div class="row">
         <div class="col-lg-4">
-            <button md-raised-button color="primary" (click)="createApi()">{{ 'CreateApi' | translate }}</button>
+            <button *ngIf="!api.apiId" md-raised-button color="primary" (click)="createApi()" [disabled]="processing">{{ 'CreateApi' | translate }}</button>
+            <button *ngIf="api.apiId && myUser && (myUser.id == api.userId || api.publicWrite)" md-raised-button color="primary" (click)="saveApi()" [disabled]="processing">{{ 'SaveApi' | translate }}</button>
         </div>
     </div>
 </div>
