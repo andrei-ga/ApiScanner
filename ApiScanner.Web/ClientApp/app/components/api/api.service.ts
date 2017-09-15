@@ -25,4 +25,9 @@ export class ApiService {
     public canSeeApi(apiId: string): Observable<boolean> {
         return this._http.get<boolean>(`${this._baseUrl}/api/api/${apiId}/access`);
     }
+
+    public updateApi(api: ApiModel) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.put(`${this._baseUrl}/api/api`, JSON.stringify(api), { headers: headers });
+    }
 }

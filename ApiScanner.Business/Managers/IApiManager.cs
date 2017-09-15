@@ -34,6 +34,20 @@ namespace ApiScanner.Business.Managers
         /// </summary>
         /// <param name="apiId">Api id.</param>
         /// <returns></returns>
-        Task<bool> CanSeeApi(Guid apiId);
+        Task<bool> CanSeeApiAsync(Guid apiId);
+
+        /// <summary>
+        /// Delete api by id. Returns false if no permission.
+        /// </summary>
+        /// <param name="apiId">Api id.</param>
+        /// <returns></returns>
+        Task<bool> DeleteApiAsync(Guid apiId);
+
+        /// <summary>
+        /// Update api by id. Returns false if no permission.
+        /// </summary>
+        /// <param name="api">Api id.</param>
+        /// <returns></returns>
+        Task<bool> UpdateApiAsync(ApiModel api);
     }
 }

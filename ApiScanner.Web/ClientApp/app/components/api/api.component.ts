@@ -107,7 +107,7 @@ export class ApiCreateComponent {
             this._apiService.createApi(this.api)
                 .subscribe(
                 data => {
-                    this._router.navigateByUrl('/');
+                    this._router.navigateByUrl('/apis/list');
                 },
                 error => {
                     this.lastErrorNotifId = this._notificationDataService.addNotification("Could not create api.", NotificationClassType.danger, false);
@@ -116,7 +116,22 @@ export class ApiCreateComponent {
         }
     }
 
-    public saveApi() {
-
+    public updateApi() {
+        if (!this.processing) {
+            this.processing = true;
+            if (this.lastErrorNotifId != '') {
+                this._notificationDataService.removeNotification(this.lastErrorNotifId);
+                this.lastErrorNotifId = '';
+            }
+            this._apiService.updateApi(this.api)
+                .subscribe(
+                data => {
+                    this._router.navigateByUrl('/apis/list');
+                },
+                error => {
+                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could not update api.", NotificationClassType.danger, false);
+                    this.processing = false;
+                });
+        }
     }
 }

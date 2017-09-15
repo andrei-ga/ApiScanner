@@ -61,8 +61,36 @@ namespace ApiScanner.Web.Controllers
         [HttpGet("{id:guid}/access")]
         public async Task<IActionResult> CanSeeApi(Guid id)
         {
-            var result = await _apiManager.CanSeeApi(id);
+            var result = await _apiManager.CanSeeApiAsync(id);
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Delete api by id.
+        /// </summary>
+        /// <param name="id">Api id.</param>
+        /// <returns></returns>
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteApi(Guid id)
+        {
+            var result = await _apiManager.DeleteApiAsync(id);
+            if (!result)
+                return Forbid();
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Update api by id.
+        /// </summary>
+        /// <param name="api">Api id.</param>
+        /// <returns></returns>
+        [HttpPut("")]
+        public async Task<IActionResult> UpdateApi([FromBody] ApiModel api)
+        {
+            var result = await _apiManager.UpdateApiAsync(api);
+            if (!result)
+                return Forbid();
+            return NoContent();
         }
     }
 }

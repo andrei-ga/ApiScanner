@@ -12,7 +12,7 @@ namespace ApiScanner.DataAccess.Repositories
         /// </summary>
         /// <param name="api">Api model.</param>
         /// <returns></returns>
-        Task<bool> CreateAsync(ApiModel api);
+        Task CreateAsync(ApiModel api);
 
         /// <summary>
         /// Get list of apis created by specific user.
@@ -31,5 +31,19 @@ namespace ApiScanner.DataAccess.Repositories
         /// <param name="includeLocations">Include api locations if true.</param>
         /// <returns></returns>
         Task<ApiModel> GetApiAsync(Guid apiId, bool includeConditions, bool includeLocations);
+
+        /// <summary>
+        /// Delete api by id.
+        /// </summary>
+        /// <param name="apiId">Api id.</param>
+        /// <returns></returns>
+        Task DeleteApiAsync(Guid apiId);
+
+        /// <summary>
+        /// Update api by id. Returns false if not found.
+        /// </summary>
+        /// <param name="api">Api id.</param>
+        /// <returns></returns>
+        Task<bool> UpdateApiAsync(ApiModel api);
     }
 }

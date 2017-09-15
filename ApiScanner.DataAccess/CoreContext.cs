@@ -53,6 +53,7 @@ namespace ApiScanner.DataAccess
             entity.HasKey(e => e.ApiId);
             entity.HasOne<ApplicationUser>(e => e.User).WithMany(e => e.Apis);
             entity.HasMany<ConditionModel>(e => e.Conditions).WithOne(e => e.Api);
+            entity.HasMany<ApiLocationModel>(e => e.ApiLocations).WithOne(e => e.Api);
         }
 
         /// <summary>

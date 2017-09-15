@@ -51,11 +51,11 @@
   "PasswordRepeat": "Repeat password",
   "Register": "Register",
   "RememberMe": "Remember me",
-  "SaveApi": "Save api",
   "ScanInterval": "Scan interval",
   "SignIn": "Sign in",
   "SubscribeNews": "Subscribe to newsletter",
   "Type": "Type",
   "Url": "URL",
+  "UpdateApi": "Update api",
   "Variable": "Variable"
 }

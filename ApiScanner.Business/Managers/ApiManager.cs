@@ -26,7 +26,8 @@ namespace ApiScanner.Business.Managers
             if (account == null)
                 return false;
             api.User = account;
-            return await _apiRepo.CreateAsync(api);
+            await _apiRepo.CreateAsync(api);
+            return true;
         }
 
         public async Task<IEnumerable<ApiModel>> GetApisAsync(bool includeConditions, bool includeLocations)
@@ -48,7 +49,7 @@ namespace ApiScanner.Business.Managers
             return api;
         }
 
-        public async Task<bool> CanSeeApi(Guid apiId)
+        public async Task<bool> CanSeeApiAsync(Guid apiId)
         {
             var account = await _accountSvc.AccountData();
             if (account == null)
@@ -56,6 +57,30 @@ namespace ApiScanner.Business.Managers
             var api = await _apiRepo.GetApiAsync(apiId, false, false);
             if (api == null || (account.Id != api.UserId && !api.PublicRead && !api.PublicWrite))
                 return false;
+            return true;
+        }
+
+        public async Task<bool> DeleteApiAsync(Guid apiId)
+        {
+            var account = await _accountSvc.AccountData();
+            if (account == null)
+                return false;
+            var api = await _apiRepo.GetApiAsync(apiId, false, false);
+            if (api == null || (account.Id != api.UserId && !api.PublicWrite))
+                return false;
+            await _apiRepo.DeleteApiAsync(apiId);
+            return true;
+        }
+
+        public async Task<bool> UpdateApiAsync(ApiModel api)
+        {
+            var account = await _accountSvc.AccountData();
+            if (account == null)
+                return false;
+            var myApi = await _apiRepo.GetApiAsync(api.ApiId, false, false);
+            if (myApi == null || (account.Id != myApi.UserId && !myApi.PublicWrite))
+                return false;
+            await _apiRepo.UpdateApiAsync(api);
             return true;
         }
     }

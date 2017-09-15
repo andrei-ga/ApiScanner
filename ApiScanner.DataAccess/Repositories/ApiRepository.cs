@@ -16,11 +16,10 @@ namespace ApiScanner.DataAccess.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<bool> CreateAsync(ApiModel api)
+        public async Task CreateAsync(ApiModel api)
         {
             _dbContext.Add(api);
             await _dbContext.SaveChangesAsync();
-            return true;
         }
         
         public async Task<IEnumerable<ApiModel>> GetApisAsync(Guid userId, bool includeConditions, bool includeLocations)
@@ -46,6 +45,53 @@ namespace ApiScanner.DataAccess.Repositories
 
             return await query
                 .FirstOrDefaultAsync(e => e.ApiId == apiId);
+        }
+
+        public async Task DeleteApiAsync(Guid apiId)
+        {
+            var api = await _dbContext.Apis
+                .FirstOrDefaultAsync(e => e.ApiId == apiId);
+            if (api != null)
+            {
+                _dbContext.Remove(api);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> UpdateApiAsync(ApiModel api)
+        {
+            var myApi = await _dbContext.Apis
+                .Include(e => e.Conditions)
+                .Include(e => e.ApiLocations)
+                .FirstOrDefaultAsync(e => e.ApiId == api.ApiId);
+            if (myApi == null)
+                return false;
+
+            myApi.Conditions = new List<ConditionModel>();
+            myApi.ApiLocations = new List<ApiLocationModel>();
+            await _dbContext.SaveChangesAsync();            
+
+            myApi.Conditions = api.Conditions
+                .Select(e => new ConditionModel
+                {
+                    CompareType = e.CompareType,
+                    CompareValue = e.CompareValue,
+                    MatchType = e.MatchType,
+                    MatchVar = e.MatchVar,
+                    ShouldPass = e.ShouldPass
+                }).ToList();
+
+            myApi.Body = api.Body;
+            myApi.Enabled = api.Enabled;
+            myApi.Headers = api.Headers;
+            myApi.Interval = api.Interval;
+            myApi.Method = api.Method;
+            myApi.Name = api.Name;
+            myApi.PublicRead = api.PublicRead;
+            myApi.PublicWrite = api.PublicWrite;
+            myApi.Url = api.Url;
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }
