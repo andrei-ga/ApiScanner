@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ApiModel } from './api.model';
 import { HttpMethodTypeModel } from '../enums/http.method.type.model';
@@ -25,16 +26,19 @@ export class ApiCreateComponent {
     public processing: boolean = false;
     public myUser?: AccountModel = undefined;
 
+    private confirmDeleteApi: string = '';
     private lastErrorNotifId: string = '';
     private subParams: any;
 
     private subscribeAccount: Subscription;
+    private subscribeConfirmDeleteApi: Subscription;
 
     constructor(
         private _apiService: ApiService,
         private _notificationDataService: NotificationDataService,
         private _route: ActivatedRoute,
         private _accountDataService: AccountDataService,
+        private _translate: TranslateService,
         private _router: Router) {
         this.subscribeAccount = this._accountDataService.account
             .subscribe(
@@ -42,6 +46,11 @@ export class ApiCreateComponent {
                 if (data.email) {
                     this.myUser = data;
                 }
+            });
+        this.subscribeConfirmDeleteApi = this._translate.stream('ConfirmDeleteApi')
+            .subscribe(
+            data => {
+                this.confirmDeleteApi = data;
             });
     }
 
@@ -73,6 +82,7 @@ export class ApiCreateComponent {
     ngOnDestroy() {
         this.subParams.unsubscribe();
         this.subscribeAccount.unsubscribe();
+        this.subscribeConfirmDeleteApi.unsubscribe();
     }
 
     public splitEnum(myEnum: any): Array<string> {
@@ -133,24 +143,28 @@ export class ApiCreateComponent {
                     this.processing = false;
                 });
         }
-    }
+    }    
 
     public deleteApi() {
-        if (!this.processing) {
+        if (!this.processing && confirm(this.confirmDeleteApi)) {
             this.processing = true;
             if (this.lastErrorNotifId != '') {
                 this._notificationDataService.removeNotification(this.lastErrorNotifId);
                 this.lastErrorNotifId = '';
             }
-            this._apiService.updateApi(this.api)
+            this._apiService.deleteApi(this.api.apiId ? this.api.apiId : '')
                 .subscribe(
                 data => {
                     this._router.navigateByUrl('/apis/list');
                 },
                 error => {
-                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could delete update api.", NotificationClassType.danger, false);
+                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could delete api.", NotificationClassType.danger, false);
                     this.processing = false;
                 });
         }
+    }
+
+    public canEditApi(): boolean {
+        return this.api.apiId != undefined && this.myUser != undefined && (this.myUser.id == this.api.userId || this.api.publicWrite) || false;
     }
 }

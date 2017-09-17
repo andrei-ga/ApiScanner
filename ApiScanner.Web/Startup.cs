@@ -32,7 +32,7 @@ namespace ApiScanner.Web
             // Identity framework
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<CoreContext>().AddDefaultTokenProviders();
 
-            // Business services
+            // Business services and repositories
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IApiManager, ApiManager>();

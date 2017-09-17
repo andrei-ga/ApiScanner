@@ -32,6 +32,6 @@ export class ApiService {
     }
 
     public deleteApi(apiId: string) {
-
+        return this._http.delete(`${this._baseUrl}/api/api/${apiId}`);
     }
 }

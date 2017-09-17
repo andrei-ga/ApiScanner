@@ -120,7 +120,8 @@
     <div class="row">
         <div class="col-lg-4">
             <button *ngIf="!api.apiId" md-raised-button color="primary" (click)="createApi()" [disabled]="processing">{{ 'CreateApi' | translate }}</button>
-            <button *ngIf="api.apiId && myUser && (myUser.id == api.userId || api.publicWrite)" md-raised-button color="primary" (click)="updateApi()" [disabled]="processing">{{ 'UpdateApi' | translate }}</button>
+            <button *ngIf="canEditApi()" md-raised-button color="primary" (click)="updateApi()" [disabled]="processing">{{ 'UpdateApi' | translate }}</button>
+            <button *ngIf="canEditApi()" md-raised-button color="warn" class="pull-right" (click)="deleteApi()" [disabled]="processing">{{ 'DeleteApi' | translate }}</button>
         </div>
     </div>
 </div>
