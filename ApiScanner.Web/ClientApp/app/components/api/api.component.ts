@@ -134,4 +134,23 @@ export class ApiCreateComponent {
                 });
         }
     }
+
+    public deleteApi() {
+        if (!this.processing) {
+            this.processing = true;
+            if (this.lastErrorNotifId != '') {
+                this._notificationDataService.removeNotification(this.lastErrorNotifId);
+                this.lastErrorNotifId = '';
+            }
+            this._apiService.updateApi(this.api)
+                .subscribe(
+                data => {
+                    this._router.navigateByUrl('/apis/list');
+                },
+                error => {
+                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could delete update api.", NotificationClassType.danger, false);
+                    this.processing = false;
+                });
+        }
+    }
 }

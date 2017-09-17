@@ -61,25 +61,9 @@ namespace ApiScanner.DataAccess.Repositories
         public async Task<bool> UpdateApiAsync(ApiModel api)
         {
             var myApi = await _dbContext.Apis
-                .Include(e => e.Conditions)
-                .Include(e => e.ApiLocations)
                 .FirstOrDefaultAsync(e => e.ApiId == api.ApiId);
             if (myApi == null)
                 return false;
-
-            myApi.Conditions = new List<ConditionModel>();
-            myApi.ApiLocations = new List<ApiLocationModel>();
-            await _dbContext.SaveChangesAsync();            
-
-            myApi.Conditions = api.Conditions
-                .Select(e => new ConditionModel
-                {
-                    CompareType = e.CompareType,
-                    CompareValue = e.CompareValue,
-                    MatchType = e.MatchType,
-                    MatchVar = e.MatchVar,
-                    ShouldPass = e.ShouldPass
-                }).ToList();
 
             myApi.Body = api.Body;
             myApi.Enabled = api.Enabled;

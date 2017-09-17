@@ -30,4 +30,8 @@ export class ApiService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.put(`${this._baseUrl}/api/api`, JSON.stringify(api), { headers: headers });
     }
+
+    public deleteApi(apiId: string) {
+
+    }
 }

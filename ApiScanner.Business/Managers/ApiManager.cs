@@ -4,6 +4,7 @@ using ApiScanner.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Business.Managers
@@ -12,11 +13,13 @@ namespace ApiScanner.Business.Managers
     public class ApiManager : IApiManager
     {
         private readonly IApiRepository _apiRepo;
+        private readonly IConditionRepository _condRepo;
         private readonly IAccountService _accountSvc;
 
-        public ApiManager(IApiRepository apiRepo, IAccountService accountSvc)
+        public ApiManager(IApiRepository apiRepo, IAccountService accountSvc, IConditionRepository condRepo)
         {
             _apiRepo = apiRepo;
+            _condRepo = condRepo;
             _accountSvc = accountSvc;
         }
         
@@ -77,9 +80,30 @@ namespace ApiScanner.Business.Managers
             var account = await _accountSvc.AccountData();
             if (account == null)
                 return false;
-            var myApi = await _apiRepo.GetApiAsync(api.ApiId, false, false);
+            var myApi = await _apiRepo.GetApiAsync(api.ApiId, true, true);
             if (myApi == null || (account.Id != myApi.UserId && !myApi.PublicWrite))
                 return false;
+            
+            // Delete removed conditions
+            foreach(var cond in myApi.Conditions.ToList())
+            {
+                if (api.Conditions.Count(e => e.ConditionId == cond.ConditionId) == 0)
+                    myApi.Conditions.Remove(cond);
+            }
+            // Create or update the rest
+            foreach(var cond in api.Conditions)
+            {
+                if (cond.ConditionId != Guid.Empty)
+                {
+                    await _condRepo.UpdateConditionAsync(cond);
+                }
+                else
+                {
+                    cond.ApiId = api.ApiId;
+                    await _condRepo.CreateConditionAsync(cond);
+                }
+            }
+
             await _apiRepo.UpdateApiAsync(api);
             return true;
         }
