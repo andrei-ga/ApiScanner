@@ -17,6 +17,7 @@ import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
 import { NotificationDataService } from './components/notification/notification-data.service';
 import { ApiService } from './components/api/api.service';
+import { LocationService } from './components/location/location.service';
 import { GuardLogin, GuardLoggedIn, GuardSeeApi } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
 
@@ -143,6 +144,7 @@ export function createTranslateLoader(http: HttpClient, baseHref: string) {
         AccountDataService,
         NotificationDataService,
         ApiService,
+        LocationService,
         GuardLogin,
         GuardLoggedIn,
         GuardSeeApi,

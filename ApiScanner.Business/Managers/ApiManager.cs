@@ -14,12 +14,14 @@ namespace ApiScanner.Business.Managers
     {
         private readonly IApiRepository _apiRepo;
         private readonly IConditionRepository _condRepo;
+        private readonly ILocationRepository _locRepo;
         private readonly IAccountService _accountSvc;
 
-        public ApiManager(IApiRepository apiRepo, IAccountService accountSvc, IConditionRepository condRepo)
+        public ApiManager(IApiRepository apiRepo, IAccountService accountSvc, IConditionRepository condRepo, ILocationRepository locRepo)
         {
             _apiRepo = apiRepo;
             _condRepo = condRepo;
+            _locRepo = locRepo;
             _accountSvc = accountSvc;
         }
         
@@ -84,13 +86,26 @@ namespace ApiScanner.Business.Managers
             if (myApi == null || (account.Id != myApi.UserId && !myApi.PublicWrite))
                 return false;
             
-            // Delete removed conditions
-            foreach(var cond in myApi.Conditions.ToList())
+            // delete removed locations
+            foreach(var loc in myApi.ApiLocations.ToList())
+            {
+                if (api.ApiLocations.Count(e => e.LocationId == loc.LocationId) == 0)
+                    myApi.ApiLocations.Remove(loc);
+            }
+            // create or update the rest
+            foreach (var loc in api.ApiLocations)
+            {
+                if (myApi.ApiLocations.Count(e => e.LocationId == loc.LocationId) == 0)
+                    await _locRepo.CreateApiLocation(loc);
+            }
+
+            // delete removed conditions
+            foreach (var cond in myApi.Conditions.ToList())
             {
                 if (api.Conditions.Count(e => e.ConditionId == cond.ConditionId) == 0)
                     myApi.Conditions.Remove(cond);
             }
-            // Create or update the rest
+            // create or update the rest
             foreach(var cond in api.Conditions)
             {
                 if (cond.ConditionId != Guid.Empty)

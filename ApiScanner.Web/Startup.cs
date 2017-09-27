@@ -36,8 +36,10 @@ namespace ApiScanner.Web
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IApiManager, ApiManager>();
+            services.AddScoped<ILocationManager, LocationManager>();
             services.AddTransient<IApiRepository, ApiRepository>();
             services.AddTransient<IConditionRepository, ConditionRepository>();
+            services.AddTransient<ILocationRepository, LocationRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {

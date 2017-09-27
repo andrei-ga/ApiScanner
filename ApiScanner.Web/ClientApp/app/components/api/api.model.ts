@@ -1,6 +1,7 @@
 ﻿import { HttpMethodTypeModel } from '../enums/http.method.type.model';
 import { ApiIntervalModel } from '../enums/api.interval.model';
 import { ConditionModel } from './condition.model';
+import { ApiLocationModel } from '../location/api-location.model';
 
 export interface ApiModel {
     apiId?: string,
@@ -14,5 +15,6 @@ export interface ApiModel {
     enabled?: boolean,
     publicRead?: boolean,
     publicWrite?: boolean,
-    conditions: ConditionModel[]
+    conditions: ConditionModel[],
+    apiLocations: ApiLocationModel[]
 }

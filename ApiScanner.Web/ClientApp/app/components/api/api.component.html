@@ -113,7 +113,11 @@
         <div class="col-lg-4">
             <h3>{{ 'ApiRunLocations' | translate }}</h3>
 
-            TODO
+            <div class="row form-group" *ngFor="let loc of runLocations">
+                <div class="col-md-12">
+                    <md-slide-toggle [(ngModel)]="loc.enabled">{{ loc.location.name }}</md-slide-toggle>
+                </div>
+            </div>
         </div>
     </div>
     <hr />

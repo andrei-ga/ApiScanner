@@ -32,6 +32,7 @@ namespace ApiScanner.DataAccess.Repositories
 
             return await query
                 .Where(e => e.UserId == userId)
+                .OrderBy(e => e.Name)
                 .ToListAsync();
         }
 

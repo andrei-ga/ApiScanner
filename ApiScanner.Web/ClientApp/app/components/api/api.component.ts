@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ApiModel } from './api.model';
+import { LocationModel } from '../location/location.model';
 import { HttpMethodTypeModel } from '../enums/http.method.type.model';
 import { ApiIntervalModel } from '../enums/api.interval.model';
 import { ConditionTypeModel } from '../enums/condition.type.model';
@@ -11,6 +12,7 @@ import { CompareTypeModel } from '../enums/compare.type.model';
 import { AccountModel } from '../account/account.model';
 
 import { ApiService } from './api.service';
+import { LocationService } from '../location/location.service';
 import { NotificationDataService } from '../notification/notification-data.service';
 import { NotificationClassType } from '../notification/notification.model';
 import { AccountDataService } from '../account/account-data.service';
@@ -25,6 +27,7 @@ export class ApiCreateComponent {
     public CompareTypeModel: typeof CompareTypeModel = CompareTypeModel;
     public processing: boolean = false;
     public myUser?: AccountModel = undefined;
+    public runLocations: { location: LocationModel, enabled: boolean }[] = new Array();
 
     private confirmDeleteApi: string = '';
     private lastErrorNotifId: string = '';
@@ -35,6 +38,7 @@ export class ApiCreateComponent {
 
     constructor(
         private _apiService: ApiService,
+        private _locService: LocationService,
         private _notificationDataService: NotificationDataService,
         private _route: ActivatedRoute,
         private _accountDataService: AccountDataService,
@@ -58,6 +62,7 @@ export class ApiCreateComponent {
         method: HttpMethodTypeModel.Get,
         interval: ApiIntervalModel.Daily,
         conditions: new Array(),
+        apiLocations: new Array(),
         enabled: true
     };
 
@@ -71,12 +76,27 @@ export class ApiCreateComponent {
                         if (!data)
                             this._router.navigateByUrl('/apis/list');
                         this.api = data;
+
+                        // check enabled locations on current api
+                        for (let i = 0; i < this.runLocations.length; i++) {
+                            this.runLocations[i].enabled = this.api.apiLocations.findIndex(e => e.locationId == this.runLocations[i].location.locationId) >= 0;
+                        }
                     },
                     error => {
                         this._router.navigateByUrl('/apis/list');
                     });
             }
         });
+        this._locService.getLocations()
+            .subscribe(
+            data => {
+                for (let i = 0; i < data.length; i++) {
+                    this.runLocations.push({
+                        location: data[i],
+                        enabled: this.api.apiLocations.findIndex(e => e.locationId == data[i].locationId) >= 0
+                    });
+                }
+            });
     }
 
     ngOnDestroy() {
@@ -133,6 +153,18 @@ export class ApiCreateComponent {
                 this._notificationDataService.removeNotification(this.lastErrorNotifId);
                 this.lastErrorNotifId = '';
             }
+
+            // map locations
+            this.api.apiLocations = new Array();
+            for (let i = 0; i < this.runLocations.length; i++) {
+                if (this.runLocations[i].enabled) {
+                    this.api.apiLocations.push({
+                        apiId: this.api.apiId,
+                        locationId: this.runLocations[i].location.locationId
+                    });
+                }
+            }
+
             this._apiService.updateApi(this.api)
                 .subscribe(
                 data => {
