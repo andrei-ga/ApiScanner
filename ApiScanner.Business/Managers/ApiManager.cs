@@ -40,7 +40,10 @@ namespace ApiScanner.Business.Managers
             var account = await _accountSvc.AccountData();
             if (account == null)
                 return new List<ApiModel>();
-            return await _apiRepo.GetApisAsync(account.Id, includeConditions, includeLocations);
+            var results = await _apiRepo.GetApisAsync(account.Id, includeConditions, includeLocations);
+            foreach (var api in results)
+                api.User = null;
+            return results;
         }
 
         public async Task<ApiModel> GetApiAsync(Guid apiId, bool includeConditions, bool includeLocations)
@@ -51,6 +54,7 @@ namespace ApiScanner.Business.Managers
             var api = await _apiRepo.GetApiAsync(apiId, includeConditions, includeLocations);
             if (api == null || (!api.PublicRead && !api.PublicWrite && api.UserId != account.Id))
                 return null;
+            api.User = null;
             return api;
         }
 

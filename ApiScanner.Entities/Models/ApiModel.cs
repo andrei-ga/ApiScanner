@@ -81,6 +81,6 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Locations of api.
         /// </summary>
-        public ICollection<ApiLocationModel> ApiLocations { get; set; }
+        public virtual ICollection<ApiLocationModel> ApiLocations { get; set; }
     }
 }

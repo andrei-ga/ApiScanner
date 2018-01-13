@@ -1,34 +1,34 @@
-<md-toolbar color="primary" class="menu-toolbar" [class.shadow-menu]="pageHeader">
-    <md-toolbar-row>
-        <button md-button class="menu-item" [routerLink]="['/']">
-            <md-icon class="menu-subicon">assessment</md-icon>Api scanner
+<mat-toolbar color="primary" class="menu-toolbar" [class.shadow-menu]="pageHeader">
+    <mat-toolbar-row>
+        <button mat-button class="menu-item" [routerLink]="['/']">
+            <mat-icon class="menu-subicon">assessment</mat-icon>Api scanner
         </button>
 
-        <button *ngIf="loggedIn" md-button class="menu-item" [mdMenuTriggerFor]="menuApi">{{ 'Api' | translate }}</button>
-        <md-menu #menuApi="mdMenu">
-            <button md-menu-item [routerLink]="['/apis/list']">{{ 'ListApis' | translate }}</button>
-            <button md-menu-item [routerLink]="['/apis/create']">{{ 'CreateApiNew' | translate }}</button>
-        </md-menu>
+        <button *ngIf="loggedIn" mat-button class="menu-item" [matMenuTriggerFor]="menuApi">{{ 'Api' | translate }}</button>
+        <mat-menu #menuApi="matMenu">
+            <button mat-menu-item [routerLink]="['/apis/list']">{{ 'ListApis' | translate }}</button>
+            <button mat-menu-item [routerLink]="['/apis/create']">{{ 'CreateApiNew' | translate }}</button>
+        </mat-menu>
 
         <span class="menu-spacer"></span>
 
-        <button md-button class="menu-item" [mdMenuTriggerFor]="menuAccount">
-            <md-icon class="menu-subicon">account_box</md-icon>{{ myUser ? myUser.email : 'Account' }}
+        <button mat-button class="menu-item" [matMenuTriggerFor]="menuAccount">
+            <mat-icon class="menu-subicon">account_box</mat-icon>{{ myUser ? myUser.email : 'Account' }}
         </button>
-        <md-menu #menuAccount="mdMenu">
-            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/login']">{{ 'Login' | translate }}</button>
-            <button *ngIf="!loggedIn" md-menu-item [routerLink]="['/register']">{{ 'Register' | translate }}</button>
-            <button *ngIf="loggedIn" md-menu-item (click)="logout()">{{ 'Logout' | translate }}</button>
-        </md-menu>
-        <button *ngIf="myLanguage" md-button class="menu-item" [mdMenuTriggerFor]="menuLanguage">
-            <md-icon class="menu-subicon">language</md-icon>{{ 'Lang_' + myLanguage | translate }}
+        <mat-menu #menuAccount="matMenu">
+            <button *ngIf="!loggedIn" mat-menu-item [routerLink]="['/login']">{{ 'Login' | translate }}</button>
+            <button *ngIf="!loggedIn" mat-menu-item [routerLink]="['/register']">{{ 'Register' | translate }}</button>
+            <button *ngIf="loggedIn" mat-menu-item (click)="logout()">{{ 'Logout' | translate }}</button>
+        </mat-menu>
+        <button *ngIf="myLanguage" mat-button class="menu-item" [matMenuTriggerFor]="menuLanguage">
+            <mat-icon class="menu-subicon">language</mat-icon>{{ 'Lang_' + myLanguage | translate }}
         </button>
-        <md-menu #menuLanguage="mdMenu">
-            <button md-menu-item (click)="switchLanguage('en')">{{ 'Lang_en' | translate }}</button>
-            <button md-menu-item (click)="switchLanguage('ro')">{{ 'Lang_ro' | translate }}</button>
-        </md-menu>
-    </md-toolbar-row>
-</md-toolbar>
-<md-toolbar color="primary" class="menu-header" *ngIf="pageHeader">
+        <mat-menu #menuLanguage="matMenu">
+            <button mat-menu-item (click)="switchLanguage('en')">{{ 'Lang_en' | translate }}</button>
+            <button mat-menu-item (click)="switchLanguage('ro')">{{ 'Lang_ro' | translate }}</button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar color="primary" class="menu-header" *ngIf="pageHeader">
     <span>{{ pageHeader | translate }}</span>
-</md-toolbar>
+</mat-toolbar>

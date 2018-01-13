@@ -1,7 +1,7 @@
 ﻿import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, Event } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
 import { NotificationDataService } from './notification-data.service';
@@ -42,7 +42,7 @@ export class NotificationComponent implements OnDestroy {
 
         // close non auto closing notifications when route changed
         this._router.events.filter(event => event instanceof NavigationStart)
-            .subscribe((event: NavigationStart) => {
+            .subscribe((event: Event) => {
                 for (let i = 0; i < this.notifications.length; i++) {
                     if (!this.notifications[i].autoClose) {
                         this.notifications.splice(i, 1);

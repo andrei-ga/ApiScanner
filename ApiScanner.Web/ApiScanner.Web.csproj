@@ -44,6 +44,7 @@
     <None Remove="ClientApp\app\components\notification\notification.model.ts" />
     <None Remove="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
     <None Remove="ClientApp\app\components\shared\services\translation.service.ts" />
+    <None Remove="ClientApp\app\components\translateUniversalLoader.ts" />
   </ItemGroup>
 
   <ItemGroup>

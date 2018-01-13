@@ -5,52 +5,56 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <md-form-field class="full-width">
-                        <input mdInput placeholder="{{ 'Name' | translate }}" maxlength="50" required [(ngModel)]="api.name">
-                    </md-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="{{ 'Name' | translate }}" maxlength="50" required [(ngModel)]="api.name">
+                    </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                    <md-form-field class="full-width">
-                        <input mdInput placeholder="{{ 'Url' | translate }}" maxlength="500" required [(ngModel)]="api.url">
-                    </md-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="{{ 'Url' | translate }}" maxlength="500" required [(ngModel)]="api.url">
+                    </mat-form-field>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <md-select placeholder="{{ 'HttpMethod' | translate }}" [(ngModel)]="api.method" class="full-width">
-                        <md-option *ngFor="let value of splitEnum(HttpMethodTypeModel)" [value]="HttpMethodTypeModel[value]">
-                            {{ 'HttpMethodType_' + value | translate }}
-                        </md-option>
-                    </md-select>
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="{{ 'HttpMethod' | translate }}" [(ngModel)]="api.method">
+                            <mat-option *ngFor="let value of splitEnum(HttpMethodTypeModel)" [value]="HttpMethodTypeModel[value]">
+                                {{ 'HttpMethodType_' + value | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                    <md-select placeholder="{{ 'ScanInterval' | translate }}" [(ngModel)]="api.interval" class="full-width">
-                        <md-option *ngFor="let value of splitEnum(ApiIntervalModel)" [value]="ApiIntervalModel[value]">
-                            {{ 'ApiInterval_' + value | translate }}
-                        </md-option>
-                    </md-select>
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="{{ 'ScanInterval' | translate }}" [(ngModel)]="api.interval">
+                            <mat-option *ngFor="let value of splitEnum(ApiIntervalModel)" [value]="ApiIntervalModel[value]">
+                                {{ 'ApiInterval_' + value | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
 
             <p>
-                <md-form-field class="full-width">
-                    <textarea mdInput placeholder="{{ 'ConditionType_Header' | translate }}" [(ngModel)]="api.headers" rows="10"></textarea>
-                </md-form-field>
-                <md-form-field class="full-width">
-                    <textarea mdInput placeholder="{{ 'ConditionType_Body' | translate }}" [(ngModel)]="api.body" rows="10"></textarea>
-                </md-form-field>
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="{{ 'ConditionType_Header' | translate }}" [(ngModel)]="api.headers" rows="10"></textarea>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <textarea matInput placeholder="{{ 'ConditionType_Body' | translate }}" [(ngModel)]="api.body" rows="10"></textarea>
+                </mat-form-field>
             </p>
 
             <div class="row">
                 <div class="col-md-4">
-                    <md-slide-toggle [(ngModel)]="api.enabled">{{ (api.enabled ? 'Enabled' : 'Disabled') | translate }}</md-slide-toggle>
+                    <mat-slide-toggle [(ngModel)]="api.enabled">{{ (api.enabled ? 'Enabled' : 'Disabled') | translate }}</mat-slide-toggle>
                 </div>
                 <div class="col-md-4">
-                    <md-checkbox [(ngModel)]="api.publicRead">{{ 'AnyoneCanSee' | translate }}</md-checkbox>
+                    <mat-checkbox [(ngModel)]="api.publicRead">{{ 'AnyoneCanSee' | translate }}</mat-checkbox>
                 </div>
                 <div class="col-md-4">
-                    <md-checkbox [(ngModel)]="api.publicWrite">{{ 'AnyoneCanEdit' | translate }}</md-checkbox>
+                    <mat-checkbox [(ngModel)]="api.publicWrite">{{ 'AnyoneCanEdit' | translate }}</mat-checkbox>
                 </div>
             </div>
         </div>
@@ -61,43 +65,47 @@
             <div *ngFor="let condition of api.conditions; let i = index">
                 <div class="row">
                     <div class="col-md-6">
-                        <md-select placeholder="{{ 'Type' | translate }}" [(ngModel)]="condition.matchType" (change)="conditionTypeChanged(i)" class="full-width">
-                            <md-option *ngFor="let value of splitEnum(ConditionTypeModel)" [value]="ConditionTypeModel[value]">
-                                {{ 'ConditionType_' + value | translate }}
-                            </md-option>
-                        </md-select>
+                        <mat-form-field class="full-width">
+                            <mat-select placeholder="{{ 'Type' | translate }}" [(ngModel)]="condition.matchType" (change)="conditionTypeChanged(i)">
+                                <mat-option *ngFor="let value of splitEnum(ConditionTypeModel)" [value]="ConditionTypeModel[value]">
+                                    {{ 'ConditionType_' + value | translate }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                     <div class="col-md-6">
-                        <md-form-field class="full-width">
-                            <input mdInput [disabled]="condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime"
-                                   [required]="!(condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime)"
-                                   placeholder="{{ 'Variable' | translate }}" maxlength="100" [(ngModel)]="condition.matchVar">
-                        </md-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput [disabled]="condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime"
+                                    [required]="!(condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime)"
+                                    placeholder="{{ 'Variable' | translate }}" maxlength="100" [(ngModel)]="condition.matchVar">
+                        </mat-form-field>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <md-select placeholder="{{ 'CompareType' | translate }}" [(ngModel)]="condition.compareType" class="full-width">
-                            <md-option *ngFor="let value of splitEnum(CompareTypeModel)" [value]="CompareTypeModel[value]">
-                                {{ 'CompareType_' + value | translate }}
-                            </md-option>
-                        </md-select>
+                        <mat-form-field class="full-width">
+                            <mat-select placeholder="{{ 'CompareType' | translate }}" [(ngModel)]="condition.compareType">
+                                <mat-option *ngFor="let value of splitEnum(CompareTypeModel)" [value]="CompareTypeModel[value]">
+                                    {{ 'CompareType_' + value | translate }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                     <div class="col-md-6">
-                        <md-form-field class="full-width">
-                            <input mdInput placeholder="{{ 'CompareValue' | translate }}" maxlength="100" required [(ngModel)]="condition.compareValue">
-                        </md-form-field>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="{{ 'CompareValue' | translate }}" maxlength="100" required [(ngModel)]="condition.compareValue">
+                        </mat-form-field>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <md-slide-toggle [(ngModel)]="condition.shouldPass">{{ (condition.shouldPass ? 'LogSuccess' : 'LogFail') | translate }}</md-slide-toggle>
+                        <mat-slide-toggle [(ngModel)]="condition.shouldPass">{{ (condition.shouldPass ? 'LogSuccess' : 'LogFail') | translate }}</mat-slide-toggle>
                     </div>
                     <div class="col-md-6">
-                        <button md-mini-fab (click)="removeCondition(i)" class="pull-right">
-                            <md-icon class="menu-subicon">remove</md-icon>
+                        <button mat-mini-fab (click)="removeCondition(i)" class="pull-right">
+                            <mat-icon class="menu-subicon">remove</mat-icon>
                         </button>
                     </div>
                 </div>
@@ -105,8 +113,8 @@
                 <hr *ngIf="i < api.conditions.length - 1" />
             </div>
 
-            <button md-mini-fab color="primary" (click)="addCondition()">
-                <md-icon class="menu-subicon">add</md-icon>
+            <button mat-mini-fab color="primary" (click)="addCondition()">
+                <mat-icon class="menu-subicon">add</mat-icon>
             </button>
         </div>
 
@@ -115,7 +123,7 @@
 
             <div class="row form-group" *ngFor="let loc of runLocations">
                 <div class="col-md-12">
-                    <md-slide-toggle [(ngModel)]="loc.enabled">{{ loc.location.name }}</md-slide-toggle>
+                    <mat-slide-toggle [(ngModel)]="loc.enabled">{{ loc.location.name }}</mat-slide-toggle>
                 </div>
             </div>
         </div>
@@ -123,9 +131,9 @@
     <hr />
     <div class="row">
         <div class="col-lg-4">
-            <button *ngIf="!api.apiId" md-raised-button color="primary" (click)="createApi()" [disabled]="processing">{{ 'CreateApi' | translate }}</button>
-            <button *ngIf="canEditApi()" md-raised-button color="primary" (click)="updateApi()" [disabled]="processing">{{ 'UpdateApi' | translate }}</button>
-            <button *ngIf="canEditApi()" md-raised-button color="warn" class="pull-right" (click)="deleteApi()" [disabled]="processing">{{ 'DeleteApi' | translate }}</button>
+            <button *ngIf="!api.apiId" mat-raised-button color="primary" (click)="createApi()" [disabled]="processing">{{ 'CreateApi' | translate }}</button>
+            <button *ngIf="canEditApi()" mat-raised-button color="primary" (click)="updateApi()" [disabled]="processing">{{ 'UpdateApi' | translate }}</button>
+            <button *ngIf="canEditApi()" mat-raised-button color="warn" class="pull-right" (click)="deleteApi()" [disabled]="processing">{{ 'DeleteApi' | translate }}</button>
         </div>
     </div>
 </div>
