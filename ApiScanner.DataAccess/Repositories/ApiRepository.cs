@@ -1,4 +1,5 @@
-﻿using ApiScanner.Entities.Models;
+﻿using ApiScanner.Entities.Enums;
+using ApiScanner.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,13 @@ namespace ApiScanner.DataAccess.Repositories
 
         public async Task CreateAsync(ApiModel api)
         {
-            _dbContext.Add(api);
+            await _dbContext.AddAsync(api);
             await _dbContext.SaveChangesAsync();
         }
         
         public async Task<IEnumerable<ApiModel>> GetApisAsync(Guid userId, bool includeConditions, bool includeLocations)
         {
-            var query = _dbContext.Apis.AsQueryable();
+            var query = _dbContext.Apis.AsNoTracking().AsQueryable();
             if (includeConditions)
                 query = query.Include(e => e.Conditions);
             if (includeLocations)
@@ -38,7 +39,7 @@ namespace ApiScanner.DataAccess.Repositories
 
         public async Task<ApiModel> GetApiAsync(Guid apiId, bool includeConditions, bool includeLocations)
         {
-            var query = _dbContext.Apis.AsQueryable();
+            var query = _dbContext.Apis.AsNoTracking().AsQueryable();
             if (includeConditions)
                 query = query.Include(e => e.Conditions);
             if (includeLocations)
@@ -46,6 +47,14 @@ namespace ApiScanner.DataAccess.Repositories
 
             return await query
                 .FirstOrDefaultAsync(e => e.ApiId == apiId);
+        }
+
+        public async Task<IEnumerable<ApiModel>> GetEnabledApisAsync(Guid locationId, ApiInterval interval)
+        {
+            return await _dbContext.Apis.AsNoTracking()
+                .Include(e => e.Conditions)
+                .Where(e => e.ApiLocations.Any(l => l.LocationId == locationId) && e.Enabled && e.Interval == interval)
+                .ToListAsync();
         }
 
         public async Task DeleteApiAsync(Guid apiId)

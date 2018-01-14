@@ -1,4 +1,5 @@
-﻿using ApiScanner.Entities.Models;
+﻿using ApiScanner.Entities.Enums;
+using ApiScanner.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,6 +32,13 @@ namespace ApiScanner.DataAccess.Repositories
         /// <param name="includeLocations">Include api locations if true.</param>
         /// <returns></returns>
         Task<ApiModel> GetApiAsync(Guid apiId, bool includeConditions, bool includeLocations);
+
+        /// <summary>
+        /// Get enabled api list by location id.
+        /// </summary>
+        /// <param name="locationId">Location id.</param>
+        /// <returns></returns>
+        Task<IEnumerable<ApiModel>> GetEnabledApisAsync(Guid locationId, ApiInterval interval);
 
         /// <summary>
         /// Delete api by id.

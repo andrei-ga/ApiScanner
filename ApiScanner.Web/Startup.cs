@@ -38,6 +38,7 @@ namespace ApiScanner.Web
             services.AddScoped<IApiManager, ApiManager>();
             services.AddScoped<ILocationManager, LocationManager>();
             services.AddTransient<IApiRepository, ApiRepository>();
+            services.AddTransient<IApiLogRepository, ApiLogRepository>();
             services.AddTransient<IConditionRepository, ConditionRepository>();
             services.AddTransient<ILocationRepository, LocationRepository>();
 

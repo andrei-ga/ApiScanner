@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiScanner.Web", "ApiScanner.Web\ApiScanner.Web.csproj", "{1A614146-9A28-4123-AB36-69999D99346C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiScanner.DataAccess", "ApiScanner.DataAccess\ApiScanner.DataAccess.csproj", "{4EC558D4-3B9E-46E9-BDF3-91D4F6530357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiScanner.DataAccess", "ApiScanner.DataAccess\ApiScanner.DataAccess.csproj", "{4EC558D4-3B9E-46E9-BDF3-91D4F6530357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiScanner.Entities", "ApiScanner.Entities\ApiScanner.Entities.csproj", "{4471576C-AB6E-4E97-8430-36CF51BAF891}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiScanner.Entities", "ApiScanner.Entities\ApiScanner.Entities.csproj", "{4471576C-AB6E-4E97-8430-36CF51BAF891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiScanner.Business", "ApiScanner.Business\ApiScanner.Business.csproj", "{D2FC723D-F2F2-42C5-8806-6C21F81AC36E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiScanner.Business", "ApiScanner.Business\ApiScanner.Business.csproj", "{D2FC723D-F2F2-42C5-8806-6C21F81AC36E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiScanner.Jobs", "ApiScanner.Jobs\ApiScanner.Jobs.csproj", "{C1AEC63B-A5C8-4D15-8D15-89D91B30A547}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D2FC723D-F2F2-42C5-8806-6C21F81AC36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2FC723D-F2F2-42C5-8806-6C21F81AC36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2FC723D-F2F2-42C5-8806-6C21F81AC36E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1AEC63B-A5C8-4D15-8D15-89D91B30A547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1AEC63B-A5C8-4D15-8D15-89D91B30A547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1AEC63B-A5C8-4D15-8D15-89D91B30A547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1AEC63B-A5C8-4D15-8D15-89D91B30A547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,7 +24,7 @@ namespace ApiScanner.DataAccess.Repositories
 
         public async Task CreateApiLocation(Guid apiId, Guid locId)
         {
-            _dbContext.ApiLocations.Add(new ApiLocationModel
+            await _dbContext.ApiLocations.AddAsync(new ApiLocationModel
             {
                 ApiId = apiId,
                 LocationId = locId

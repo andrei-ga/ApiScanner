@@ -16,7 +16,7 @@ namespace ApiScanner.DataAccess.Repositories
 
         public async Task CreateConditionAsync(ConditionModel cond)
         {
-            _dbContext.Add(cond);
+            await _dbContext.AddAsync(cond);
             await _dbContext.SaveChangesAsync();
         }
 

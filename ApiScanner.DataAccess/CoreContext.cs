@@ -19,6 +19,7 @@ namespace ApiScanner.DataAccess
         public DbSet<ConditionModel> Conditions { get; set; }
         public DbSet<LocationModel> Locations { get; set; }
         public DbSet<ApiLocationModel> ApiLocations { get; set; }
+        public DbSet<ApiLogModel> ApiLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,6 +32,7 @@ namespace ApiScanner.DataAccess
             builder.Entity<ApiModel>(Configure);
             builder.Entity<LocationModel>(Configure);
             builder.Entity<ApiLocationModel>(Configure);
+            builder.Entity<ApiLogModel>(Configure);
             base.OnModelCreating(builder);
         }
 
@@ -54,6 +56,17 @@ namespace ApiScanner.DataAccess
             entity.HasOne<ApplicationUser>(e => e.User).WithMany(e => e.Apis);
             entity.HasMany<ConditionModel>(e => e.Conditions).WithOne(e => e.Api);
             entity.HasMany<ApiLocationModel>(e => e.ApiLocations).WithOne(e => e.Api);
+            entity.HasMany<ApiLogModel>(e => e.ApiLogs).WithOne(e => e.Api);
+        }
+
+        /// <summary>
+        /// Configure api logs.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<ApiLogModel> entity)
+        {
+            entity.HasKey(e => e.ApiLogId);
+            entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.ApiLogs);
         }
 
         /// <summary>
