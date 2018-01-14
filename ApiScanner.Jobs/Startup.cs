@@ -47,7 +47,7 @@ namespace ApiScanner.Jobs
             app.UseHangfireServer();
 
             RecurringJob.AddOrUpdate<HourlyApisJob>("HourlyApis", x => x.ExecuteJobAsync(ApiInterval.Hourly), Cron.Hourly);
-            RecurringJob.AddOrUpdate<HourlyApisJob>("DailyApis", x => x.ExecuteJobAsync(ApiInterval.Daily), Cron.Hourly);
+            RecurringJob.AddOrUpdate<HourlyApisJob>("DailyApis", x => x.ExecuteJobAsync(ApiInterval.Daily), Cron.Daily);
 
             if (env.IsDevelopment())
             {
