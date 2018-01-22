@@ -105,6 +105,12 @@ export class ApiCreateComponent {
         this.subscribeConfirmDeleteApi.unsubscribe();
     }
 
+    public conditionTypeChange(value: number, index: number) {
+        if (value = CompareTypeModel.Exists || value == CompareTypeModel.NotExists) {
+            this.api.conditions[index].compareValue = "";
+        }
+    }
+
     public splitEnum(myEnum: any): Array<string> {
         let keys = Object.keys(myEnum);
         return keys.slice(keys.length / 2);
