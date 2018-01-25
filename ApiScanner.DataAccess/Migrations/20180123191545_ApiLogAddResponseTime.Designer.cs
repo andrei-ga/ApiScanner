@@ -12,9 +12,10 @@ using System;
 namespace ApiScanner.DataAccess.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class CoreContextModelSnapshot : ModelSnapshot
+    [Migration("20180123191545_ApiLogAddResponseTime")]
+    partial class ApiLogAddResponseTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,9 +46,7 @@ namespace ApiScanner.DataAccess.Migrations
 
                     b.Property<string>("Headers");
 
-                    b.Property<DateTime>("LogDate");
-
-                    b.Property<long>("ResponseTime");
+                    b.Property<int>("ResponseTime");
 
                     b.Property<int>("StatusCode");
 

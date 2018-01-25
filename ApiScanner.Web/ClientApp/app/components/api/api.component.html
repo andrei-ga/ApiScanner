@@ -76,7 +76,6 @@
                     <div class="col-md-6">
                         <mat-form-field class="full-width">
                             <input matInput [disabled]="condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime"
-                                    [required]="!(condition.matchType == ConditionTypeModel.StatusCode || condition.matchType == ConditionTypeModel.ResponseTime)"
                                     placeholder="{{ 'Variable' | translate }}" maxlength="100" [(ngModel)]="condition.matchVar">
                         </mat-form-field>
                     </div>

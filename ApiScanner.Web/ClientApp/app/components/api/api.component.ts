@@ -106,7 +106,7 @@ export class ApiCreateComponent {
     }
 
     public conditionTypeChange(value: number, index: number) {
-        if (value = CompareTypeModel.Exists || value == CompareTypeModel.NotExists) {
+        if (value == CompareTypeModel.Exists || value == CompareTypeModel.NotExists) {
             this.api.conditions[index].compareValue = "";
         }
     }

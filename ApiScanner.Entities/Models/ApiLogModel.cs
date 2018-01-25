@@ -34,6 +34,16 @@ namespace ApiScanner.Entities.Models
         public string Content { get; set; }
 
         /// <summary>
+        /// Response time in milliseconds.
+        /// </summary>
+        public long ResponseTime { get; set; }
+
+        /// <summary>
+        /// Date and time of the log in UTC.
+        /// </summary>
+        public DateTime LogDate { get; set; }
+
+        /// <summary>
         /// True if conditions passed at logging moment. Else false.
         /// </summary>
         public bool Success { get; set; }
