@@ -1,3 +1,10 @@
 ﻿.full-width {
     width: 100%;
 }
+button:focus {
+    outline: none;
+}
+.container-fluid {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
