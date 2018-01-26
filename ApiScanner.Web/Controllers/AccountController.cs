@@ -25,10 +25,10 @@ namespace ApiScanner.Web.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserDTO user)
         {
-            var result = await _accountService.Register(user);
-            if (result.Success)
+            var (success, errors) = await _accountService.Register(user);
+            if (success)
                 return Ok(true);
-            return BadRequest(Json(result.Errors));
+            return BadRequest(Json(errors));
         }
 
         /// <summary>
@@ -97,10 +97,10 @@ namespace ApiScanner.Web.Controllers
         [HttpPost("reset")]
         public async Task<IActionResult> ResetPassword([FromBody] UserDTO user)
         {
-            var result = await _accountService.ResetPassword(user);
-            if (result.Success)
+            var (success, errors) = await _accountService.ResetPassword(user);
+            if (success)
                 return Ok(true);
-            return BadRequest(Json(result.Errors));
+            return BadRequest(Json(errors));
         }
     }
 }
