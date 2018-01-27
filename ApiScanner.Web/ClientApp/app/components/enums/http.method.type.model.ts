@@ -5,6 +5,5 @@
     Put = 3,
     Patch = 4,
     Delete = 5,
-    Options = 6,
-    Connect = 7
+    Options = 6
 }

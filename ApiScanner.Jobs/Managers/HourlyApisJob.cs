@@ -10,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Jobs.Managers
@@ -47,7 +48,14 @@ namespace ApiScanner.Jobs.Managers
             foreach (var api in apis)
             {
                 // do a http request and check each api
-                await RunApiAsync(api);
+                try
+                {
+                    await RunApiAsync(api);
+                }
+                catch(Exception)
+                {
+                    // log error
+                }
             }
         }
 
@@ -58,8 +66,66 @@ namespace ApiScanner.Jobs.Managers
 
         private async Task RunApiAsync(ApiModel api)
         {
+            var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri(api.Url)
+            };
+            HttpContent content;
+
+            // check api method
+            switch (api.Method)
+            {
+                case HttpMethodType.Get:
+                    request.Method = HttpMethod.Get;
+                    break;
+                case HttpMethodType.Head:
+                    request.Method = HttpMethod.Head;
+                    break;
+                case HttpMethodType.Post:
+                    request.Method = HttpMethod.Post;
+                    content = new StringContent(api.Body);
+                    request.Content = content;
+                    break;
+                case HttpMethodType.Put:
+                case HttpMethodType.Patch:
+                    request.Method = HttpMethod.Put;
+                    content = new StringContent(api.Body);
+                    request.Content = content;
+                    break;
+                case HttpMethodType.Delete:
+                    request.Method = HttpMethod.Delete;
+                    break;
+                case HttpMethodType.Options:
+                    request.Method = HttpMethod.Options;
+                    break;
+            }
+
+            // check api headers
+            if (!string.IsNullOrWhiteSpace(api.Headers))
+            {
+                var headerValues = api.Headers.Split('\n').Where(e => !string.IsNullOrWhiteSpace(e)).Select(e => e.Split(":")).ToDictionary(e => e[0].Trim().TrimStart('"').TrimEnd('"'), e => e[1].Trim().TrimStart('"').TrimEnd('"'));
+                foreach(var header in headerValues)
+                {
+                    switch(header.Key)
+                    {
+                        case "Content-Type":
+                            var headerValueSplit = header.Value.Split(';');
+                            var contentType = headerValueSplit.FirstOrDefault();
+                            var charSet = "utf-8";
+                            if (headerValueSplit.Length > 1)
+                                charSet = headerValueSplit[1].Trim().Replace("charset=", "");
+                            content = new StringContent(api.Body, Encoding.GetEncoding(charSet), contentType);
+                            request.Content = content;
+                            break;
+                        default:
+                            request.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                            break;
+                    }
+                }
+            }
+
             var stopWatch = Stopwatch.StartNew();
-            var response = await _client.GetAsync(api.Url);
+            var response = await _client.SendAsync(request);
             stopWatch.Stop();
 
             // do not download content bigger than 1mb
@@ -68,7 +134,7 @@ namespace ApiScanner.Jobs.Managers
             {
                 ApiId = api.ApiId,
                 StatusCode = (int)response.StatusCode,
-                Headers = JsonConvert.SerializeObject(response.Headers.Concat(response.Content.Headers).ToDictionary(e => e.Key, e => e.Value)),
+                Headers = JsonConvert.SerializeObject(response.Headers.Concat(response.Content.Headers).ToDictionary(e => e.Key, e => string.Join(", ", e.Value))),
                 Content = bytesLength > 1024 * 1024 ? string.Empty : await response.Content.ReadAsStringAsync(),
                 ResponseTime = stopWatch.ElapsedMilliseconds,
                 Success = response.IsSuccessStatusCode,
@@ -76,7 +142,7 @@ namespace ApiScanner.Jobs.Managers
             };
 
             // check if the response content is json
-            bool isJson = response.Content.Headers.ContentType.MediaType == "application/json";
+            bool isJson = response.Content.Headers.ContentType?.MediaType == "application/json";
             bool compiledValue;
 
             // check conditions

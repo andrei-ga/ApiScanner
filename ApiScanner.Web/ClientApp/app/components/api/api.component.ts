@@ -133,6 +133,18 @@ export class ApiCreateComponent {
             this.api.conditions[index].matchVar = '';
     }
 
+    private mapApiLocations() {
+        this.api.apiLocations = new Array();
+        for (let i = 0; i < this.runLocations.length; i++) {
+            if (this.runLocations[i].enabled) {
+                this.api.apiLocations.push({
+                    apiId: this.api.apiId,
+                    locationId: this.runLocations[i].location.locationId
+                });
+            }
+        }
+    }
+
     public createApi() {
         if (!this.processing) {
             this.processing = true;
@@ -140,6 +152,10 @@ export class ApiCreateComponent {
                 this._notificationDataService.removeNotification(this.lastErrorNotifId);
                 this.lastErrorNotifId = '';
             }
+
+            // map locations
+            this.mapApiLocations();
+
             this._apiService.createApi(this.api)
                 .subscribe(
                 data => {
@@ -161,15 +177,7 @@ export class ApiCreateComponent {
             }
 
             // map locations
-            this.api.apiLocations = new Array();
-            for (let i = 0; i < this.runLocations.length; i++) {
-                if (this.runLocations[i].enabled) {
-                    this.api.apiLocations.push({
-                        apiId: this.api.apiId,
-                        locationId: this.runLocations[i].location.locationId
-                    });
-                }
-            }
+            this.mapApiLocations();
 
             this._apiService.updateApi(this.api)
                 .subscribe(
