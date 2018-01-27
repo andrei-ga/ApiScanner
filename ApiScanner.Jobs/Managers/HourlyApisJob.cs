@@ -86,9 +86,14 @@ namespace ApiScanner.Jobs.Managers
                     content = new StringContent(api.Body);
                     request.Content = content;
                     break;
-                case HttpMethodType.Put:
-                case HttpMethodType.Patch:
+                case HttpMethodType.Put:                
                     request.Method = HttpMethod.Put;
+                    content = new StringContent(api.Body);
+                    request.Content = content;
+                    break;
+                case HttpMethodType.Patch:
+                    var method = new HttpMethod("PATCH");
+                    request.Method = method;
                     content = new StringContent(api.Body);
                     request.Content = content;
                     break;
