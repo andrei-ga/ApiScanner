@@ -71,21 +71,21 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// User who created the api.
         /// </summary>
-        public virtual ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
 
         /// <summary>
         /// Conditions of api.
         /// </summary>
-        public virtual ICollection<ConditionModel> Conditions { get; set; }
+        public ICollection<ConditionModel> Conditions { get; set; }
 
         /// <summary>
         /// Locations of api.
         /// </summary>
-        public virtual ICollection<ApiLocationModel> ApiLocations { get; set; }
+        public ICollection<ApiLocationModel> ApiLocations { get; set; }
 
         /// <summary>
         /// Api logs.
         /// </summary>
-        public virtual ICollection<ApiLogModel> ApiLogs { get; set; }
+        public ICollection<ApiLogModel> ApiLogs { get; set; }
     }
 }

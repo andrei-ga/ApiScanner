@@ -22,5 +22,10 @@ namespace ApiScanner.Entities.Models
         /// Apis of location.
         /// </summary>
         public ICollection<ApiLocationModel> ApiLocations { get; set; }
+
+        /// <summary>
+        /// Api logs of location.
+        /// </summary>
+        public ICollection<ApiLogModel> ApiLogs { get; set; }
     }
 }

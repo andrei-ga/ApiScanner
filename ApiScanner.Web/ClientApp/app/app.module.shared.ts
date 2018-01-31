@@ -10,13 +10,15 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/account/register.component';
 import { LoginComponent } from './components/account/login.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { ApiCreateComponent } from './components/api/api.component';
+import { ApiCreateComponent } from './components/api/api.edit.component';
+import { ApiComponent } from './components/api/api.component';
 import { ApiListComponent } from './components/api/list.component';
 
 import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
 import { NotificationDataService } from './components/notification/notification-data.service';
 import { ApiService } from './components/api/api.service';
+import { ApiLogService } from './components/api-log/api-log.service';
 import { LocationService } from './components/location/location.service';
 import { GuardLogin, GuardLoggedIn, GuardSeeApi } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
@@ -103,6 +105,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         LoginComponent,
         NotificationComponent,
         ApiCreateComponent,
+        ApiComponent,
         ApiListComponent,
     ],
     imports: [
@@ -114,7 +117,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
             { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'CreateApi' }, canActivate: [GuardLoggedIn] },
             { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: 'ListApis' }, canActivate: [GuardLoggedIn] },
-            { path: 'apis/:id', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: 'EditApi' }, canActivate: [GuardSeeApi] },
+            { path: 'apis/:id', component: ApiComponent, data: { title: 'View api - Api Scanner', pageHeader: 'ViewApi' }, canActivate: [GuardSeeApi] },
+            { path: 'apis/:id/edit', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: 'EditApi' }, canActivate: [GuardSeeApi] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'NewAccount' }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'SignIn' }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }
@@ -132,6 +136,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         AccountDataService,
         NotificationDataService,
         ApiService,
+        ApiLogService,
         LocationService,
         GuardLogin,
         GuardLoggedIn,

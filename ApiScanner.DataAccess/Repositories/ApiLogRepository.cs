@@ -1,7 +1,8 @@
 ﻿using ApiScanner.Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiScanner.DataAccess.Repositories
@@ -19,6 +20,17 @@ namespace ApiScanner.DataAccess.Repositories
         {
             await _dbContext.AddAsync(apiLog);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ApiLogModel>> GetApiLogsAsync(Guid id, DateTime? dateFrom)
+        {
+            var query = _dbContext.ApiLogs.AsNoTracking().AsQueryable();
+            if (dateFrom != null)
+                query = query.Where(e => e.LogDate > dateFrom);
+
+            return await query
+                .Where(e => e.ApiId == id)
+                .ToListAsync();
         }
     }
 }

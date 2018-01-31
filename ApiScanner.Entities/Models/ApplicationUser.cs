@@ -21,6 +21,6 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// User defined apis.
         /// </summary>
-        public virtual ICollection<ApiModel> Apis { get; set; }
+        public ICollection<ApiModel> Apis { get; set; }
     }
 }

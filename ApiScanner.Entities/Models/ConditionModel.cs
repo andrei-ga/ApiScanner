@@ -47,6 +47,6 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Api that has the condition.
         /// </summary>
-        public virtual ApiModel Api { get; set; }
+        public ApiModel Api { get; set; }
     }
 }

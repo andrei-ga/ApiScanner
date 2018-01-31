@@ -17,11 +17,11 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Api.
         /// </summary>
-        public virtual ApiModel Api { get; set; }
+        public ApiModel Api { get; set; }
 
         /// <summary>
         /// Location.
         /// </summary>
-        public virtual LocationModel Location { get; set; }
+        public LocationModel Location { get; set; }
     }
 }

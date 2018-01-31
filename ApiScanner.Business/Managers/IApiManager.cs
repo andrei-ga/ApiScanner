@@ -17,6 +17,8 @@ namespace ApiScanner.Business.Managers
         /// <summary>
         /// Get list of apis created by current user. Returns empty list of not logged in.
         /// </summary>
+        /// <param name="includeConditions">Include api conditions if true.</param>
+        /// <param name="includeLocations">Include api locations if true.</param>
         /// <returns></returns>
         Task<IEnumerable<ApiModel>> GetApisAsync(bool includeConditions, bool includeLocations);
 

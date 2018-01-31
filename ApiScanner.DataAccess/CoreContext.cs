@@ -67,6 +67,7 @@ namespace ApiScanner.DataAccess
         {
             entity.HasKey(e => e.ApiLogId);
             entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.ApiLogs);
+            entity.HasOne<LocationModel>(e => e.Location).WithMany(e => e.ApiLogs);
         }
 
         /// <summary>
@@ -86,6 +87,7 @@ namespace ApiScanner.DataAccess
         private static void Configure(EntityTypeBuilder<LocationModel> entity)
         {
             entity.HasKey(e => e.LocationId);
+            entity.HasMany<ApiLogModel>(e => e.ApiLogs).WithOne(e => e.Location);
         }
 
         /// <summary>

@@ -32,6 +32,9 @@
     <None Remove="ClientApp\app\components\account\auth.guard.ts" />
     <None Remove="ClientApp\app\components\account\login.component.ts" />
     <None Remove="ClientApp\app\components\account\register.component.ts" />
+    <None Remove="ClientApp\app\components\api-log\api-log.service.ts" />
+    <None Remove="ClientApp\app\components\api\api-log.model.ts" />
+    <None Remove="ClientApp\app\components\api\api.component.ts" />
     <None Remove="ClientApp\app\components\api\api.service.ts" />
     <None Remove="ClientApp\app\components\api\list.component.ts" />
     <None Remove="ClientApp\app\components\enums\compare.type.model.ts" />
@@ -68,10 +71,13 @@
     <TypeScriptCompile Include="ClientApp\app\components\account\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\register.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api-log\api-log.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api-log\api-log.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api\api.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\api.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\condition.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\api.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\api\api.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\api\api.edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\enums\api.interval.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\enums\compare.type.model.ts" />

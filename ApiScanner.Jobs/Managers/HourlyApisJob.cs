@@ -143,7 +143,8 @@ namespace ApiScanner.Jobs.Managers
                 Content = bytesLength > 1024 * 1024 ? string.Empty : await response.Content.ReadAsStringAsync(),
                 ResponseTime = stopWatch.ElapsedMilliseconds,
                 Success = response.IsSuccessStatusCode,
-                LogDate = DateTime.UtcNow
+                LogDate = DateTime.UtcNow,
+                LocationId = _locationId
             };
 
             // check if the response content is json

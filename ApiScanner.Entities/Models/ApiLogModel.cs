@@ -18,6 +18,12 @@ namespace ApiScanner.Entities.Models
         public Guid ApiId { get; set; }
 
         /// <summary>
+        /// Location id.
+        /// </summary>
+        [Required]
+        public Guid LocationId { get; set; }
+
+        /// <summary>
         /// Status code of the response.
         /// </summary>
         [Required]
@@ -51,6 +57,11 @@ namespace ApiScanner.Entities.Models
         /// <summary>
         /// Coresponding api.
         /// </summary>
-        public virtual ApiModel Api { get; set; }
+        public ApiModel Api { get; set; }
+
+        /// <summary>
+        /// Coresponding location.
+        /// </summary>
+        public LocationModel Location { get; set; }
     }
 }

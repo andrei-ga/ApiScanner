@@ -3,17 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ApiScanner.DataAccess.Repositories
+namespace ApiScanner.Business.Managers
 {
-    public interface IApiLogRepository
+    public interface IApiLogManager
     {
-        /// <summary>
-        /// Log an api call response.
-        /// </summary>
-        /// <param name="apiLog"></param>
-        /// <returns></returns>
-        Task LogAsync(ApiLogModel apiLog);
-
         /// <summary>
         /// Get api logs by specific api id.
         /// </summary>
