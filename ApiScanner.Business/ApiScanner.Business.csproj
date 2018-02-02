@@ -5,14 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiScanner.DataAccess\ApiScanner.DataAccess.csproj" />
-    <ProjectReference Include="..\ApiScanner.Entities\ApiScanner.Entities.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.Authorization">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.authorization\2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\ApiScanner.DataAccess\ApiScanner.DataAccess.csproj" />
+    <ProjectReference Include="..\ApiScanner.Entities\ApiScanner.Entities.csproj" />
   </ItemGroup>
 
 </Project>
