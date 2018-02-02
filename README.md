@@ -14,7 +14,7 @@ You need to install the following
 
 Before running the project you need to apply database migrations with the following command inside _ApiScanner.DataAccess_
 
-`dotnet ef database update --startup-project '../ApiScanner.Web'`
+`dotnet ef database update --startup-project ../ApiScanner.Web`
 
 Now you can run the project.
 
