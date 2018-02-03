@@ -3,6 +3,7 @@ import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -112,6 +113,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         CommonModule,
         HttpClientModule,
         FormsModule,
+        NgxChartsModule,
         ...materialModules,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },

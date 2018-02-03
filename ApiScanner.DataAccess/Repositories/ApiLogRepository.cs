@@ -24,12 +24,15 @@ namespace ApiScanner.DataAccess.Repositories
 
         public async Task<IEnumerable<ApiLogModel>> GetApiLogsAsync(Guid id, DateTime? dateFrom)
         {
-            var query = _dbContext.ApiLogs.AsNoTracking().AsQueryable();
+            var query = _dbContext.ApiLogs.AsNoTracking()
+                .Include(e => e.Location)
+                .AsQueryable();
             if (dateFrom != null)
                 query = query.Where(e => e.LogDate > dateFrom);
 
             return await query
                 .Where(e => e.ApiId == id)
+                .OrderBy(e => e.LogDate)
                 .ToListAsync();
         }
     }

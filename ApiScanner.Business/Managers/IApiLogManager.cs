@@ -1,4 +1,4 @@
-﻿using ApiScanner.Entities.Models;
+﻿using ApiScanner.Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,6 +13,6 @@ namespace ApiScanner.Business.Managers
         /// <param name="id">Api id.</param>
         /// <param name="dateFrom">Date from when to get api logs. Will return all if null.</param>
         /// <returns></returns>
-        Task<IEnumerable<ApiLogModel>> GetApiLogsAsync(Guid id, DateTime? dateFrom);
+        Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, DateTime? dateFrom);
     }
 }

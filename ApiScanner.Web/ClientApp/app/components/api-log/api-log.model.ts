@@ -2,15 +2,11 @@
 import { LocationModel } from '../location/location.model';
 
 export interface ApiLogModel {
-    apiLogId: string,
-    apiId: string,
-    locationId: string,
+    locationName: string,
     statusCode: number,
-    headers?: string,
-    content?: string,
+    headers: string,
+    content: string,
     responseTime: number,
     logDate: string,
     success: boolean
-    api?: ApiModel,
-    location?: LocationModel
 }

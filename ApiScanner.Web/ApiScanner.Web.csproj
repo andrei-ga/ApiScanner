@@ -37,6 +37,7 @@
     <None Remove="ClientApp\app\components\api\api.component.ts" />
     <None Remove="ClientApp\app\components\api\api.service.ts" />
     <None Remove="ClientApp\app\components\api\list.component.ts" />
+    <None Remove="ClientApp\app\components\chart\line-chart.model.ts" />
     <None Remove="ClientApp\app\components\enums\compare.type.model.ts" />
     <None Remove="ClientApp\app\components\enums\condition.type.model.ts" />
     <None Remove="ClientApp\app\components\location\api-location.model.ts" />
@@ -46,6 +47,7 @@
     <None Remove="ClientApp\app\components\notification\notification.component.ts" />
     <None Remove="ClientApp\app\components\notification\notification.model.ts" />
     <None Remove="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
+    <None Remove="ClientApp\app\components\shared\models\simple-pairs.model.ts" />
     <None Remove="ClientApp\app\components\shared\services\translation.service.ts" />
     <None Remove="ClientApp\app\components\translateUniversalLoader.ts" />
   </ItemGroup>
@@ -79,6 +81,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\api\api.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\api.edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\chart\line-chart.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\enums\api.interval.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\enums\compare.type.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\enums\condition.type.model.ts" />
@@ -90,6 +93,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\models\simple-pairs.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\services\translation.service.ts" />
   </ItemGroup>
 

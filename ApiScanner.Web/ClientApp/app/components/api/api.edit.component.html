@@ -46,16 +46,10 @@
                 </mat-form-field>
             </p>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <mat-slide-toggle [(ngModel)]="api.enabled">{{ (api.enabled ? 'Enabled' : 'Disabled') | translate }}</mat-slide-toggle>
-                </div>
-                <div class="col-md-4">
-                    <mat-checkbox [(ngModel)]="api.publicRead">{{ 'AnyoneCanSee' | translate }}</mat-checkbox>
-                </div>
-                <div class="col-md-4">
-                    <mat-checkbox [(ngModel)]="api.publicWrite">{{ 'AnyoneCanEdit' | translate }}</mat-checkbox>
-                </div>
+            <div class="row d-flex justify-content-around">
+                <mat-slide-toggle [(ngModel)]="api.enabled">{{ (api.enabled ? 'Enabled' : 'Disabled') | translate }}</mat-slide-toggle>
+                <mat-checkbox [(ngModel)]="api.publicRead">{{ 'AnyoneCanSee' | translate }}</mat-checkbox>
+                <mat-checkbox [(ngModel)]="api.publicWrite">{{ 'AnyoneCanEdit' | translate }}</mat-checkbox>
             </div>
         </div>
 

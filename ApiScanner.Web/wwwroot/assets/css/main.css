@@ -8,3 +8,6 @@ button:focus {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+.chart-container {
+    height: 500px;
+}
