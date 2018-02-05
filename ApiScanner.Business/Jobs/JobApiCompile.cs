@@ -1,7 +1,9 @@
 ﻿using ApiScanner.DataAccess.Repositories;
+using ApiScanner.Entities.Configs;
 using ApiScanner.Entities.Enums;
 using ApiScanner.Entities.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -13,38 +15,43 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiScanner.Jobs.Managers
+namespace ApiScanner.Business.Jobs
 {
-    public class HourlyApisJob
+    public class JobApiCompile : IJobApiCompile
     {
         private readonly IApiRepository _apiRepo;
         private readonly IApiLogRepository _apiLogRepo;
         private readonly IConfiguration _config;
+        private readonly JobConfigOptions _jobOptions;
 
-        private static Guid _locationId;
-        private static string _testApi;
-        private static HttpClient _client = new HttpClient();
+        private static HttpClient _clientCredentialsDefaultTrue;
+        private static HttpClient _clientCredentialsDefaultFalse;
 
-        public HourlyApisJob(IApiRepository apiRepo, IApiLogRepository apiLogRepo, IConfiguration configuration)
+        public JobApiCompile(IApiRepository apiRepo, IApiLogRepository apiLogRepo, IConfiguration configuration, IOptions<JobConfigOptions> options)
         {
             _apiRepo = apiRepo;
             _apiLogRepo = apiLogRepo;
             _config = configuration;
-            _locationId = _config.GetValue<Guid>("LocationId");
-            _testApi = _config.GetValue<string>("TestApi");
+            _jobOptions = options.Value;
 
+            var handler = new HttpClientHandler() { UseDefaultCredentials = true };
             CacheControlHeaderValue cacheControl = new CacheControlHeaderValue
             {
                 NoCache = true
             };
-            _client.DefaultRequestHeaders.CacheControl = cacheControl;
+
+            _clientCredentialsDefaultFalse = new HttpClient();
+            _clientCredentialsDefaultFalse.DefaultRequestHeaders.CacheControl = cacheControl;
+
+            _clientCredentialsDefaultTrue = new HttpClient(handler);
+            _clientCredentialsDefaultTrue.DefaultRequestHeaders.CacheControl = cacheControl;
         }
 
         public async Task ExecuteJobAsync(ApiInterval interval)
         {
-            await RunApiTest();
+            await TestHttpAsync();
             // get api list of current location
-            var apis = await _apiRepo.GetEnabledApisAsync(_locationId, interval);
+            var apis = await _apiRepo.GetEnabledApisAsync(_jobOptions.LocationId, interval);
             foreach (var api in apis)
             {
                 // do a http request and check each api
@@ -52,16 +59,17 @@ namespace ApiScanner.Jobs.Managers
                 {
                     await RunApiAsync(api);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     // log error
                 }
             }
         }
 
-        private async Task RunApiTest()
+        private async Task TestHttpAsync()
         {
-            await _client.GetAsync(_testApi);
+            await _clientCredentialsDefaultFalse.GetAsync(_jobOptions.TestApi);
+            await _clientCredentialsDefaultTrue.GetAsync(_jobOptions.TestApi);
         }
 
         private async Task RunApiAsync(ApiModel api)
@@ -86,7 +94,7 @@ namespace ApiScanner.Jobs.Managers
                     content = new StringContent(api.Body);
                     request.Content = content;
                     break;
-                case HttpMethodType.Put:                
+                case HttpMethodType.Put:
                     request.Method = HttpMethod.Put;
                     content = new StringContent(api.Body);
                     request.Content = content;
@@ -109,9 +117,9 @@ namespace ApiScanner.Jobs.Managers
             if (!string.IsNullOrWhiteSpace(api.Headers))
             {
                 var headerValues = api.Headers.Split('\n').Where(e => !string.IsNullOrWhiteSpace(e)).Select(e => e.Split(":")).ToDictionary(e => e[0].Trim().TrimStart('"').TrimEnd('"'), e => e[1].Trim().TrimStart('"').TrimEnd('"'));
-                foreach(var header in headerValues)
+                foreach (var header in headerValues)
                 {
-                    switch(header.Key)
+                    switch (header.Key)
                     {
                         case "Content-Type":
                             var headerValueSplit = header.Value.Split(';');
@@ -130,7 +138,16 @@ namespace ApiScanner.Jobs.Managers
             }
 
             var stopWatch = Stopwatch.StartNew();
-            var response = await _client.SendAsync(request);
+            HttpResponseMessage response;
+            switch (api.Authorization)
+            {
+                case AuthorizationType.None:
+                    response = await _clientCredentialsDefaultFalse.SendAsync(request);
+                    break;
+                default:
+                    response = await _clientCredentialsDefaultTrue.SendAsync(request);
+                    break;
+            }
             stopWatch.Stop();
 
             // do not download content bigger than 1mb
@@ -144,7 +161,7 @@ namespace ApiScanner.Jobs.Managers
                 ResponseTime = stopWatch.ElapsedMilliseconds,
                 Success = response.IsSuccessStatusCode,
                 LogDate = DateTime.UtcNow,
-                LocationId = _locationId
+                LocationId = _jobOptions.LocationId
             };
 
             // check if the response content is json
@@ -207,7 +224,7 @@ namespace ApiScanner.Jobs.Managers
                             compiledValue = (bool)compiled;
                         }
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         compiledValue = false;
                     }

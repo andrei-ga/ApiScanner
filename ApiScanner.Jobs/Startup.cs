@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ApiScanner.Business.Jobs;
 using ApiScanner.DataAccess;
 using ApiScanner.DataAccess.Repositories;
+using ApiScanner.Entities.Configs;
 using ApiScanner.Entities.Enums;
 using ApiScanner.Jobs.Managers;
 using Hangfire;
@@ -32,7 +31,9 @@ namespace ApiScanner.Jobs
             // Configure DataBase contexts
             CoreContext.ConnectionString = Configuration.GetConnectionString("DataAccessPostgreSqlProvider");
             services.AddDbContext<CoreContext>();
+            services.Configure<JobConfigOptions>(Configuration.GetSection("JobConfig"));
 
+            services.AddScoped<IJobApiCompile, JobApiCompile>();
             services.AddTransient<IApiRepository, ApiRepository>();
             services.AddTransient<IApiLogRepository, ApiLogRepository>();
 
@@ -45,8 +46,8 @@ namespace ApiScanner.Jobs
             app.UseHangfireDashboard("/hangfire");
             app.UseHangfireServer();
 
-            RecurringJob.AddOrUpdate<HourlyApisJob>("HourlyApis", x => x.ExecuteJobAsync(ApiInterval.Hourly), Cron.Hourly);
-            RecurringJob.AddOrUpdate<HourlyApisJob>("DailyApis", x => x.ExecuteJobAsync(ApiInterval.Daily), Cron.Daily);
+            RecurringJob.AddOrUpdate<ApiRunJob>("HourlyApis", x => x.ExecuteJobAsync(ApiInterval.Hourly), Cron.Hourly);
+            RecurringJob.AddOrUpdate<ApiRunJob>("DailyApis", x => x.ExecuteJobAsync(ApiInterval.Daily), Cron.Daily);
 
             if (env.IsDevelopment())
             {

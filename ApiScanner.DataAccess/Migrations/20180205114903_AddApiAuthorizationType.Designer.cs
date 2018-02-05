@@ -12,9 +12,10 @@ using System;
 namespace ApiScanner.DataAccess.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class CoreContextModelSnapshot : ModelSnapshot
+    [Migration("20180205114903_AddApiAuthorizationType")]
+    partial class AddApiAuthorizationType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,4 +1,5 @@
-﻿using ApiScanner.Entities.Models;
+﻿using ApiScanner.Entities.Enums;
+using ApiScanner.Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -57,6 +58,7 @@ namespace ApiScanner.DataAccess
             entity.HasMany<ConditionModel>(e => e.Conditions).WithOne(e => e.Api);
             entity.HasMany<ApiLocationModel>(e => e.ApiLocations).WithOne(e => e.Api);
             entity.HasMany<ApiLogModel>(e => e.ApiLogs).WithOne(e => e.Api);
+            entity.Property(e => e.Authorization).HasDefaultValueSql(((int)AuthorizationType.None).ToString());
         }
 
         /// <summary>

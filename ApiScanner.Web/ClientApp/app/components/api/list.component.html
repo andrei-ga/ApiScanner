@@ -6,8 +6,8 @@
     <mat-grid-tile><mat-grid-tile-header></mat-grid-tile-header></mat-grid-tile>
 
     <div *ngFor="let api of apis">
-        <mat-grid-tile><a [routerLink]="['/apis', api.apiId]">{{ api.name }}</a></mat-grid-tile>
-        <mat-grid-tile><a href="{{ api.url }}" target="_blank">{{ api.url }}</a></mat-grid-tile>
+        <mat-grid-tile><a class="overflow-ellipsis" [routerLink]="['/apis', api.apiId]">{{ api.name }}</a></mat-grid-tile>
+        <mat-grid-tile><a class="overflow-ellipsis" href="{{ api.url }}" target="_blank">{{ api.url }}</a></mat-grid-tile>
         <mat-grid-tile>{{ 'ApiInterval_' + ApiIntervalModel[api.interval] | translate }}</mat-grid-tile>
         <mat-grid-tile><mat-icon class="menu-subicon">{{ api.enabled ? 'done' : 'remove' }}</mat-icon></mat-grid-tile>
         <mat-grid-tile>

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ApiScanner.Business\ApiScanner.Business.csproj" />
     <ProjectReference Include="..\ApiScanner.DataAccess\ApiScanner.DataAccess.csproj" />
     <ProjectReference Include="..\ApiScanner.Entities\ApiScanner.Entities.csproj" />
   </ItemGroup>

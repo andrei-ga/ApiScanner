@@ -11,3 +11,7 @@ button:focus {
 .chart-container {
     height: 500px;
 }
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

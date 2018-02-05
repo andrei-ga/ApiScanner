@@ -54,6 +54,11 @@ namespace ApiScanner.Entities.Models
         public ApiInterval Interval { get; set; }
 
         /// <summary>
+        /// Authorization type.
+        /// </summary>
+        public AuthorizationType Authorization { get; set; }
+
+        /// <summary>
         /// Only scan if true.
         /// </summary>
         public bool Enabled { get; set; }
