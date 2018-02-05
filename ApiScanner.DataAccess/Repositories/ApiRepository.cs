@@ -80,6 +80,7 @@ namespace ApiScanner.DataAccess.Repositories
             myApi.Headers = api.Headers;
             myApi.Interval = api.Interval;
             myApi.Method = api.Method;
+            myApi.Authorization = api.Authorization;
             myApi.Name = api.Name;
             myApi.PublicRead = api.PublicRead;
             myApi.PublicWrite = api.PublicWrite;

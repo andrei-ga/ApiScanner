@@ -38,8 +38,9 @@
     <None Remove="ClientApp\app\components\api\api.service.ts" />
     <None Remove="ClientApp\app\components\api\list.component.ts" />
     <None Remove="ClientApp\app\components\chart\line-chart.model.ts" />
-    <None Remove="ClientApp\app\components\enums\compare.type.model.ts" />
-    <None Remove="ClientApp\app\components\enums\condition.type.model.ts" />
+    <None Remove="ClientApp\app\components\enums\authorization-type.model.ts" />
+    <None Remove="ClientApp\app\components\enums\compare-type.model.ts" />
+    <None Remove="ClientApp\app\components\enums\condition-type.model.ts" />
     <None Remove="ClientApp\app\components\location\api-location.model.ts" />
     <None Remove="ClientApp\app\components\location\location.model.ts" />
     <None Remove="ClientApp\app\components\location\location.service.ts" />
@@ -82,10 +83,11 @@
     <TypeScriptCompile Include="ClientApp\app\components\api\api.edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\chart\line-chart.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\enums\api.interval.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\enums\compare.type.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\enums\condition.type.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\enums\http.method.type.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\api-interval.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\authorization-type.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\compare-type.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\condition-type.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\enums\http-method-type.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\location\api-location.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\location\location.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\location\location.service.ts" />

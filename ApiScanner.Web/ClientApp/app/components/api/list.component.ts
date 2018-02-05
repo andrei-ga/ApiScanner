@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { ApiModel } from './api.model';
-import { ApiIntervalModel } from '../enums/api.interval.model';
+import { ApiIntervalModel } from '../enums/api-interval.model';
 
 import { ApiService } from './api.service';
 

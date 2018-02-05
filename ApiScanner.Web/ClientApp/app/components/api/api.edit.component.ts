@@ -5,10 +5,11 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ApiModel } from './api.model';
 import { LocationModel } from '../location/location.model';
-import { HttpMethodTypeModel } from '../enums/http.method.type.model';
-import { ApiIntervalModel } from '../enums/api.interval.model';
-import { ConditionTypeModel } from '../enums/condition.type.model';
-import { CompareTypeModel } from '../enums/compare.type.model';
+import { HttpMethodTypeModel } from '../enums/http-method-type.model';
+import { ApiIntervalModel } from '../enums/api-interval.model';
+import { ConditionTypeModel } from '../enums/condition-type.model';
+import { AuthorizationTypeModel } from '../enums/authorization-type.model';
+import { CompareTypeModel } from '../enums/compare-type.model';
 import { AccountModel } from '../account/account.model';
 
 import { ApiService } from './api.service';
@@ -24,6 +25,7 @@ export class ApiCreateComponent {
     public HttpMethodTypeModel: typeof HttpMethodTypeModel = HttpMethodTypeModel;
     public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;
     public ConditionTypeModel: typeof ConditionTypeModel = ConditionTypeModel;
+    public AuthorizationTypeModel: typeof AuthorizationTypeModel = AuthorizationTypeModel;
     public CompareTypeModel: typeof CompareTypeModel = CompareTypeModel;
     public processing: boolean = false;
     public myUser?: AccountModel = undefined;
