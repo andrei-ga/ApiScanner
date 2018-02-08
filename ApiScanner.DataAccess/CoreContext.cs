@@ -21,6 +21,8 @@ namespace ApiScanner.DataAccess
         public DbSet<LocationModel> Locations { get; set; }
         public DbSet<ApiLocationModel> ApiLocations { get; set; }
         public DbSet<ApiLogModel> ApiLogs { get; set; }
+        public DbSet<WidgetModel> Widgets { get; set; }
+        public DbSet<ApiWidgetModel> ApiWidgets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +36,8 @@ namespace ApiScanner.DataAccess
             builder.Entity<LocationModel>(Configure);
             builder.Entity<ApiLocationModel>(Configure);
             builder.Entity<ApiLogModel>(Configure);
+            builder.Entity<WidgetModel>(Configure);
+            builder.Entity<ApiWidgetModel>(Configure);
             base.OnModelCreating(builder);
         }
 
@@ -59,6 +63,27 @@ namespace ApiScanner.DataAccess
             entity.HasMany<ApiLocationModel>(e => e.ApiLocations).WithOne(e => e.Api);
             entity.HasMany<ApiLogModel>(e => e.ApiLogs).WithOne(e => e.Api);
             entity.Property(e => e.Authorization).HasDefaultValueSql(((int)AuthorizationType.None).ToString());
+        }
+
+        /// <summary>
+        /// Configure widgets.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<WidgetModel> entity)
+        {
+            entity.HasKey(e => e.WidgetId);
+            entity.HasMany<ApiWidgetModel>(e => e.ApiWidgets).WithOne(e => e.Widget);
+        }
+
+        /// <summary>
+        /// Configure api widgets.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<ApiWidgetModel> entity)
+        {
+            entity.HasKey(e => e.ApiWidgetId);
+            entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.ApiWidgets);
+            entity.HasOne<WidgetModel>(e => e.Widget).WithMany(e => e.ApiWidgets);
         }
 
         /// <summary>

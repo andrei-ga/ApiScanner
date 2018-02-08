@@ -92,5 +92,10 @@ namespace ApiScanner.Entities.Models
         /// Api logs.
         /// </summary>
         public ICollection<ApiLogModel> ApiLogs { get; set; }
+
+        /// <summary>
+        /// Api widgets.
+        /// </summary>
+        public ICollection<ApiWidgetModel> ApiWidgets { get; set; }
     }
 }
