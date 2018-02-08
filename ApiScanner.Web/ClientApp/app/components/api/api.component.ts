@@ -157,7 +157,7 @@ export class ApiComponent {
                             name: oldValues.name,
                             max: Math.max(...dataLogs[dataLogIndex].logValues),
                             min: Math.min(...dataLogs[dataLogIndex].logValues),
-                            value: sum / dataLogs[dataLogIndex].logValues.length
+                            value: Math.round(sum / dataLogs[dataLogIndex].logValues.length)
                         };
                     }
                 }
