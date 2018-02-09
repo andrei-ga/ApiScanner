@@ -2,6 +2,9 @@
     <h2 *ngIf="api">{{ api.name }} - {{ 'DateFrom_' + getChartFilterName() | translate }}</h2>
     <div class="row form-group">
         <div class="col-12">
+            <div class="row">
+                <mat-checkbox [(ngModel)]="chartAutoScale" (change)="updateAutoScale()">{{ 'AutoScale' | translate }}</mat-checkbox>
+            </div>
             <div *ngIf="chartDataReady" class="row chart-container">
                 <ngx-charts-line-chart [results]="chartResults"
                                        [gradient]="chartGradient"

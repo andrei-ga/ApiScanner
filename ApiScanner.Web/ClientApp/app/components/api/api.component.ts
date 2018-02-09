@@ -51,6 +51,8 @@ export class ApiComponent {
         private _route: ActivatedRoute) { }
 
     ngOnInit() {
+        let cacheAutoScale = localStorage.getItem('Chart_AutoScale');
+        this.chartAutoScale = cacheAutoScale == "true";
         // set date filter values
         let dateNow = moment();
         this.chartFilterDates = [{
@@ -164,6 +166,10 @@ export class ApiComponent {
             }
         }
         this.chartDataReady = true;
+    }
+
+    public updateAutoScale() {
+        localStorage.setItem('Chart_AutoScale', String(this.chartAutoScale));
     }
 
     ngOnDestroy() {

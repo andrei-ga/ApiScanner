@@ -10,6 +10,7 @@
   "AuthorizationType": "Tip autorizare",
   "AuthorizationType_None": "Niciuna",
   "AuthorizationType_Default": "Implicit",
+  "AutoScale": "Scară automată",
   "ConditionType_Body": "Conținut",
   "ConditionType_Header": "Antet",
   "ConditionType_ResponseTime": "Timp răspuns",

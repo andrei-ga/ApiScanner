@@ -10,6 +10,7 @@
   "AuthorizationType": "Authorization type",
   "AuthorizationType_None": "None",
   "AuthorizationType_Default": "Default",
+  "AutoScale": "Auto scale",
   "ConditionType_Body": "Body",
   "ConditionType_Header": "Header",
   "ConditionType_ResponseTime": "Response time",
