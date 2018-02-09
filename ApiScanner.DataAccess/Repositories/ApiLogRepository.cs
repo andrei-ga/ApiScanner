@@ -31,7 +31,7 @@ namespace ApiScanner.DataAccess.Repositories
                 query = query.Where(e => e.LogDate > dateFrom);
 
             return await query
-                .Where(e => e.ApiId == id)
+                .Where(e => e.ApiId == id && e.Success)
                 .OrderBy(e => e.LogDate)
                 .ToListAsync();
         }
