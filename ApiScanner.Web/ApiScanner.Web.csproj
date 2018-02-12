@@ -51,6 +51,7 @@
     <None Remove="ClientApp\app\components\shared\models\simple-pairs.model.ts" />
     <None Remove="ClientApp\app\components\shared\services\translation.service.ts" />
     <None Remove="ClientApp\app\components\translateUniversalLoader.ts" />
+    <None Remove="ClientApp\polyfills.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -97,6 +98,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\simple-pairs.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\services\translation.service.ts" />
+    <TypeScriptCompile Include="ClientApp\polyfills.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
