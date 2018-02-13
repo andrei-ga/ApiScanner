@@ -7,12 +7,14 @@ import { ApiIntervalModel } from '../enums/api-interval.model';
 import { ApiService } from './api.service';
 
 @Component({
-    templateUrl: './list.component.html'
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.css']
 })
 export class ApiListComponent implements OnInit {
     public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;
     public displayedColumns: string[] = ['apiName', 'apiUrl', 'apiInterval', 'apiEnabled', 'apiEdit'];
     public apiDataSource: MatTableDataSource<ApiModel> = new MatTableDataSource<ApiModel>();
+    public selectedIndex = -1;
 
     constructor(
         private _apiService: ApiService) { }
@@ -23,5 +25,9 @@ export class ApiListComponent implements OnInit {
             data => {
                 this.apiDataSource.data = data;
             });
+    }
+
+    public highlight(index: number) {
+        this.selectedIndex = this.selectedIndex == index ? -1 : index;
     }
 }
