@@ -1,19 +1,37 @@
-﻿<mat-grid-list cols="5" rowHeight="50px">
-    <mat-grid-tile><mat-grid-tile-header>{{ 'Name' | translate }}</mat-grid-tile-header></mat-grid-tile>
-    <mat-grid-tile><mat-grid-tile-header>{{ 'Url' | translate }}</mat-grid-tile-header></mat-grid-tile>
-    <mat-grid-tile><mat-grid-tile-header>{{ 'ScanInterval' | translate }}</mat-grid-tile-header></mat-grid-tile>
-    <mat-grid-tile><mat-grid-tile-header>{{ 'Enabled' | translate }}</mat-grid-tile-header></mat-grid-tile>
-    <mat-grid-tile><mat-grid-tile-header></mat-grid-tile-header></mat-grid-tile>
+﻿<mat-table [dataSource]="apiDataSource">
+    <ng-container matColumnDef="apiName">
+        <mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let api">
+            <a [routerLink]="['/apis', api.apiId]">{{ api.name }}</a>
+        </mat-cell>
+    </ng-container>
 
-    <div *ngFor="let api of apis">
-        <mat-grid-tile><a class="overflow-ellipsis" [routerLink]="['/apis', api.apiId]">{{ api.name }}</a></mat-grid-tile>
-        <mat-grid-tile><a class="overflow-ellipsis" href="{{ api.url }}" target="_blank">{{ api.url }}</a></mat-grid-tile>
-        <mat-grid-tile>{{ 'ApiInterval_' + ApiIntervalModel[api.interval] | translate }}</mat-grid-tile>
-        <mat-grid-tile><mat-icon class="menu-subicon">{{ api.enabled ? 'done' : 'remove' }}</mat-icon></mat-grid-tile>
-        <mat-grid-tile>
+    <ng-container matColumnDef="apiUrl">
+        <mat-header-cell *matHeaderCellDef>{{ 'Url' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let api">
+            <a href="{{ api.url }}" target="_blank">{{ api.url }}</a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="apiInterval">
+        <mat-header-cell *matHeaderCellDef>{{ 'ScanInterval' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let api">{{ 'ApiInterval_' + ApiIntervalModel[api.interval] | translate }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="apiEnabled">
+        <mat-header-cell *matHeaderCellDef>{{ 'Enabled' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let api"><mat-icon class="menu-subicon">{{ api.enabled ? 'done' : 'remove' }}</mat-icon></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="apiEdit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let api">
             <a [routerLink]="['/apis', api.apiId, 'edit']">
                 <mat-icon class="menu-subicon">mode_edit</mat-icon>
             </a>
-        </mat-grid-tile>
-    </div>
-</mat-grid-list>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

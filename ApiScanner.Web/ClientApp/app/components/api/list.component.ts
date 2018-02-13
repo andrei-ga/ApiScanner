@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 
 import { ApiModel } from './api.model';
 import { ApiIntervalModel } from '../enums/api-interval.model';
@@ -9,8 +10,9 @@ import { ApiService } from './api.service';
     templateUrl: './list.component.html'
 })
 export class ApiListComponent implements OnInit {
-    public apis: ApiModel[] = new Array();
     public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;
+    public displayedColumns: string[] = ['apiName', 'apiUrl', 'apiInterval', 'apiEnabled', 'apiEdit'];
+    public apiDataSource: MatTableDataSource<ApiModel> = new MatTableDataSource<ApiModel>();
 
     constructor(
         private _apiService: ApiService) { }
@@ -19,7 +21,7 @@ export class ApiListComponent implements OnInit {
         this._apiService.getApis()
             .subscribe(
             data => {
-                this.apis = data;
+                this.apiDataSource.data = data;
             });
     }
 }
