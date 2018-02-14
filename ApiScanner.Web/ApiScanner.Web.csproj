@@ -44,6 +44,7 @@
     <None Remove="ClientApp\app\components\location\api-location.model.ts" />
     <None Remove="ClientApp\app\components\location\location.model.ts" />
     <None Remove="ClientApp\app\components\location\location.service.ts" />
+    <None Remove="ClientApp\app\components\navmenu\navmenu.model.ts" />
     <None Remove="ClientApp\app\components\notification\notification-data.service.ts" />
     <None Remove="ClientApp\app\components\notification\notification.component.ts" />
     <None Remove="ClientApp\app\components\notification\notification.model.ts" />
@@ -92,6 +93,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\location\api-location.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\location\location.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\location\location.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\navmenu\navmenu.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification-data.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.model.ts" />

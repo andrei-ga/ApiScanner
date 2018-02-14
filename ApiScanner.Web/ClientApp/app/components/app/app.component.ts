@@ -10,13 +10,15 @@ import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../shared/services/translation.service';
 
+import { NavMenuModel } from '../navmenu/navmenu.model';
+
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    public pageHeader: string;
+    public pageHeader: NavMenuModel;
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: Object,

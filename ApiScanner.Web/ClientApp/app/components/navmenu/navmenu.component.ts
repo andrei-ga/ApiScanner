@@ -8,6 +8,7 @@ import { NotificationDataService } from '../notification/notification-data.servi
 
 import { NotificationClassType } from '../notification/notification.model';
 import { AccountModel } from '../account/account.model';
+import { NavMenuModel } from '../navmenu/navmenu.model';
 
 import { TranslationService } from '../shared/services/translation.service';
 
@@ -21,7 +22,7 @@ export class NavMenuComponent implements OnDestroy {
     public loggedIn: boolean = false;
     public myLanguage: string;
 
-    @Input() pageHeader: string;
+    @Input() pageHeader: NavMenuModel;
 
     private subscribeAccount: Subscription;
     private subscribeLanguage: Subscription;

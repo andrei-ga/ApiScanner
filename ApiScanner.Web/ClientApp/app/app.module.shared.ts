@@ -117,12 +117,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         ...materialModules,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
-            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: 'CreateApi' }, canActivate: [GuardLoggedIn] },
-            { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: 'ListApis' }, canActivate: [GuardLoggedIn] },
-            { path: 'apis/:id', component: ApiComponent, data: { title: 'View api - Api Scanner', pageHeader: 'ViewApi' }, canActivate: [GuardSeeApi] },
-            { path: 'apis/:id/edit', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: 'EditApi' }, canActivate: [GuardSeeApi] },
-            { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: 'NewAccount' }, canActivate: [GuardLogin] },
-            { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: 'SignIn' }, canActivate: [GuardLogin] },
+            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: { pageTitle: 'CreateApi', links: [] } }, canActivate: [GuardLoggedIn] },
+            { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: { pageTitle: 'ListApis', links: [] } }, canActivate: [GuardLoggedIn] },
+            { path: 'apis/:id', component: ApiComponent, data: { title: 'View api - Api Scanner', pageHeader: { pageTitle: 'ViewApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
+            { path: 'apis/:id/edit', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: { pageTitle: 'EditApi', links: [] } }, canActivate: [GuardSeeApi] },
+            { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: { pageTitle: 'NewAccount', links: [] } }, canActivate: [GuardLogin] },
+            { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: { pageTitle: 'SignIn', links: [] } }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }
         ]),
         TranslateModule.forRoot({
