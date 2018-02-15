@@ -24,7 +24,7 @@
     </ng-container>
 
     <ng-container matColumnDef="apiEdit">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'Edit' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let api">
             <a [routerLink]="['/apis', api.apiId, 'edit']">
                 <mat-icon class="menu-subicon">mode_edit</mat-icon>
