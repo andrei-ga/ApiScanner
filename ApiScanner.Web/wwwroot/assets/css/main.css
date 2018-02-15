@@ -1,17 +1,30 @@
 ﻿.full-width {
     width: 100%;
 }
+
 button:focus {
     outline: none;
 }
+
 .container-fluid {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
 .chart-container {
     height: 500px;
 }
+
 .overflow-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-menu-panel a:hover {
+    color: rgba(0,0,0,.87);
+    text-decoration: none;
 }
