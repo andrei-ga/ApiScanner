@@ -81,7 +81,7 @@ namespace ApiScanner.DataAccess
         /// <param name="entity"></param>
         private static void Configure(EntityTypeBuilder<ApiWidgetModel> entity)
         {
-            entity.HasKey(e => e.ApiWidgetId);
+            entity.HasKey(e => new { e.ApiId, e.WidgetId });
             entity.HasOne<ApiModel>(e => e.Api).WithMany(e => e.ApiWidgets);
             entity.HasOne<WidgetModel>(e => e.Widget).WithMany(e => e.ApiWidgets);
         }

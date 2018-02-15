@@ -10,6 +10,12 @@
             <a mat-menu-item [routerLink]="['/apis/create']">{{ 'CreateApiNew' | translate }}</a>
         </mat-menu>
 
+        <button *ngIf="loggedIn" mat-button class="menu-item" [matMenuTriggerFor]="menuWidget">{{ 'Widget' | translate }}</button>
+        <mat-menu #menuWidget="matMenu">
+            <a mat-menu-item [routerLink]="['/widgets/list']">{{ 'ListWidgets' | translate }}</a>
+            <a mat-menu-item [routerLink]="['/widgets/create']">{{ 'CreateWidgetNew' | translate }}</a>
+        </mat-menu>
+
         <span class="menu-spacer"></span>
 
         <button mat-button class="menu-item" [matMenuTriggerFor]="menuAccount">

@@ -30,6 +30,8 @@
   "ConfirmDeleteApi": "Are you sure you want to delete the api?",
   "CreateApi": "Create api",
   "CreateApiNew": "Create new api",
+  "CreateWidget": "Create widget",
+  "CreateWidgetNew": "Create new widget",
   "Date_1d": "1D",
   "Date_1w": "1W",
   "Date_1m": "1M",
@@ -58,9 +60,11 @@
   "HttpMethodType_Delete": "DELETE",
   "HttpMethodType_Options": "OPTIONS",
   "HttpMethodType_Connect": "CONNECT",
+  "IncludedApis": "Included apis",
   "Lang_en": "English",
   "Lang_ro": "Română",
   "ListApis": "List apis",
+  "ListWidgets": "List widgets",
   "Login": "Login",
   "Logout": "Logout",
   "LogConditions": "Log conditions",
@@ -79,5 +83,7 @@
   "Url": "URL",
   "UpdateApi": "Update api",
   "Variable": "Variable",
-  "ViewApi": "View api"
+  "ViewApi": "View api",
+  "Widget": "Widget",
+  "WidgetDetails": "Widget details"
 }

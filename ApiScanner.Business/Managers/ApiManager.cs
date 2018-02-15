@@ -1,7 +1,6 @@
 ﻿using ApiScanner.Business.Identity;
 using ApiScanner.DataAccess.Repositories;
 using ApiScanner.Entities.Models;
-using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace ApiScanner.Business.Managers
 {
-    [Authorize]
     public class ApiManager : IApiManager
     {
         private readonly IApiRepository _apiRepo;

@@ -5,11 +5,6 @@ namespace ApiScanner.Entities.Models
     public class ApiWidgetModel
     {
         /// <summary>
-        /// Id of api widget.
-        /// </summary>
-        public Guid ApiWidgetId { get; set; }
-
-        /// <summary>
         /// Id of api.
         /// </summary>
         public Guid ApiId { get; set; }

@@ -38,11 +38,14 @@ namespace ApiScanner.Web
             services.AddScoped<IApiManager, ApiManager>();
             services.AddScoped<ILocationManager, LocationManager>();
             services.AddScoped<IApiLogManager, ApiLogManager>();
+            services.AddScoped<IWidgetManager, WidgetManager>();
+
             services.AddTransient<IApiRepository, ApiRepository>();
             services.AddTransient<IApiLogRepository, ApiLogRepository>();
             services.AddTransient<IConditionRepository, ConditionRepository>();
             services.AddTransient<ILocationRepository, LocationRepository>();
             services.AddTransient<IApiLogRepository, ApiLogRepository>();
+            services.AddTransient<IWidgetRepository, WidgetRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {

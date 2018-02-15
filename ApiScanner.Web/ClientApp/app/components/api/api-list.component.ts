@@ -7,8 +7,8 @@ import { ApiIntervalModel } from '../enums/api-interval.model';
 import { ApiService } from './api.service';
 
 @Component({
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.css']
+    templateUrl: './api-list.component.html',
+    styleUrls: ['./api-list.component.css']
 })
 export class ApiListComponent implements OnInit {
     public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;

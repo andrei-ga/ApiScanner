@@ -19,7 +19,7 @@ import { NotificationClassType } from '../notification/notification.model';
 import { AccountDataService } from '../account/account-data.service';
 
 @Component({
-    templateUrl: './api.edit.component.html'
+    templateUrl: './api-edit.component.html'
 })
 export class ApiCreateComponent {
     public HttpMethodTypeModel: typeof HttpMethodTypeModel = HttpMethodTypeModel;
@@ -30,6 +30,13 @@ export class ApiCreateComponent {
     public processing: boolean = false;
     public myUser?: AccountModel = undefined;
     public runLocations: { location: LocationModel, enabled: boolean }[] = new Array();
+    public api: ApiModel = {
+        method: HttpMethodTypeModel.Get,
+        interval: ApiIntervalModel.Daily,
+        conditions: new Array(),
+        apiLocations: new Array(),
+        enabled: true
+    };
 
     private confirmDeleteApi: string = '';
     private lastErrorNotifId: string = '';
@@ -59,14 +66,6 @@ export class ApiCreateComponent {
                 this.confirmDeleteApi = data;
             });
     }
-
-    public api: ApiModel = {
-        method: HttpMethodTypeModel.Get,
-        interval: ApiIntervalModel.Daily,
-        conditions: new Array(),
-        apiLocations: new Array(),
-        enabled: true
-    };
 
     ngOnInit() {
         this.subParams = this._route.params.subscribe(params => {

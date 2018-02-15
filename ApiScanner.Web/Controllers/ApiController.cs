@@ -1,11 +1,13 @@
 ﻿using ApiScanner.Business.Managers;
 using ApiScanner.Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ApiController : Controller
     {
@@ -17,9 +19,9 @@ namespace ApiScanner.Web.Controllers
         }
 
         /// <summary>
-        /// Register a new account.
+        /// Create new api.
         /// </summary>
-        /// <param name="user">User model.</param>
+        /// <param name="api">Api model.</param>
         /// <returns></returns>
         [HttpPost("")]
         public async Task<IActionResult> Create([FromBody] ApiModel api)
