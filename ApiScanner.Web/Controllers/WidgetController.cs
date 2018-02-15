@@ -28,5 +28,16 @@ namespace ApiScanner.Web.Controllers
             var result = await _widgetManager.CreateAsync(widget);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Get list of widgets created by current user.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("")]
+        public async Task<IActionResult> Get()
+        {
+            var results = await _widgetManager.GetWidgetsAsync(true);
+            return Ok(results);
+        }
     }
 }

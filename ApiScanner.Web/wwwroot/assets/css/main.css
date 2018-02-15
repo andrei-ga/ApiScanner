@@ -32,3 +32,11 @@ body {
 .container {
     margin-top: 10px;
 }
+
+.m-right-10 {
+    margin-right: 10px;
+}
+
+.mat-row.selected {
+    background: #e4e4e4;
+}

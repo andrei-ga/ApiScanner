@@ -1,29 +1,29 @@
 ﻿<mat-table [dataSource]="apiDataSource">
-    <ng-container matColumnDef="apiName">
+    <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let api">
             <a [routerLink]="['/apis', api.apiId]">{{ api.name }}</a>
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apiUrl">
+    <ng-container matColumnDef="url">
         <mat-header-cell *matHeaderCellDef>{{ 'Url' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let api">
             <a href="{{ api.url }}" target="_blank">{{ api.url }}</a>
         </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apiInterval">
+    <ng-container matColumnDef="interval">
         <mat-header-cell *matHeaderCellDef>{{ 'ScanInterval' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let api">{{ 'ApiInterval_' + ApiIntervalModel[api.interval] | translate }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apiEnabled">
+    <ng-container matColumnDef="enabled">
         <mat-header-cell *matHeaderCellDef>{{ 'Enabled' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let api"><mat-icon class="menu-subicon">{{ api.enabled ? 'done' : 'remove' }}</mat-icon></mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apiEdit">
+    <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef>{{ 'Edit' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let api">
             <a [routerLink]="['/apis', api.apiId, 'edit']">

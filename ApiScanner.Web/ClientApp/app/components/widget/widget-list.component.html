@@ -1,0 +1,30 @@
+﻿<mat-table [dataSource]="widgetDataSource">
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>{{ 'Name' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let widget">
+            <a [routerLink]="['/widgets', widget.widgetId]">{{ widget.name }}</a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+        <mat-header-cell *matHeaderCellDef>{{ 'Location' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let widget">{{ widget.location.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="public">
+        <mat-header-cell *matHeaderCellDef>{{ 'AnyoneCanSee' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let widget"><mat-icon class="menu-subicon">{{ widget.publicRead ? 'done' : 'remove' }}</mat-icon></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef>{{ 'Edit' | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let widget">
+            <a [routerLink]="['/widgets', widget.widgetId, 'edit']">
+                <mat-icon class="menu-subicon">mode_edit</mat-icon>
+            </a>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns; let i = index" [ngClass]="{'selected': selectedIndex == i}" (click)="highlight(i)"></mat-row>
+</mat-table>

@@ -15,6 +15,7 @@ import { ApiCreateComponent } from './components/api/api-edit.component';
 import { ApiComponent } from './components/api/api.component';
 import { ApiListComponent } from './components/api/api-list.component';
 import { WidgetEditComponent } from './components/widget/widget-edit.component';
+import { WidgetListComponent } from './components/widget/widget-list.component';
 
 import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
@@ -111,6 +112,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ApiComponent,
         ApiListComponent,
         WidgetEditComponent,
+        WidgetListComponent,
     ],
     imports: [
         CommonModule,
@@ -124,7 +126,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: { pageTitle: 'ListApis', links: [] } }, canActivate: [GuardLoggedIn] },
             { path: 'apis/:id', component: ApiComponent, data: { title: 'View api - Api Scanner', pageHeader: { pageTitle: 'ViewApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
             { path: 'apis/:id/edit', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: { pageTitle: 'EditApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
-            { path: 'widgets/create', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'CreateWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } } },
+            { path: 'widgets/create', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'CreateWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardLoggedIn] },
+            { path: 'widgets/list', component: WidgetListComponent, data: { title: 'List widgets - Api Scanner', pageHeader: { pageTitle: 'ListWidgets', links: [] } }, canActivate: [GuardLoggedIn] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: { pageTitle: 'NewAccount', links: [] } }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: { pageTitle: 'SignIn', links: [] } }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }

@@ -1,11 +1,7 @@
-﻿.mat-column-apiName {
+﻿.mat-column-name {
     flex: 0 0 30%;
 }
 
-.mat-column-apiUrl {
+.mat-column-url {
     flex: 0 0 40%;
-}
-
-.mat-row.selected {
-    background: #e4e4e4;
 }

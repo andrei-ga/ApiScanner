@@ -12,7 +12,7 @@ import { ApiService } from './api.service';
 })
 export class ApiListComponent implements OnInit {
     public ApiIntervalModel: typeof ApiIntervalModel = ApiIntervalModel;
-    public displayedColumns: string[] = ['apiName', 'apiUrl', 'apiInterval', 'apiEnabled', 'apiEdit'];
+    public displayedColumns: string[] = ['name', 'url', 'interval', 'enabled', 'edit'];
     public apiDataSource: MatTableDataSource<ApiModel> = new MatTableDataSource<ApiModel>();
     public selectedIndex = -1;
 

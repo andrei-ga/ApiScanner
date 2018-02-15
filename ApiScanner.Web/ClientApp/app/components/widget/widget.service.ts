@@ -13,4 +13,8 @@ export class WidgetService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(`${this._baseUrl}/api/widget`, JSON.stringify(widget), { headers: headers });
     }
+
+    public getWidgets(): Observable<WidgetModel[]> {
+        return this._http.get<WidgetModel[]>(`${this._baseUrl}/api/widget`);
+    }
 }

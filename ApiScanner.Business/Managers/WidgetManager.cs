@@ -1,6 +1,8 @@
 ﻿using ApiScanner.Business.Identity;
 using ApiScanner.DataAccess.Repositories;
 using ApiScanner.Entities.Models;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Business.Managers
@@ -24,6 +26,17 @@ namespace ApiScanner.Business.Managers
             widget.User = account;
             await _widgetRepo.CreateAsync(widget);
             return true;
+        }
+
+        public async Task<IEnumerable<WidgetModel>> GetWidgetsAsync(bool includeLocation)
+        {
+            var account = await _accountSvc.AccountData();
+            if (account == null)
+                return new List<WidgetModel>();
+            var results = await _widgetRepo.GetWidgetsAsync(account.Id, includeLocation);
+            foreach (var widget in results)
+                widget.User = null;
+            return results;
         }
     }
 }
