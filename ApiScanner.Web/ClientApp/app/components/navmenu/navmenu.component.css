@@ -36,11 +36,16 @@
 }
 
 .menu-header {
-    font-size: 30px;
+    font-size: 14px;
     font-weight: 300;
     margin: 0;
     padding: 30px;
     align-items: center;
+}
+
+.mat-toolbar a {
+    color: #fff;
+    text-decoration: none;
 }
 
 @media (max-width: 600px) {

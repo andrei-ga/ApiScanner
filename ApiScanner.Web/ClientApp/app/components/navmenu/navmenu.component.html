@@ -1,13 +1,13 @@
 <mat-toolbar color="primary" class="menu-toolbar" [class.shadow-menu]="pageHeader">
     <mat-toolbar-row>
-        <button mat-button class="menu-item" [routerLink]="['/']">
+        <a mat-button class="menu-item" [routerLink]="['/']">
             <mat-icon class="menu-subicon">assessment</mat-icon>Api scanner
-        </button>
+        </a>
 
         <button *ngIf="loggedIn" mat-button class="menu-item" [matMenuTriggerFor]="menuApi">{{ 'Api' | translate }}</button>
         <mat-menu #menuApi="matMenu">
-            <button mat-menu-item [routerLink]="['/apis/list']">{{ 'ListApis' | translate }}</button>
-            <button mat-menu-item [routerLink]="['/apis/create']">{{ 'CreateApiNew' | translate }}</button>
+            <a mat-menu-item [routerLink]="['/apis/list']">{{ 'ListApis' | translate }}</a>
+            <a mat-menu-item [routerLink]="['/apis/create']">{{ 'CreateApiNew' | translate }}</a>
         </mat-menu>
 
         <span class="menu-spacer"></span>
@@ -16,8 +16,8 @@
             <mat-icon class="menu-subicon">account_box</mat-icon>{{ myUser ? myUser.email : 'Account' }}
         </button>
         <mat-menu #menuAccount="matMenu">
-            <button *ngIf="!loggedIn" mat-menu-item [routerLink]="['/login']">{{ 'Login' | translate }}</button>
-            <button *ngIf="!loggedIn" mat-menu-item [routerLink]="['/register']">{{ 'Register' | translate }}</button>
+            <a *ngIf="!loggedIn" mat-menu-item [routerLink]="['/login']">{{ 'Login' | translate }}</a>
+            <a *ngIf="!loggedIn" mat-menu-item [routerLink]="['/register']">{{ 'Register' | translate }}</a>
             <button *ngIf="loggedIn" mat-menu-item (click)="logout()">{{ 'Logout' | translate }}</button>
         </mat-menu>
         <button *ngIf="myLanguage" mat-button class="menu-item" [matMenuTriggerFor]="menuLanguage">
@@ -30,5 +30,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-toolbar color="primary" class="menu-header" *ngIf="pageHeader">
-    <a *ngFor="let link of pageHeader.links" [routerLink]="[link.url]">{{ link.name | translate }} >&nbsp;</a> <span>{{ pageHeader.pageTitle | translate }}</span>
+    <a mat-button class="menu-item" *ngFor="let link of pageHeader.links" [routerLink]="[link.url]">{{ link.name | translate }}</a>
+    <span *ngIf="pageHeader.links.length" class="menu-item">&rsaquo;</span>
+    <span class="menu-item">{{ pageHeader.pageTitle | translate }}</span>
 </mat-toolbar>
