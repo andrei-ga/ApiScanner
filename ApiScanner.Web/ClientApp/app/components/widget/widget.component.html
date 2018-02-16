@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <h2 *ngIf="api">{{ api.name }} - <i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
+    <h2 *ngIf="widget">{{ widget.name }} - <i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
     <div class="row form-group">
         <div class="col-12">
             <div class="row">
@@ -21,7 +21,7 @@
                 </ngx-charts-line-chart>
             </div>
             <div class="row">
-                <mat-radio-group class="col-12 d-flex justify-content-around" [(ngModel)]="filterDateValue" (change)="getApiLogsData()">
+                <mat-radio-group class="col-12 d-flex justify-content-around" [(ngModel)]="filterDateValue" (change)="getWidgetLogsData()">
                     <mat-radio-button *ngFor="let filter of chartFilterDates" value="{{ filter.value }}">{{ 'Date_' + filter.name | translate }}</mat-radio-button>
                 </mat-radio-group>
             </div>

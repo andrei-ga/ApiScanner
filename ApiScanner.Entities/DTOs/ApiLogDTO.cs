@@ -10,6 +10,11 @@ namespace ApiScanner.Entities.DTOs
         public string LocationName { get; set; }
 
         /// <summary>
+        /// Api name.
+        /// </summary>
+        public string ApiName { get; set; }
+
+        /// <summary>
         /// Status code of the response.
         /// </summary>
         public int StatusCode { get; set; }

@@ -54,6 +54,7 @@
     <None Remove="ClientApp\app\components\translateUniversalLoader.ts" />
     <None Remove="ClientApp\app\components\widget\api-widget.model.ts" />
     <None Remove="ClientApp\app\components\widget\widget-edit.component.ts" />
+    <None Remove="ClientApp\app\components\widget\widget.component.ts" />
     <None Remove="ClientApp\app\components\widget\widget.model.ts" />
     <None Remove="ClientApp\app\components\widget\widget.service.ts" />
     <None Remove="ClientApp\polyfills.ts" />
@@ -106,6 +107,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\shared\services\translation.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\widget\api-widget.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\widget\widget-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\widget\widget.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\widget\widget.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\widget\widget.service.ts" />
     <TypeScriptCompile Include="ClientApp\polyfills.ts" />

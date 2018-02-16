@@ -1,4 +1,5 @@
-﻿using ApiScanner.Entities.Models;
+﻿using ApiScanner.Entities.DTOs;
+using ApiScanner.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,6 +21,14 @@ namespace ApiScanner.DataAccess.Repositories
         /// <param name="id">Api id.</param>
         /// <param name="dateFrom">Date from when to get api logs. Will return all if null.</param>
         /// <returns></returns>
-        Task<IEnumerable<ApiLogModel>> GetApiLogsAsync(Guid id, DateTime? dateFrom);
+        Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, DateTime? dateFrom);
+
+        /// <summary>
+        /// Get api logs by specific widget id.
+        /// </summary>
+        /// <param name="widgetId">Widget id.</param>
+        /// <param name="dateFrom">Date from when to get api logs. Will return all if null.</param>
+        /// <returns></returns>
+        Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, DateTime? dateFrom);
     }
 }

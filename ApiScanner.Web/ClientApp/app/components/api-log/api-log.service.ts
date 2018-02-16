@@ -15,4 +15,11 @@ export class ApiLogService {
             url += `?dateFrom=${dateFrom.toISOString()}`;
         return this._http.get<ApiLogModel[]>(url);
     }
+
+    public getWidgetLogs(widgetId: string, dateFrom?: Date): Observable<ApiLogModel[]> {
+        let url = `${this._baseUrl}/api/apilog/widget/${widgetId}`;
+        if (dateFrom)
+            url += `?dateFrom=${dateFrom.toISOString()}`;
+        return this._http.get<ApiLogModel[]>(url);
+    }
 }

@@ -2,7 +2,6 @@
 using ApiScanner.Entities.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Business.Managers
@@ -10,25 +9,28 @@ namespace ApiScanner.Business.Managers
     public class ApiLogManager : IApiLogManager
     {
         private readonly IApiLogRepository _apiLogRepo;
+        private readonly IApiManager _apiManager;
+        private readonly IWidgetManager _widgetManager;
 
-        public ApiLogManager(IApiLogRepository apiLogRepo)
+        public ApiLogManager(IApiLogRepository apiLogRepo, IApiManager apiManager, IWidgetManager widgetManager)
         {
             _apiLogRepo = apiLogRepo;
+            _apiManager = apiManager;
+            _widgetManager = widgetManager;
         }
 
         public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, DateTime? dateFrom)
         {
-            return (await _apiLogRepo.GetApiLogsAsync(id, dateFrom)).Select(e =>
-                new ApiLogDTO
-                {
-                    LocationName = e.Location.Name,
-                    Content = e.Content,
-                    Headers = e.Headers,
-                    LogDate = e.LogDate,
-                    ResponseTime = e.ResponseTime,
-                    StatusCode = e.StatusCode,
-                    Success = e.Success
-                });
+            if (!await _apiManager.CanSeeApiAsync(id))
+                return null;
+            return await _apiLogRepo.GetApiLogsAsync(id, dateFrom);
+        }
+
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, DateTime? dateFrom)
+        {
+            if (!await _widgetManager.CanSeeWidgetAsync(widgetId))
+                return null;
+            return await _apiLogRepo.GetApiLogsByWidgetAsync(widgetId, dateFrom);
         }
     }
 }

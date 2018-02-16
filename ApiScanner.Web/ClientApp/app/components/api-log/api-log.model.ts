@@ -3,6 +3,7 @@ import { LocationModel } from '../location/location.model';
 
 export interface ApiLogModel {
     locationName: string,
+    apiName: string,
     statusCode: number,
     headers: string,
     content: string,

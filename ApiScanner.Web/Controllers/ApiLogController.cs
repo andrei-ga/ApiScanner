@@ -24,7 +24,25 @@ namespace ApiScanner.Web.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetApiLogs(Guid id, DateTime? dateFrom)
         {
-            return Ok(await _apiLogManager.GetApiLogsAsync(id, dateFrom));
+            var results = await _apiLogManager.GetApiLogsAsync(id, dateFrom);
+            if (results == null)
+                return Forbid();
+            return Ok(results);
+        }
+
+        /// <summary>
+        /// Get api logs by specific widget id.
+        /// </summary>
+        /// <param name="widgetId">Widget id</param>
+        /// <param name="dateFrom">Date from when to get api logs. Will return all if null.</param>
+        /// <returns></returns>
+        [HttpGet("widget/{widgetId:guid}")]
+        public async Task<IActionResult> GetApiLogsByWidget(Guid widgetId, DateTime? dateFrom)
+        {
+            var results = await _apiLogManager.GetApiLogsByWidgetAsync(widgetId, dateFrom);
+            if (results == null)
+                return Forbid();
+            return Ok(results);
         }
     }
 }
