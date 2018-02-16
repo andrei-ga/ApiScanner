@@ -89,7 +89,8 @@ export class WidgetComponent {
                     .subscribe(
                     data => {
                         this.widget = data;
-                    });
+                    },
+                    error => { });
 
                 // get api logs data
                 this.getWidgetLogsData();

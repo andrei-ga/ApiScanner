@@ -60,6 +60,7 @@ namespace ApiScanner.Web.Controllers
         /// </summary>
         /// <param name="id">Widget id.</param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("{id:guid}/access")]
         public async Task<IActionResult> CanSeeWidget(Guid id)
         {

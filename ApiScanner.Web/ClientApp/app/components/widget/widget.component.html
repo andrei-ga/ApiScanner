@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <h2 *ngIf="widget">{{ widget.name }} - <i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
+    <h2>{{ widget ? widget.name + ' - ' : '' }}<i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
     <div class="row form-group">
         <div class="col-12">
             <div class="row">

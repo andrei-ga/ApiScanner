@@ -55,12 +55,10 @@ namespace ApiScanner.Business.Managers
         public async Task<bool> CanSeeWidgetAsync(Guid widgetId)
         {
             var account = await _accountSvc.AccountData();
-            if (account == null)
-                return false;
             var widget = await _widgetRepo.GetWidgetAsync(widgetId, false, false);
-            if (widget == null || (account.Id != widget.UserId && !widget.PublicRead))
-                return false;
-            return true;
+            if (widget != null && (widget.PublicRead || (account?.Id == widget.UserId)))
+                return true;
+            return false;
         }
 
         public async Task<bool> DeleteWidgetAsync(Guid widgetId)
