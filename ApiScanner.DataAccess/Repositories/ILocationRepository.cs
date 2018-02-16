@@ -27,5 +27,12 @@ namespace ApiScanner.DataAccess.Repositories
         /// <param name="loc">Api location model.</param>
         /// <returns></returns>
         Task CreateApiLocation(ApiLocationModel loc);
+
+        /// <summary>
+        /// Remove a map between an api and a location.
+        /// </summary>
+        /// <param name="loc">Api location model.</param>
+        /// <returns></returns>
+        Task DeleteApiLocation(ApiLocationModel loc);
     }
 }

@@ -36,5 +36,11 @@ namespace ApiScanner.DataAccess.Repositories
         {
             await CreateApiLocation(loc.ApiId, loc.LocationId);
         }
+
+        public async Task DeleteApiLocation(ApiLocationModel loc)
+        {
+            _dbContext.Remove(loc);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

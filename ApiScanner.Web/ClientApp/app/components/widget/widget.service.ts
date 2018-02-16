@@ -17,4 +17,21 @@ export class WidgetService {
     public getWidgets(): Observable<WidgetModel[]> {
         return this._http.get<WidgetModel[]>(`${this._baseUrl}/api/widget`);
     }
+
+    public getWidget(widgetId: string): Observable<WidgetModel> {
+        return this._http.get<WidgetModel>(`${this._baseUrl}/api/widget/${widgetId}`);
+    }
+
+    public canSeeWidget(widgetId: string): Observable<boolean> {
+        return this._http.get<boolean>(`${this._baseUrl}/api/widget/${widgetId}/access`);
+    }
+
+    public updateWidget(widget: WidgetModel) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.put(`${this._baseUrl}/api/widget`, JSON.stringify(widget), { headers: headers });
+    }
+
+    public deleteWidget(widgetId: string) {
+        return this._http.delete(`${this._baseUrl}/api/widget/${widgetId}`);
+    }
 }

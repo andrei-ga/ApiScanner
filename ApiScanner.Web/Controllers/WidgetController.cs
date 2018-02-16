@@ -2,6 +2,7 @@
 using ApiScanner.Entities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Web.Controllers
@@ -38,6 +39,60 @@ namespace ApiScanner.Web.Controllers
         {
             var results = await _widgetManager.GetWidgetsAsync(true);
             return Ok(results);
+        }
+
+        /// <summary>
+        /// Get widget by id.
+        /// </summary>
+        /// <param name="id">Widget id.</param>
+        /// <returns></returns>
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetWidget(Guid id)
+        {
+            var result = await _widgetManager.GetWidgetAsync(id, true, true);
+            if (result == null)
+                return NoContent();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Check if current user can see specific widget.
+        /// </summary>
+        /// <param name="id">Widget id.</param>
+        /// <returns></returns>
+        [HttpGet("{id:guid}/access")]
+        public async Task<IActionResult> CanSeeWidget(Guid id)
+        {
+            var result = await _widgetManager.CanSeeWidgetAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Update widget by id.
+        /// </summary>
+        /// <param name="api">Widget id.</param>
+        /// <returns></returns>
+        [HttpPut("")]
+        public async Task<IActionResult> UpdateApi([FromBody] WidgetModel widget)
+        {
+            var result = await _widgetManager.UpdateWidgetAsync(widget);
+            if (!result)
+                return Forbid();
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Delete widget by id.
+        /// </summary>
+        /// <param name="id">Widget id.</param>
+        /// <returns></returns>
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteWidget(Guid id)
+        {
+            var result = await _widgetManager.DeleteWidgetAsync(id);
+            if (!result)
+                return Forbid();
+            return NoContent();
         }
     }
 }

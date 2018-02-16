@@ -24,7 +24,7 @@ import { ApiService } from './components/api/api.service';
 import { WidgetService } from './components/widget/widget.service';
 import { ApiLogService } from './components/api-log/api-log.service';
 import { LocationService } from './components/location/location.service';
-import { GuardLogin, GuardLoggedIn, GuardSeeApi } from './components/account/auth.guard';
+import { GuardLogin, GuardLoggedIn, GuardSeeApi, GuardSeeWidget } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -128,6 +128,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             { path: 'apis/:id/edit', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: { pageTitle: 'EditApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
             { path: 'widgets/create', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'CreateWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardLoggedIn] },
             { path: 'widgets/list', component: WidgetListComponent, data: { title: 'List widgets - Api Scanner', pageHeader: { pageTitle: 'ListWidgets', links: [] } }, canActivate: [GuardLoggedIn] },
+            { path: 'widgets/:id/edit', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'EditWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardSeeWidget] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: { pageTitle: 'NewAccount', links: [] } }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: { pageTitle: 'SignIn', links: [] } }, canActivate: [GuardLogin] },
             { path: '**', redirectTo: '' }
@@ -151,6 +152,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         GuardLogin,
         GuardLoggedIn,
         GuardSeeApi,
+        GuardSeeWidget,
         HttpClient,
         TranslateService,
         TranslationService,

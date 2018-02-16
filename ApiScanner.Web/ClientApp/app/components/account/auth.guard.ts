@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AccountService } from './account.service';
 import { ApiService } from '../api/api.service';
+import { WidgetService } from '../widget/widget.service';
 
 @Injectable()
 export class GuardLogin implements CanActivate {
@@ -53,6 +54,26 @@ export class GuardSeeApi implements CanActivate {
     canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
 
         return this._apiService.canSeeApi(next.params.id).map(data => {
+            if (data)
+                return true;
+            else {
+                this._router.navigateByUrl('/');
+                return false;
+            }
+        });
+    }
+}
+
+@Injectable()
+export class GuardSeeWidget implements CanActivate {
+
+    constructor(
+        private _router: Router,
+        private _widgetService: WidgetService) { }
+
+    canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
+
+        return this._widgetService.canSeeWidget(next.params.id).map(data => {
             if (data)
                 return true;
             else {

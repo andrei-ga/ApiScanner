@@ -92,7 +92,7 @@ namespace ApiScanner.Business.Managers
             foreach(var loc in myApi.ApiLocations.ToList())
             {
                 if (api.ApiLocations.Count(e => e.LocationId == loc.LocationId) == 0)
-                    myApi.ApiLocations.Remove(loc);
+                    await _locRepo.DeleteApiLocation(loc);
             }
             // create or update the rest
             foreach (var loc in api.ApiLocations)
@@ -105,7 +105,7 @@ namespace ApiScanner.Business.Managers
             foreach (var cond in myApi.Conditions.ToList())
             {
                 if (api.Conditions.Count(e => e.ConditionId == cond.ConditionId) == 0)
-                    myApi.Conditions.Remove(cond);
+                    await _condRepo.DeleteAsync(cond.ConditionId);
             }
             // create or update the rest
             foreach(var cond in api.Conditions)

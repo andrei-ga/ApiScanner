@@ -28,22 +28,25 @@ export class ApiCreateComponent {
     public AuthorizationTypeModel: typeof AuthorizationTypeModel = AuthorizationTypeModel;
     public CompareTypeModel: typeof CompareTypeModel = CompareTypeModel;
     public processing: boolean = false;
-    public myUser?: AccountModel = undefined;
     public runLocations: { location: LocationModel, enabled: boolean }[] = new Array();
     public api: ApiModel = {
         method: HttpMethodTypeModel.Get,
         interval: ApiIntervalModel.Daily,
         conditions: new Array(),
         apiLocations: new Array(),
-        enabled: true
+        enabled: true,
+        authorization: 0
     };
 
-    private confirmDeleteApi: string = '';
+    private wordingConfirmDeleteApi: string = '';
+    private wordingApiCannotCreate: string = '';
+    private wordingApiCannotDelete: string = '';
+    private wordingApiCannotUpdate: string = '';
     private lastErrorNotifId: string = '';
     private subParams: any;
+    private myUser?: AccountModel = undefined;
 
     private subscribeAccount: Subscription;
-    private subscribeConfirmDeleteApi: Subscription;
 
     constructor(
         private _apiService: ApiService,
@@ -60,10 +63,12 @@ export class ApiCreateComponent {
                     this.myUser = data;
                 }
             });
-        this.subscribeConfirmDeleteApi = this._translate.stream('ConfirmDeleteApi')
-            .subscribe(
-            data => {
-                this.confirmDeleteApi = data;
+        this._translate.get(['ConfirmDeleteApi', 'ApiCannotCreate', 'ApiCannotDelete', 'ApiCannotUpdate'])
+            .subscribe(data => {
+                this.wordingConfirmDeleteApi = data.ConfirmDeleteApi;
+                this.wordingApiCannotCreate = data.ApiCannotCreate;
+                this.wordingApiCannotDelete = data.ApiCannotDelete;
+                this.wordingApiCannotUpdate = data.ApiCannotUpdate;
             });
     }
 
@@ -103,7 +108,6 @@ export class ApiCreateComponent {
     ngOnDestroy() {
         this.subParams.unsubscribe();
         this.subscribeAccount.unsubscribe();
-        this.subscribeConfirmDeleteApi.unsubscribe();
     }
 
     public conditionTypeChange(value: number, index: number) {
@@ -163,7 +167,7 @@ export class ApiCreateComponent {
                     this._router.navigateByUrl('/apis/list');
                 },
                 error => {
-                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could not create api.", NotificationClassType.danger, false);
+                    this.lastErrorNotifId = this._notificationDataService.addNotification(this.wordingApiCannotCreate, NotificationClassType.danger, false);
                     this.processing = false;
                 });
         }
@@ -186,26 +190,26 @@ export class ApiCreateComponent {
                     this._router.navigateByUrl('/apis/list');
                 },
                 error => {
-                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could not update api.", NotificationClassType.danger, false);
+                    this.lastErrorNotifId = this._notificationDataService.addNotification(this.wordingApiCannotUpdate, NotificationClassType.danger, false);
                     this.processing = false;
                 });
         }
     }    
 
     public deleteApi() {
-        if (!this.processing && confirm(this.confirmDeleteApi)) {
+        if (!this.processing && confirm(this.wordingConfirmDeleteApi)) {
             this.processing = true;
             if (this.lastErrorNotifId != '') {
                 this._notificationDataService.removeNotification(this.lastErrorNotifId);
                 this.lastErrorNotifId = '';
             }
-            this._apiService.deleteApi(this.api.apiId ? this.api.apiId : '')
+            this._apiService.deleteApi(this.api.apiId!)
                 .subscribe(
                 data => {
                     this._router.navigateByUrl('/apis/list');
                 },
                 error => {
-                    this.lastErrorNotifId = this._notificationDataService.addNotification("Could delete api.", NotificationClassType.danger, false);
+                    this.lastErrorNotifId = this._notificationDataService.addNotification(this.wordingApiCannotDelete, NotificationClassType.danger, false);
                     this.processing = false;
                 });
         }
