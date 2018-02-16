@@ -32,6 +32,10 @@ namespace ApiScanner.Business.Identity
             if (!_regexUtilities.IsValidEmail(user.Email))
                 return (false, new string[1] { BadRequestType.InvalidEmail.ToString() });
 
+            // Validate passwords
+            if (user.Password != user.PasswordRepeat)
+                return (false, new string[1] { BadRequestType.PasswordMissmatch.ToString() });
+
             var newUser = new ApplicationUser
             {
                 UserName = user.Email,

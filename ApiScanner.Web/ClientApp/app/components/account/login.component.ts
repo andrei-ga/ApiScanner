@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AccountService } from './account.service';
 import { AccountDataService } from './account-data.service';
@@ -21,12 +22,27 @@ export class LoginComponent {
     public signing: boolean = false;
 
     private lastErrorNotifId: string = '';
+    private wordingLoginFailed: string = '';
+    private wordingLoginSuccess: string = '';
+    private wordingManyRetries: string = '';
+    private wordingLoginEmailNotConfirmed: string = '';
+    private wordingLoginUserOrPassIncorrect: string = '';
 
     constructor(
         private _accountDataService: AccountDataService,
         private _accountService: AccountService,
         private _notificationDataService: NotificationDataService,
-        private router: Router) { }
+        private _translate: TranslateService,
+        private router: Router) {
+        this._translate.get(['LoginFailed', 'LoginSuccess', 'ManyRetries', 'LoginEmailNotConfirmed', 'LoginUserOrPassIncorrect'])
+            .subscribe(data => {
+                this.wordingLoginFailed = data.LoginFailed;
+                this.wordingLoginSuccess = data.LoginSuccess;
+                this.wordingManyRetries = data.ManyRetries;
+                this.wordingLoginEmailNotConfirmed = data.LoginEmailNotConfirmed;
+                this.wordingLoginUserOrPassIncorrect = data.LoginUserOrPassIncorrect;
+            });
+    }
 
     public loginAccount() {
         if (!this.signing) {
@@ -38,21 +54,21 @@ export class LoginComponent {
             this._accountService.loginAccount(this.account)
                 .subscribe(
                 data => {
-                    this._notificationDataService.addNotification('Successfully logged in.', NotificationClassType.success, true);
+                    this._notificationDataService.addNotification(this.wordingLoginSuccess, NotificationClassType.success, true);
                     this._accountDataService.refreshData();
                     this.router.navigateByUrl('');
                 },
                 error => {
-                    let errorText = 'Login failed.';
+                    let errorText = this.wordingLoginFailed;
                     if (error.status == 429) {
-                        errorText = 'Too many retries per minute.';
+                        errorText = this.wordingManyRetries;
                     } else {
                         switch (error.error.value) {
                             case 'UserOrPassIncorrect':
-                                errorText = 'Incorrect username or password.';
+                                errorText = this.wordingLoginUserOrPassIncorrect;
                                 break;
                             case 'EmailNotConfirmed':
-                                errorText = 'Please confirm your email before logging in.';
+                                errorText = this.wordingLoginEmailNotConfirmed;
                                 break;
                         }
                     }
