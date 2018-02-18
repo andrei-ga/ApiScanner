@@ -18,19 +18,25 @@ import { NavMenuModel } from '../navmenu/navmenu.model';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+    public embed: boolean = false;
     public pageHeader: NavMenuModel;
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: Object,
         private _router: Router,
         private _titleService: Title,
-        private _activatedRoute: ActivatedRoute,
+        private _route: ActivatedRoute,
         private _translation: TranslationService,
         private _translate: TranslateService) {
         this._translate.setDefaultLang('en');
     }
 
     ngOnInit() {
+        this._route.queryParams.subscribe(params => {
+            let embed = params['embed'];
+            this.embed = embed == 'true' || embed == '1';
+        });
+
         // Client side code only
         if (isPlatformBrowser(this.platformId)) {
             // Initialize localization (translation) module
@@ -44,7 +50,7 @@ export class AppComponent implements OnInit {
 
         this._router.events
             .filter(event => event instanceof NavigationEnd)
-            .map(() => this._activatedRoute)
+            .map(() => this._route)
             .map(route => {
                 while (route.firstChild) route = route.firstChild;
                 return route;

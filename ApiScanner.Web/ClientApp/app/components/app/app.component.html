@@ -1,3 +1,3 @@
-<nav-menu [pageHeader]="pageHeader"></nav-menu>
-<notification-panel></notification-panel>
+<nav-menu *ngIf="!embed" [pageHeader]="pageHeader"></nav-menu>
+<notification-panel *ngIf="!embed"></notification-panel>
 <router-outlet></router-outlet>
