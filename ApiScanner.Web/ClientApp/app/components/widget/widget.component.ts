@@ -2,6 +2,7 @@
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 
 import { WidgetModel } from './widget.model';
 import { ApiLogModel } from '../api-log/api-log.model';
@@ -47,7 +48,15 @@ export class WidgetComponent {
     constructor(
         private _apiLogService: ApiLogService,
         private _widgetService: WidgetService,
-        private _route: ActivatedRoute) { }
+        private _translate: TranslateService,
+        private _route: ActivatedRoute) {
+        this._translate.get(['ApiName', 'Date', 'ResponseTime'])
+            .subscribe(data => {
+                this.chartLegendTitle = data.ApiName;
+                this.chartXAxisLabel = data.Date;
+                this.chartYAxisLabel = data.ResponseTime;
+            });
+    }
 
     ngOnInit() {
         let cacheAutoScale = localStorage.getItem('WidgetChart_AutoScale');
