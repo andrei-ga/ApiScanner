@@ -124,7 +124,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ...materialModules,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
-            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: { pageTitle: 'CreateApi', links: [] } }, canActivate: [GuardLoggedIn] },
+            { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: { pageTitle: 'CreateApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardLoggedIn] },
             { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: { pageTitle: 'ListApis', links: [] } }, canActivate: [GuardLoggedIn] },
             { path: 'apis/:id', component: ApiComponent, data: { title: 'View api - Api Scanner', pageHeader: { pageTitle: 'ViewApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
             { path: 'apis/:id/edit', component: ApiCreateComponent, data: { title: 'Edit api - Api Scanner', pageHeader: { pageTitle: 'EditApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
