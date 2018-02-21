@@ -23,14 +23,14 @@ namespace ApiScanner.Business.Managers
         {
             if (!await _apiManager.CanSeeApiAsync(id))
                 return null;
-            return await _apiLogRepo.GetApiLogsAsync(id, dateFrom);
+            return await _apiLogRepo.GetApiLogsAsync(id, false, false, dateFrom);
         }
 
         public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, DateTime? dateFrom)
         {
             if (!await _widgetManager.CanSeeWidgetAsync(widgetId))
                 return null;
-            return await _apiLogRepo.GetApiLogsByWidgetAsync(widgetId, dateFrom);
+            return await _apiLogRepo.GetApiLogsByWidgetAsync(widgetId, false, false, dateFrom);
         }
     }
 }

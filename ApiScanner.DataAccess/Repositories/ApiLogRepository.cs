@@ -23,7 +23,7 @@ namespace ApiScanner.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, DateTime? dateFrom)
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, bool includeContent, bool includeHeaders, DateTime? dateFrom)
         {
             var query = _dbContext.ApiLogs.AsNoTracking()
                 .Include(e => e.Location)
@@ -39,8 +39,8 @@ namespace ApiScanner.DataAccess.Repositories
                 {
                     LocationName = e.Location.Name,
                     ApiName = e.Api.Name,
-                    Content = e.Content,
-                    Headers = e.Headers,
+                    Content = includeContent ? e.Content : null,
+                    Headers = includeHeaders ? e.Headers : null,
                     LogDate = e.LogDate,
                     ResponseTime = e.ResponseTime,
                     StatusCode = e.StatusCode,
@@ -49,7 +49,7 @@ namespace ApiScanner.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, DateTime? dateFrom)
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, bool includeContent, bool includeHeaders, DateTime? dateFrom)
         {
             var query = _dbContext.ApiLogs.AsNoTracking()
                 .Include(e => e.Location)
@@ -77,8 +77,8 @@ namespace ApiScanner.DataAccess.Repositories
                 {
                     LocationName = e.Location.Name,
                     ApiName = e.Api.Name,
-                    Content = e.Content,
-                    Headers = e.Headers,
+                    Content = includeContent ? e.Content : null,
+                    Headers = includeHeaders ? e.Headers : null,
                     LogDate = e.LogDate,
                     ResponseTime = e.ResponseTime,
                     StatusCode = e.StatusCode,
