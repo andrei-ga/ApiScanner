@@ -17,6 +17,9 @@ export class AccountDataService {
                     this.account.next(data);
                 else
                     this.account.next({});
+            },
+            error => {
+                this.account.next({});
             });
     }
 

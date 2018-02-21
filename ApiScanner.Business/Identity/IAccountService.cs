@@ -8,6 +8,13 @@ namespace ApiScanner.Business.Identity
     public interface IAccountService
     {
         /// <summary>
+        /// Register a windows user.
+        /// </summary>
+        /// <param name="user">User data.</param>
+        /// <returns></returns>
+        Task<(bool Success, IEnumerable<string> Errors)> RegisterWindows(UserDTO user);
+
+        /// <summary>
         /// Register a new user.
         /// </summary>
         /// <param name="user">User data.</param>
@@ -34,11 +41,17 @@ namespace ApiScanner.Business.Identity
         bool LoggedIn();
 
         /// <summary>
-        /// Get account data for specific user. Returns null if not found.
+        /// Get account data for the logged in user.
         /// </summary>
-        /// <param name="account">User account name.</param>
         /// <returns></returns>
         Task<ApplicationUser> AccountData();
+
+        /// <summary>
+        /// Get account data for specific user. Returns null if not found.
+        /// </summary>
+        /// <param name="userName">User name.</param>
+        /// <returns></returns>
+        Task<ApplicationUser> AccountData(string userName);
 
         /// <summary>
         /// Reset password for a user.

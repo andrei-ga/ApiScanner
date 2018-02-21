@@ -26,6 +26,24 @@ namespace ApiScanner.Business.Identity
             _httpContext = httpContext;
         }
 
+        public async Task<(bool Success, IEnumerable<string> Errors)> RegisterWindows(UserDTO user)
+        {
+            var dbUser = await _userManager.FindByNameAsync(user.UserName);
+            if (dbUser != null)
+                return (false, new string[1] { BadRequestType.OtherError.ToString() });
+
+            var newUser = new ApplicationUser
+            {
+                UserName = user.UserName,
+                Email = user.Email
+            };
+            var userCreationResult = await _userManager.CreateAsync(newUser);
+            if (!userCreationResult.Succeeded)
+                return (false, userCreationResult.Errors.Select(e => e.Code));
+
+            return (true, new List<string>());
+        }
+
         public async Task<(bool Success, IEnumerable<string> Errors)> Register(UserDTO user)
         {
             // Validate email address
@@ -81,8 +99,20 @@ namespace ApiScanner.Business.Identity
         {
             if (!_httpContext.HttpContext.User?.Identity?.IsAuthenticated ?? false)
                 return null;
-            var user = await _userManager.FindByNameAsync(_httpContext.HttpContext.User?.Identity?.Name);
+            string userName = _httpContext.HttpContext.User?.Identity?.Name;
+            if (string.IsNullOrWhiteSpace(userName))
+                return null;
+
+            if (userName.Contains('\\'))
+                userName = userName.Substring(userName.IndexOf('\\') + 1);
+            var user = await _userManager.FindByNameAsync(userName);
             return user;
+        }
+
+        public async Task<ApplicationUser> AccountData(string userName)
+        {
+            var dbUser = await _userManager.FindByNameAsync(userName);
+            return dbUser;
         }
 
         public async Task<(bool Success, IEnumerable<string> Errors)> ResetPassword (UserDTO user)

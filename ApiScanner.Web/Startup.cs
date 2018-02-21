@@ -10,6 +10,7 @@ using ApiScanner.Business.Identity;
 using Microsoft.AspNetCore.Http;
 using ApiScanner.Business.Managers;
 using ApiScanner.DataAccess.Repositories;
+using ApiScanner.Entities.Configs;
 
 namespace ApiScanner.Web
 {
@@ -28,6 +29,8 @@ namespace ApiScanner.Web
             // Configure DataBase contexts
             CoreContext.ConnectionString = Configuration.GetConnectionString("DataAccessPostgreSqlProvider");
             services.AddDbContext<CoreContext>();
+
+            services.Configure<AuthenticationModesOptions>(Configuration.GetSection("AuthenticationModes"));
 
             // Identity framework
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<CoreContext>().AddDefaultTokenProviders();

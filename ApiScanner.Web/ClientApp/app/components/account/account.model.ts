@@ -6,4 +6,5 @@
     rememberLogin?: boolean,
     subscribe?: boolean,
     resetToken?: string,
+    windowsLogin?: boolean,
 }
