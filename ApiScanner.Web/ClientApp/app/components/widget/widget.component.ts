@@ -97,16 +97,16 @@ export class WidgetComponent {
             value: '7'
         }, {
             name: '1m',
-            value: dateNow.diff(moment().subtract('months', 1), 'days').toString()
+            value: dateNow.diff(moment().subtract(1, 'months'), 'days').toString()
         }, {
             name: '3m',
-            value: dateNow.diff(moment().subtract('months', 3), 'days').toString()
+            value: dateNow.diff(moment().subtract(3, 'months'), 'days').toString()
         }, {
             name: '6m',
-            value: dateNow.diff(moment().subtract('months', 6), 'days').toString()
+            value: dateNow.diff(moment().subtract(6, 'months'), 'days').toString()
         }, {
             name: '1y',
-            value: dateNow.diff(moment().subtract('years', 1), 'days').toString()
+            value: dateNow.diff(moment().subtract(1, 'years'), 'days').toString()
         }, {
             name: 'all',
             value: '-1'
@@ -134,7 +134,7 @@ export class WidgetComponent {
     }
 
     private getStatsLogsData() {
-        this._apiLogService.getWidgetLogs(this.widgetId, true, new Date(moment().subtract('days', 7).toDate()))
+        this._apiLogService.getWidgetLogs(this.widgetId, true, new Date(moment().subtract(7, 'days').toDate()))
             .subscribe(
             data => {
                 let statsData: DataStats[] = new Array();
@@ -164,7 +164,7 @@ export class WidgetComponent {
     }
 
     private getChartLogsData() {
-        this._apiLogService.getWidgetLogs(this.widgetId, false, this.filterDateValue == '-1' ? undefined : new Date(moment().subtract('days', parseInt(this.filterDateValue)).toDate()))
+        this._apiLogService.getWidgetLogs(this.widgetId, false, this.filterDateValue == '-1' ? undefined : new Date(moment().subtract(parseInt(this.filterDateValue), 'days').toDate()))
             .subscribe(
             data => {
                 this.chartApiLogs = data;

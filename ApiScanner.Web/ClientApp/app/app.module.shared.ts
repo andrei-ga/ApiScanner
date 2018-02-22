@@ -28,6 +28,7 @@ import { LocationService } from './components/location/location.service';
 import { GuardLogin, GuardLoggedIn, GuardSeeApi, GuardSeeWidget } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
 import { PageHeaderService } from './components/shared/services/page-header.service';
+import { MatPaginatorIntlService } from './components/shared/services/mat-paginator-intl.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -63,6 +64,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatPaginatorModule,
+    MatPaginatorIntl,
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -96,6 +99,7 @@ let materialModules = [
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatPaginatorModule,
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -162,6 +166,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClient,
         TranslateService,
         TranslationService,
+        { provide: MatPaginatorIntl, useClass: MatPaginatorIntlService }
     ]
 })
 export class AppModuleShared {

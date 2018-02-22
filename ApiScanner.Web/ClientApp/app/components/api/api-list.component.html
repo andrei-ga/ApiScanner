@@ -35,3 +35,10 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns; let i = index" [ngClass]="{'selected': selectedIndex == i}" (click)="highlight(i)"></mat-row>
 </mat-table>
+
+<mat-paginator #paginator
+               (page)="paginatorChangePage($event)"
+               [pageSize]="paginatorPageSize"
+               [pageSizeOptions]="[10, 25, 50]"
+               [showFirstLastButtons]="true">
+</mat-paginator>
