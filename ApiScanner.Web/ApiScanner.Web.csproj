@@ -50,6 +50,7 @@
     <None Remove="ClientApp\app\components\notification\notification.model.ts" />
     <None Remove="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
     <None Remove="ClientApp\app\components\shared\models\simple-pairs.model.ts" />
+    <None Remove="ClientApp\app\components\shared\services\page-header.service.ts" />
     <None Remove="ClientApp\app\components\shared\services\translation.service.ts" />
     <None Remove="ClientApp\app\components\translateUniversalLoader.ts" />
     <None Remove="ClientApp\app\components\widget\api-widget.model.ts" />
@@ -104,6 +105,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\notification\notification.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\constants\baseurl.constants.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\simple-pairs.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\services\page-header.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\services\translation.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\widget\api-widget.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\widget\widget-edit.component.ts" />

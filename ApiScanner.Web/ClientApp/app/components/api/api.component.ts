@@ -43,8 +43,7 @@ export class ApiComponent {
     public chartFilterDates: SimpleStringString[] = new Array();
     public filterDateValue: string = '7';
     public hideIntervals: boolean = false;
-
-    private subParams: Subscription;
+    
     private apiId: string;
 
     constructor(
@@ -91,7 +90,7 @@ export class ApiComponent {
             value: '-1'
         }];
 
-        this.subParams = this._route.params.subscribe(params => {
+        this._route.params.subscribe(params => {
             let id = params['id'];
             if (id) {
                 this.apiId = id;
@@ -188,9 +187,5 @@ export class ApiComponent {
     public updateHideIntervals() {
         localStorage.setItem('ApiChart_HideIntervals', String(this.hideIntervals));
         this.computeChart();
-    }
-
-    ngOnDestroy() {
-        this.subParams.unsubscribe();
     }
 }

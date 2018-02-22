@@ -9,6 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 import { TranslateService } from '@ngx-translate/core';
 import { TranslationService } from '../shared/services/translation.service';
+import { PageHeaderService } from '../shared/services/page-header.service';
 
 import { NavMenuModel } from '../navmenu/navmenu.model';
 
@@ -18,7 +19,7 @@ import { NavMenuModel } from '../navmenu/navmenu.model';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    public embed: boolean = false;
+    public embed: boolean = true;
     public pageHeader: NavMenuModel;
 
     constructor(
@@ -26,17 +27,13 @@ export class AppComponent implements OnInit {
         private _router: Router,
         private _titleService: Title,
         private _route: ActivatedRoute,
+        private _headerService: PageHeaderService,
         private _translation: TranslationService,
         private _translate: TranslateService) {
         this._translate.setDefaultLang('en');
     }
 
     ngOnInit() {
-        this._route.queryParams.subscribe(params => {
-            let embed = params['embed'];
-            this.embed = embed == 'true' || embed == '1';
-        });
-
         // Client side code only
         if (isPlatformBrowser(this.platformId)) {
             // Initialize localization (translation) module
@@ -61,6 +58,10 @@ export class AppComponent implements OnInit {
                 // Set title defined by routes
                 this._titleService.setTitle(event['title']);
                 this.pageHeader = event['pageHeader'];
+                if (this.pageHeader) {
+                    this.embed = this.pageHeader.embed == true;
+                    this._headerService.setEmbed(this.embed);
+                }
             });
     }
 }

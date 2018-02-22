@@ -13,6 +13,7 @@ import { SimpleStringString } from '../shared/models/simple-pairs.model';
 
 import { WidgetService } from './widget.service';
 import { ApiLogService } from '../api-log/api-log.service';
+import { PageHeaderService } from '../shared/services/page-header.service';
 
 interface DataValuesLog {
     apiName: string,
@@ -54,18 +55,18 @@ export class WidgetComponent {
     public statsDataSource: MatTableDataSource<DataStats> = new MatTableDataSource<DataStats>();
     public displayedColumns: string[] = ['name', 'lastDaySuccess', 'lastDayFail', 'lastWeekSuccess', 'lastWeekFail'];
     public embedCode: string;
-    public embed: boolean = false;
+    public embed: boolean = true;
 
     private chartApiLogs: ApiLogModel[] = new Array();
     private widgetId: string;
-    private subParams: Subscription;
-    private qParams: Subscription;
+    private subHeader: Subscription;
 
     constructor(
         @Inject('BASE_URL') private _baseUrl: string,
         private _apiLogService: ApiLogService,
         private _widgetService: WidgetService,
         private _translate: TranslateService,
+        private _headerService: PageHeaderService,
         private _location: Location,
         private _route: ActivatedRoute) {
         this._translate.get(['ApiName', 'Date', 'ResponseTime'])
@@ -82,9 +83,8 @@ export class WidgetComponent {
         let cacheHideIntervals = localStorage.getItem('WidgetChart_HideIntervals');
         this.hideIntervals = cacheHideIntervals == "true";
 
-        this.qParams = this._route.queryParams.subscribe(params => {
-            let embed = params['embed'];
-            this.embed = embed == 'true' || embed == '1';
+        this.subHeader = this._headerService.embed.subscribe(data => {
+            this.embed = data;
         });
 
         // set date filter values
@@ -112,7 +112,7 @@ export class WidgetComponent {
             value: '-1'
         }];
 
-        this.subParams = this._route.params.subscribe(params => {
+        this._route.params.subscribe(params => {
             let id = params['id'];
             if (id) {
                 this.widgetId = id;
@@ -130,7 +130,7 @@ export class WidgetComponent {
                     this.getStatsLogsData();
             }
         });
-        this.embedCode = `<iframe src="${this._baseUrl.slice(0, -1) + this._location.prepareExternalUrl(this._location.path())}?embed=true" width="1000px" height="580px"></iframe>`;
+        this.embedCode = `<iframe src="${this._baseUrl.slice(0, -1)}/widgets/${this.widgetId}/embed" width="1000px" height="580px"></iframe>`;
     }
 
     private getStatsLogsData() {
@@ -246,7 +246,6 @@ export class WidgetComponent {
     }
 
     ngOnDestroy() {
-        this.subParams.unsubscribe();
-        this.qParams.unsubscribe();
+        this.subHeader.unsubscribe();
     }
 }

@@ -1,5 +1,6 @@
 ﻿export interface NavMenuModel {
     pageTitle: string,
+    embed?: boolean,
     links: NavMenuLinkModel[]
 }
 

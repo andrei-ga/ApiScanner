@@ -27,6 +27,7 @@ import { ApiLogService } from './components/api-log/api-log.service';
 import { LocationService } from './components/location/location.service';
 import { GuardLogin, GuardLoggedIn, GuardSeeApi, GuardSeeWidget } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
+import { PageHeaderService } from './components/shared/services/page-header.service';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -123,7 +124,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         NgxChartsModule,
         ...materialModules,
         RouterModule.forRoot([
-            { path: '', component: HomeComponent, data: { title: 'Api Scanner' } },
+            { path: '', component: HomeComponent, data: { title: 'Api Scanner', pageHeader: { pageTitle: '', links: [] } } },
             { path: 'apis/create', component: ApiCreateComponent, data: { title: 'Create api - Api Scanner', pageHeader: { pageTitle: 'CreateApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardLoggedIn] },
             { path: 'apis/list', component: ApiListComponent, data: { title: 'List apis - Api Scanner', pageHeader: { pageTitle: 'ListApis', links: [] } }, canActivate: [GuardLoggedIn] },
             { path: 'apis/:id', component: ApiComponent, data: { title: 'View api - Api Scanner', pageHeader: { pageTitle: 'ViewApi', links: [{ name: 'ListApis', url: '/apis/list' }] } }, canActivate: [GuardSeeApi] },
@@ -131,6 +132,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             { path: 'widgets/create', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'CreateWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardLoggedIn] },
             { path: 'widgets/list', component: WidgetListComponent, data: { title: 'List widgets - Api Scanner', pageHeader: { pageTitle: 'ListWidgets', links: [] } }, canActivate: [GuardLoggedIn] },
             { path: 'widgets/:id', component: WidgetComponent, data: { title: 'View widget - Api Scanner', pageHeader: { pageTitle: 'ViewWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardSeeWidget] },
+            { path: 'widgets/:id/embed', component: WidgetComponent, data: { title: 'View widget - Api Scanner', pageHeader: { pageTitle: 'ViewWidget', links: [], embed: true } }, canActivate: [GuardSeeWidget] },
             { path: 'widgets/:id/edit', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'EditWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardSeeWidget] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: { pageTitle: 'NewAccount', links: [] } }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: { pageTitle: 'SignIn', links: [] } }, canActivate: [GuardLogin] },
@@ -146,6 +148,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     providers: [
         AccountService,
+        PageHeaderService,
         AccountDataService,
         NotificationDataService,
         ApiService,
