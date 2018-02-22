@@ -186,6 +186,6 @@ export class WidgetEditComponent {
     }
 
     public canEditWidget(): boolean {
-        return this.widget.widgetId != undefined && this.myUser != undefined && (this.myUser.id == this.widget.userId) || false;
+        return (this.widget.widgetId != undefined && this.myUser != undefined && (this.myUser.id == this.widget.userId)) == true;
     }
 }

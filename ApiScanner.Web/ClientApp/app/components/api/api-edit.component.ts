@@ -216,6 +216,6 @@ export class ApiCreateComponent {
     }
 
     public canEditApi(): boolean {
-        return this.api.apiId != undefined && this.myUser != undefined && (this.myUser.id == this.api.userId || this.api.publicWrite) || false;
+        return (this.api.apiId != undefined && this.myUser != undefined && (this.myUser.id == this.api.userId || this.api.publicWrite)) == true;
     }
 }
