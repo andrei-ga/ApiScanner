@@ -19,18 +19,18 @@ namespace ApiScanner.Business.Managers
             _widgetManager = widgetManager;
         }
 
-        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, DateTime? dateFrom)
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, bool includeFails, DateTime? dateFrom)
         {
             if (!await _apiManager.CanSeeApiAsync(id))
                 return null;
-            return await _apiLogRepo.GetApiLogsAsync(id, false, false, dateFrom);
+            return await _apiLogRepo.GetApiLogsAsync(id, false, false, includeFails, dateFrom);
         }
 
-        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, DateTime? dateFrom)
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, bool includeFails, DateTime? dateFrom)
         {
             if (!await _widgetManager.CanSeeWidgetAsync(widgetId))
                 return null;
-            return await _apiLogRepo.GetApiLogsByWidgetAsync(widgetId, false, false, dateFrom);
+            return await _apiLogRepo.GetApiLogsByWidgetAsync(widgetId, false, false, includeFails, dateFrom);
         }
     }
 }

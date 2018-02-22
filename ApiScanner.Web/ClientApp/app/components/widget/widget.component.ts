@@ -1,8 +1,10 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Inject } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
+import { MatTableDataSource } from '@angular/material';
+import { Location } from '@angular/common';
 
 import { WidgetModel } from './widget.model';
 import { ApiLogModel } from '../api-log/api-log.model';
@@ -18,8 +20,17 @@ interface DataValuesLog {
     logValues: number[]
 }
 
+interface DataStats {
+    name: string,
+    lastDaySuccess: number,
+    lastDayFail: number,
+    lastWeekSuccess: number,
+    lastWeekFail: number
+}
+
 @Component({
-    templateUrl: './widget.component.html'
+    templateUrl: './widget.component.html',
+    styleUrls: ['./widget.component.css']
 })
 export class WidgetComponent {
     // chart attributes
@@ -38,17 +49,24 @@ export class WidgetComponent {
 
     public widget: WidgetModel;
     public filterDateValue: string = '7';
-    public apiLogs: ApiLogModel[] = new Array();
     public chartFilterDates: SimpleStringString[] = new Array();
     public hideIntervals: boolean = false;
+    public statsDataSource: MatTableDataSource<DataStats> = new MatTableDataSource<DataStats>();
+    public displayedColumns: string[] = ['name', 'lastDaySuccess', 'lastDayFail', 'lastWeekSuccess', 'lastWeekFail'];
+    public embedCode: string;
+    public embed: boolean = false;
 
+    private chartApiLogs: ApiLogModel[] = new Array();
     private widgetId: string;
-    private subParams: Subscription;    
+    private subParams: Subscription;
+    private qParams: Subscription;
 
     constructor(
+        @Inject('BASE_URL') private _baseUrl: string,
         private _apiLogService: ApiLogService,
         private _widgetService: WidgetService,
         private _translate: TranslateService,
+        private _location: Location,
         private _route: ActivatedRoute) {
         this._translate.get(['ApiName', 'Date', 'ResponseTime'])
             .subscribe(data => {
@@ -63,6 +81,11 @@ export class WidgetComponent {
         this.chartAutoScale = cacheAutoScale == "true";
         let cacheHideIntervals = localStorage.getItem('WidgetChart_HideIntervals');
         this.hideIntervals = cacheHideIntervals == "true";
+
+        this.qParams = this._route.queryParams.subscribe(params => {
+            let embed = params['embed'];
+            this.embed = embed == 'true' || embed == '1';
+        });
 
         // set date filter values
         let dateNow = moment();
@@ -102,16 +125,49 @@ export class WidgetComponent {
                     error => { });
 
                 // get api logs data
-                this.getWidgetLogsData();
+                this.getChartLogsData();
+                if (!this.embed)
+                    this.getStatsLogsData();
             }
         });
+        this.embedCode = `<iframe src="${this._baseUrl.slice(0, -1) + this._location.prepareExternalUrl(this._location.path())}?embed=true" width="1000px" height="580px"></iframe>`;
     }
 
-    private getWidgetLogsData() {
-        this._apiLogService.getWidgetLogs(this.widgetId, this.filterDateValue == '-1' ? undefined : new Date(moment().subtract('days', parseInt(this.filterDateValue)).toDate()))
+    private getStatsLogsData() {
+        this._apiLogService.getWidgetLogs(this.widgetId, true, new Date(moment().subtract('days', 7).toDate()))
             .subscribe(
             data => {
-                this.apiLogs = data;
+                let statsData: DataStats[] = new Array();
+                let dateNow = moment(new Date());
+
+                for (let i = 0; i < data.length; i++) {
+                    let statIndex = statsData.findIndex(e => e.name == data[i].apiName);
+                    if (statIndex == -1) {
+                        statsData.push({
+                            name: data[i].apiName,
+                            lastWeekSuccess: 0,
+                            lastWeekFail: 0,
+                            lastDaySuccess: 0,
+                            lastDayFail: 0
+                        });
+                    }
+                }
+
+                for (let i = 0; i < statsData.length; i++) {
+                    statsData[i].lastWeekSuccess = data.filter(e => e.success && e.apiName == statsData[i].name).length;
+                    statsData[i].lastWeekFail = data.filter(e => !e.success && e.apiName == statsData[i].name).length;
+                    statsData[i].lastDaySuccess = data.filter(e => e.success && e.apiName == statsData[i].name && moment.duration(dateNow.diff(moment(e.logDate))).asHours() <= 24).length;
+                    statsData[i].lastDayFail = data.filter(e => !e.success && e.apiName == statsData[i].name && moment.duration(dateNow.diff(moment(e.logDate))).asHours() <= 24).length;
+                }
+                this.statsDataSource.data = statsData;
+            });
+    }
+
+    private getChartLogsData() {
+        this._apiLogService.getWidgetLogs(this.widgetId, false, this.filterDateValue == '-1' ? undefined : new Date(moment().subtract('days', parseInt(this.filterDateValue)).toDate()))
+            .subscribe(
+            data => {
+                this.chartApiLogs = data;
                 this.computeChart();
             });
     }
@@ -128,9 +184,9 @@ export class WidgetComponent {
         this.chartResults = new Array();
         let dataLogs: DataValuesLog[] = new Array();
 
-        for (let i = 0; i < this.apiLogs.length; i++) {
-            let apiName = this.apiLogs[i].apiName;
-            let logDate = new Date(this.apiLogs[i].logDate).toDateString();
+        for (let i = 0; i < this.chartApiLogs.length; i++) {
+            let apiName = this.chartApiLogs[i].apiName;
+            let logDate = new Date(this.chartApiLogs[i].logDate).toDateString();
 
             // group logs by api and date
             let dataLogIndex = dataLogs.findIndex(e => e.apiName == apiName && e.logDate == logDate);
@@ -138,25 +194,25 @@ export class WidgetComponent {
                 dataLogs.push({
                     apiName: apiName,
                     logDate: logDate,
-                    logValues: [this.apiLogs[i].responseTime]
+                    logValues: [this.chartApiLogs[i].responseTime]
                 });
 
                 let chartSeries: LineChartDataSeriesModel = {
                     name: logDate,
-                    value: this.apiLogs[i].responseTime
+                    value: this.chartApiLogs[i].responseTime
                 };
 
                 let apiIndex = this.chartResults.findIndex(e => e.name == apiName);
                 if (apiIndex == -1) {
                     this.chartResults.push({
-                        name: this.apiLogs[i].apiName,
+                        name: this.chartApiLogs[i].apiName,
                         series: [chartSeries]
                     });
                 } else {
                     this.chartResults[apiIndex].series.push(chartSeries);
                 }
             } else {
-                dataLogs[dataLogIndex].logValues.push(this.apiLogs[i].responseTime);
+                dataLogs[dataLogIndex].logValues.push(this.chartApiLogs[i].responseTime);
                 let apiIndex = this.chartResults.findIndex(e => e.name == apiName);
                 if (apiIndex != -1) {
                     let dateIndex = this.chartResults[apiIndex].series.findIndex(e => e.name == logDate);
@@ -191,5 +247,6 @@ export class WidgetComponent {
 
     ngOnDestroy() {
         this.subParams.unsubscribe();
+        this.qParams.unsubscribe();
     }
 }

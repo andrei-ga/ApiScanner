@@ -16,10 +16,15 @@ export class ApiLogService {
         return this._http.get<ApiLogModel[]>(url);
     }
 
-    public getWidgetLogs(widgetId: string, dateFrom?: Date): Observable<ApiLogModel[]> {
+    public getWidgetLogs(widgetId: string, includeFails: boolean, dateFrom?: Date): Observable<ApiLogModel[]> {
         let url = `${this._baseUrl}/api/apilog/widget/${widgetId}`;
-        if (dateFrom)
+        let hasQuery = false;
+        if (dateFrom) {
             url += `?dateFrom=${dateFrom.toISOString()}`;
+            hasQuery = true;
+        }
+        if (includeFails)
+            url += (hasQuery ? '&' : '?') + 'includeFails=true';
         return this._http.get<ApiLogModel[]>(url);
     }
 }

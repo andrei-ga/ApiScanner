@@ -1,0 +1,24 @@
+﻿.mat-column-name {
+    flex: 0 0 45%;
+}
+
+.mat-cell.mat-column-lastDaySuccess,
+.mat-cell.mat-column-lastWeekSuccess,
+.mat-cell.mat-column-lastDayFail,
+.mat-cell.mat-column-lastWeekFail {
+    color: #777;
+    font-style: italic;
+}
+
+.mat-cell.mat-column-lastDaySuccess.has-value,
+.mat-cell.mat-column-lastWeekSuccess.has-value {
+    color: #5cb85c;
+    font-style: normal;
+}
+
+.mat-cell.mat-column-lastDayFail.has-value,
+.mat-cell.mat-column-lastWeekFail.has-value {
+    color: #d9534f;
+    font-style: normal;
+    font-weight: bold;
+}

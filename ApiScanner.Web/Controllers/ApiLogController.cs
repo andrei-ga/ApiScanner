@@ -20,11 +20,12 @@ namespace ApiScanner.Web.Controllers
         /// </summary>
         /// <param name="id">Api id</param>
         /// <param name="dateFrom">Date from when to get api logs. Will return all if null.</param>
+        /// <param name="includeFails">Include api logs with fail status if true.</param>
         /// <returns></returns>
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetApiLogs(Guid id, DateTime? dateFrom)
+        public async Task<IActionResult> GetApiLogs(Guid id, DateTime? dateFrom, bool? includeFails)
         {
-            var results = await _apiLogManager.GetApiLogsAsync(id, dateFrom);
+            var results = await _apiLogManager.GetApiLogsAsync(id, includeFails ?? false, dateFrom);
             if (results == null)
                 return Forbid();
             return Ok(results);
@@ -35,11 +36,12 @@ namespace ApiScanner.Web.Controllers
         /// </summary>
         /// <param name="widgetId">Widget id</param>
         /// <param name="dateFrom">Date from when to get api logs. Will return all if null.</param>
+        /// <param name="includeFails">Include api logs with fail status if true.</param>
         /// <returns></returns>
         [HttpGet("widget/{widgetId:guid}")]
-        public async Task<IActionResult> GetApiLogsByWidget(Guid widgetId, DateTime? dateFrom)
+        public async Task<IActionResult> GetApiLogsByWidget(Guid widgetId, DateTime? dateFrom, bool? includeFails)
         {
-            var results = await _apiLogManager.GetApiLogsByWidgetAsync(widgetId, dateFrom);
+            var results = await _apiLogManager.GetApiLogsByWidgetAsync(widgetId, includeFails ?? false, dateFrom);
             if (results == null)
                 return Forbid();
             return Ok(results);

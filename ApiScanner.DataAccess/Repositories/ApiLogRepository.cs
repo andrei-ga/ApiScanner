@@ -23,7 +23,7 @@ namespace ApiScanner.DataAccess.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, bool includeContent, bool includeHeaders, DateTime? dateFrom)
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsAsync(Guid id, bool includeContent, bool includeHeaders, bool includeFails, DateTime? dateFrom)
         {
             var query = _dbContext.ApiLogs.AsNoTracking()
                 .Include(e => e.Location)
@@ -31,9 +31,11 @@ namespace ApiScanner.DataAccess.Repositories
                 .AsQueryable();
             if (dateFrom != null)
                 query = query.Where(e => e.LogDate > dateFrom);
+            if (!includeFails)
+                query = query.Where(e => e.Success);
 
             return await query
-                .Where(e => e.ApiId == id && e.Success)
+                .Where(e => e.ApiId == id)
                 .OrderBy(e => e.LogDate)
                 .Select(e => new ApiLogDTO
                 {
@@ -49,7 +51,7 @@ namespace ApiScanner.DataAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, bool includeContent, bool includeHeaders, DateTime? dateFrom)
+        public async Task<IEnumerable<ApiLogDTO>> GetApiLogsByWidgetAsync(Guid widgetId, bool includeContent, bool includeHeaders, bool includeFails, DateTime? dateFrom)
         {
             var query = _dbContext.ApiLogs.AsNoTracking()
                 .Include(e => e.Location)
@@ -57,6 +59,8 @@ namespace ApiScanner.DataAccess.Repositories
                 .AsQueryable();
             if (dateFrom != null)
                 query = query.Where(e => e.LogDate > dateFrom);
+            if (!includeFails)
+                query = query.Where(e => e.Success);
 
             var apiIds = await _dbContext.ApiWidgets.AsNoTracking()
                 .Where(e => e.WidgetId == widgetId)
@@ -71,7 +75,7 @@ namespace ApiScanner.DataAccess.Repositories
                 return new List<ApiLogDTO>();
 
             return await query
-                .Where(e => apiIds.Contains(e.ApiId) && e.LocationId == locationId && e.Success)
+                .Where(e => apiIds.Contains(e.ApiId) && e.LocationId == locationId)
                 .OrderBy(e => e.LogDate)
                 .Select(e => new ApiLogDTO
                 {

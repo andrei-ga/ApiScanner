@@ -1,30 +1,64 @@
 ﻿<div class="container">
-    <h2>{{ widget ? widget.name + ' - ' : '' }}<i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
-    <div class="row form-group">
-        <div class="col-12">
-            <div class="row">
-                <mat-checkbox [(ngModel)]="chartAutoScale" (change)="updateAutoScale()" class="m-right-10">{{ 'AutoScale' | translate }}</mat-checkbox>
-                <mat-checkbox [(ngModel)]="hideIntervals" (change)="updateHideIntervals()">{{ 'HideIntervals' | translate }}</mat-checkbox>
-            </div>
-            <div *ngIf="chartDataReady" class="row chart-container">
-                <ngx-charts-line-chart [results]="chartResults"
-                                       [gradient]="chartGradient"
-                                       [xAxis]="chartShowXAxis"
-                                       [yAxis]="chartShowYAxis"
-                                       [legend]="chartShowLegend"
-                                       [legendTitle]="chartLegendTitle"
-                                       [showXAxisLabel]="chartShowXAxisLabel"
-                                       [showYAxisLabel]="chartShowYAxisLabel"
-                                       [xAxisLabel]="chartXAxisLabel"
-                                       [yAxisLabel]="chartYAxisLabel"
-                                       [autoScale]="chartAutoScale">
-                </ngx-charts-line-chart>
-            </div>
-            <div class="row">
-                <mat-radio-group class="col-12 d-flex justify-content-around" [(ngModel)]="filterDateValue" (change)="getWidgetLogsData()">
-                    <mat-radio-button *ngFor="let filter of chartFilterDates" value="{{ filter.value }}">{{ 'Date_' + filter.name | translate }}</mat-radio-button>
-                </mat-radio-group>
-            </div>
-        </div>
-    </div>
+    <h2 *ngIf="!embed">{{ widget ? widget.name + ' - ' : '' }}<i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
+    <section>
+        <mat-checkbox [(ngModel)]="chartAutoScale" (change)="updateAutoScale()" class="m-right-10">{{ 'AutoScale' | translate }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="hideIntervals" (change)="updateHideIntervals()">{{ 'HideIntervals' | translate }}</mat-checkbox>
+    </section>
+    <section *ngIf="chartDataReady" class="chart-container">
+        <ngx-charts-line-chart [results]="chartResults"
+                               [gradient]="chartGradient"
+                               [xAxis]="chartShowXAxis"
+                               [yAxis]="chartShowYAxis"
+                               [legend]="chartShowLegend"
+                               [legendTitle]="chartLegendTitle"
+                               [showXAxisLabel]="chartShowXAxisLabel"
+                               [showYAxisLabel]="chartShowYAxisLabel"
+                               [xAxisLabel]="chartXAxisLabel"
+                               [yAxisLabel]="chartYAxisLabel"
+                               [autoScale]="chartAutoScale">
+        </ngx-charts-line-chart>
+    </section>
+    <section>
+        <mat-radio-group class="col-12 d-flex justify-content-around" [(ngModel)]="filterDateValue" (change)="getChartLogsData()">
+            <mat-radio-button *ngFor="let filter of chartFilterDates" value="{{ filter.value }}">{{ 'Date_' + filter.name | translate }}</mat-radio-button>
+        </mat-radio-group>
+    </section>
+    <section *ngIf="!embed">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="{{ 'EmbedCode' | translate }}" readonly="readonly" [ngModel]="embedCode" (click)="$event.target.select()">
+        </mat-form-field>
+    </section>
+
+    <h3 *ngIf="!embed">{{ 'Statistics' | translate }}</h3>
+    <section *ngIf="!embed">
+        <mat-table [dataSource]="statsDataSource">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>{{ 'ApiName' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let stat">{{ stat.name }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastDaySuccess">
+                <mat-header-cell *matHeaderCellDef>{{ 'Date_1d' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let stat" [class.has-value]="stat.lastDaySuccess > 0">{{ stat.lastDaySuccess }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastDayFail">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let stat" [class.has-value]="stat.lastDayFail > 0">{{ stat.lastDayFail }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastWeekSuccess">
+                <mat-header-cell *matHeaderCellDef>{{ 'Date_1w' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let stat" [class.has-value]="stat.lastWeekSuccess > 0">{{ stat.lastWeekSuccess }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastWeekFail">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let stat" [class.has-value]="stat.lastWeekFail > 0">{{ stat.lastWeekFail }}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+    </section>
 </div>

@@ -1,30 +1,26 @@
 ﻿<div class="container">
     <h2 *ngIf="api">{{ api.name }} - <i>{{ 'DateFrom_' + getChartFilterName() | translate }}</i></h2>
-    <div class="row form-group">
-        <div class="col-12">
-            <div class="row">
-                <mat-checkbox [(ngModel)]="chartAutoScale" (change)="updateAutoScale()" class="m-right-10">{{ 'AutoScale' | translate }}</mat-checkbox>
-                <mat-checkbox [(ngModel)]="hideIntervals" (change)="updateHideIntervals()">{{ 'HideIntervals' | translate }}</mat-checkbox>
-            </div>
-            <div *ngIf="chartDataReady" class="row chart-container">
-                <ngx-charts-line-chart [results]="chartResults"
-                                       [gradient]="chartGradient"
-                                       [xAxis]="chartShowXAxis"
-                                       [yAxis]="chartShowYAxis"
-                                       [legend]="chartShowLegend"
-                                       [legendTitle]="chartLegendTitle"
-                                       [showXAxisLabel]="chartShowXAxisLabel"
-                                       [showYAxisLabel]="chartShowYAxisLabel"
-                                       [xAxisLabel]="chartXAxisLabel"
-                                       [yAxisLabel]="chartYAxisLabel"
-                                       [autoScale]="chartAutoScale">
-                </ngx-charts-line-chart>
-            </div>
-            <div class="row">
-                <mat-radio-group class="col-12 d-flex justify-content-around" [(ngModel)]="filterDateValue" (change)="getApiLogsData()">
-                    <mat-radio-button *ngFor="let filter of chartFilterDates" value="{{ filter.value }}">{{ 'Date_' + filter.name | translate }}</mat-radio-button>
-                </mat-radio-group>
-            </div>
-        </div>
-    </div>
+    <section>
+        <mat-checkbox [(ngModel)]="chartAutoScale" (change)="updateAutoScale()" class="m-right-10">{{ 'AutoScale' | translate }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="hideIntervals" (change)="updateHideIntervals()">{{ 'HideIntervals' | translate }}</mat-checkbox>
+    </section>
+    <section *ngIf="chartDataReady" class="chart-container">
+        <ngx-charts-line-chart [results]="chartResults"
+                                [gradient]="chartGradient"
+                                [xAxis]="chartShowXAxis"
+                                [yAxis]="chartShowYAxis"
+                                [legend]="chartShowLegend"
+                                [legendTitle]="chartLegendTitle"
+                                [showXAxisLabel]="chartShowXAxisLabel"
+                                [showYAxisLabel]="chartShowYAxisLabel"
+                                [xAxisLabel]="chartXAxisLabel"
+                                [yAxisLabel]="chartYAxisLabel"
+                                [autoScale]="chartAutoScale">
+        </ngx-charts-line-chart>
+    </section>
+    <section>
+        <mat-radio-group class="col-12 d-flex justify-content-around" [(ngModel)]="filterDateValue" (change)="getApiLogsData()">
+            <mat-radio-button *ngFor="let filter of chartFilterDates" value="{{ filter.value }}">{{ 'Date_' + filter.name | translate }}</mat-radio-button>
+        </mat-radio-group>
+    </section>
 </div>
