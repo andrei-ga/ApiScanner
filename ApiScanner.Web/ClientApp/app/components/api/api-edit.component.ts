@@ -43,7 +43,6 @@ export class ApiCreateComponent {
     private wordingApiCannotDelete: string = '';
     private wordingApiCannotUpdate: string = '';
     private lastErrorNotifId: string = '';
-    private subParams: any;
     private myUser?: AccountModel = undefined;
 
     private subscribeAccount: Subscription;
@@ -55,7 +54,9 @@ export class ApiCreateComponent {
         private _route: ActivatedRoute,
         private _accountDataService: AccountDataService,
         private _translate: TranslateService,
-        private _router: Router) {
+        private _router: Router) { }
+
+    ngOnInit() {
         this.subscribeAccount = this._accountDataService.account
             .subscribe(
             data => {
@@ -70,10 +71,8 @@ export class ApiCreateComponent {
                 this.wordingApiCannotDelete = data.ApiCannotDelete;
                 this.wordingApiCannotUpdate = data.ApiCannotUpdate;
             });
-    }
 
-    ngOnInit() {
-        this.subParams = this._route.params.subscribe(params => {
+        this._route.params.subscribe(params => {
             let id = params['id'];
             if (id) {
                 this._apiService.getApi(id)
@@ -106,7 +105,6 @@ export class ApiCreateComponent {
     }
 
     ngOnDestroy() {
-        this.subParams.unsubscribe();
         this.subscribeAccount.unsubscribe();
     }
 

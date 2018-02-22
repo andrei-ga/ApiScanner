@@ -29,8 +29,7 @@ export class WidgetEditComponent {
     public processing: boolean = false;
     public apisLoaded: boolean = false;
     public widgetLoaded: boolean = false;
-
-    private subParams: any;
+    
     private lastErrorNotifId: string = '';
     private myUser?: AccountModel = undefined;
     private wordingConfirmDeleteWidget: string = '';
@@ -48,7 +47,9 @@ export class WidgetEditComponent {
         private _notificationDataService: NotificationDataService,
         private _route: ActivatedRoute,
         private _translate: TranslateService,
-        private _router: Router) {
+        private _router: Router) { }
+
+    ngOnInit() {
         this.subscribeAccount = this._accountDataService.account
             .subscribe(
             data => {
@@ -63,10 +64,8 @@ export class WidgetEditComponent {
                 this.wordingWidgetCannotDelete = data.WidgetCannotDelete;
                 this.wordingWidgetCannotUpdate = data.WidgetCannotUpdate;
             });
-    }
 
-    ngOnInit() {
-        this.subParams = this._route.params.subscribe(params => {
+        this._route.params.subscribe(params => {
             let id = params['id'];
             if (id) {
                 this._widgetService.getWidget(id)
@@ -106,7 +105,6 @@ export class WidgetEditComponent {
     }
 
     ngOnDestroy() {
-        this.subParams.unsubscribe();
         this.subscribeAccount.unsubscribe();
     }
 

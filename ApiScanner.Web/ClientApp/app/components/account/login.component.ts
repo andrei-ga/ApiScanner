@@ -33,7 +33,9 @@ export class LoginComponent {
         private _accountService: AccountService,
         private _notificationDataService: NotificationDataService,
         private _translate: TranslateService,
-        private router: Router) {
+        private router: Router) { }
+
+    ngOnInit() {
         this._translate.get(['LoginFailed', 'LoginSuccess', 'ManyRetries', 'LoginEmailNotConfirmed', 'LoginUserOrPassIncorrect'])
             .subscribe(data => {
                 this.wordingLoginFailed = data.LoginFailed;

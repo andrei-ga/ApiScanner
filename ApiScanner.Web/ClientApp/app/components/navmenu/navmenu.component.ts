@@ -32,7 +32,9 @@ export class NavMenuComponent implements OnDestroy {
         private _router: Router,
         private _notificationDataService: NotificationDataService,
         private _accountService: AccountService,
-        private _translation: TranslationService) {
+        private _translation: TranslationService) { }
+
+    ngOnInit() {
         this.subscribeAccount = this._accountDataService.account
             .subscribe(
             data => {

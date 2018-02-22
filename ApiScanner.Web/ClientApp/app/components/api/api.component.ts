@@ -50,16 +50,16 @@ export class ApiComponent {
         private _apiLogService: ApiLogService,
         private _apiService: ApiService,
         private _translate: TranslateService,
-        private _route: ActivatedRoute) {
+        private _route: ActivatedRoute) { }
+
+    ngOnInit() {
         this._translate.get(['Location', 'Date', 'ResponseTime'])
             .subscribe(data => {
                 this.chartLegendTitle = data.Location;
                 this.chartXAxisLabel = data.Date;
                 this.chartYAxisLabel = data.ResponseTime;
             });
-    }
 
-    ngOnInit() {
         let cacheAutoScale = localStorage.getItem('ApiChart_AutoScale');
         this.chartAutoScale = cacheAutoScale == "true";
         let cacheHideIntervals = localStorage.getItem('ApiChart_HideIntervals');

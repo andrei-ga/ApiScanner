@@ -24,7 +24,9 @@ export class NotificationComponent implements OnDestroy {
     }
 
     constructor(private _notificationDataService: NotificationDataService,
-        private _router: Router) {
+        private _router: Router) { }
+
+    ngOnInit() {
         this._subscribeNotification = this._notificationDataService.notification.subscribe(
             data => {
                 this.notifications.push(data);

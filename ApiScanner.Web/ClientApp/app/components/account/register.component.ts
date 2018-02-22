@@ -35,7 +35,9 @@ export class RegisterComponent {
         private _accountService: AccountService,
         private _translate: TranslateService,
         private _notificationDataService: NotificationDataService,
-        private _router: Router) {
+        private _router: Router) { }
+
+    ngOnInit() {
         this._translate.get(['ManyRetries', 'InvalidEmail', 'PasswordTooShort', 'PasswordRequiresDigit', 'PasswordRequiresLower', 'PasswordRequiresUpper', 'DuplicateEmail', 'PasswordMissmatch', 'RegisterFailed'])
             .subscribe(data => {
                 this.wordingManyRetries = data.ManyRetries;

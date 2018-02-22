@@ -1,11 +1,11 @@
 ﻿import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class TranslationService implements OnInit {
-    public language = new Subject<string>();
+    public language = new BehaviorSubject<string>('en');
 
     constructor(private _translate: TranslateService) { }
 

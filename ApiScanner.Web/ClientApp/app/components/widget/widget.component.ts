@@ -68,16 +68,16 @@ export class WidgetComponent {
         private _translate: TranslateService,
         private _headerService: PageHeaderService,
         private _location: Location,
-        private _route: ActivatedRoute) {
+        private _route: ActivatedRoute) { }
+
+    ngOnInit() {
         this._translate.get(['ApiName', 'Date', 'ResponseTime'])
             .subscribe(data => {
                 this.chartLegendTitle = data.ApiName;
                 this.chartXAxisLabel = data.Date;
                 this.chartYAxisLabel = data.ResponseTime;
             });
-    }
 
-    ngOnInit() {
         let cacheAutoScale = localStorage.getItem('WidgetChart_AutoScale');
         this.chartAutoScale = cacheAutoScale == "true";
         let cacheHideIntervals = localStorage.getItem('WidgetChart_HideIntervals');
