@@ -2,7 +2,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material';
 import { Location } from '@angular/common';
 
@@ -65,19 +64,11 @@ export class WidgetComponent {
         @Inject('BASE_URL') private _baseUrl: string,
         private _apiLogService: ApiLogService,
         private _widgetService: WidgetService,
-        private _translate: TranslateService,
         private _headerService: PageHeaderService,
         private _location: Location,
         private _route: ActivatedRoute) { }
 
     ngOnInit() {
-        this._translate.get(['ApiName', 'Date', 'ResponseTime'])
-            .subscribe(data => {
-                this.chartLegendTitle = data.ApiName;
-                this.chartXAxisLabel = data.Date;
-                this.chartYAxisLabel = data.ResponseTime;
-            });
-
         let cacheAutoScale = localStorage.getItem('WidgetChart_AutoScale');
         this.chartAutoScale = cacheAutoScale == "true";
         let cacheHideIntervals = localStorage.getItem('WidgetChart_HideIntervals');

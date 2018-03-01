@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { forkJoin } from "rxjs/observable/forkJoin";
 import * as moment from 'moment';
-import { TranslateService } from '@ngx-translate/core';
 
 import { ApiLogModel } from '../api-log/api-log.model';
 import { ApiModel } from '../api/api.model';
@@ -49,17 +48,9 @@ export class ApiComponent {
     constructor(
         private _apiLogService: ApiLogService,
         private _apiService: ApiService,
-        private _translate: TranslateService,
         private _route: ActivatedRoute) { }
 
     ngOnInit() {
-        this._translate.get(['Location', 'Date', 'ResponseTime'])
-            .subscribe(data => {
-                this.chartLegendTitle = data.Location;
-                this.chartXAxisLabel = data.Date;
-                this.chartYAxisLabel = data.ResponseTime;
-            });
-
         let cacheAutoScale = localStorage.getItem('ApiChart_AutoScale');
         this.chartAutoScale = cacheAutoScale == "true";
         let cacheHideIntervals = localStorage.getItem('ApiChart_HideIntervals');
