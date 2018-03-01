@@ -23,6 +23,7 @@ namespace ApiScanner.DataAccess
         public DbSet<ApiLogModel> ApiLogs { get; set; }
         public DbSet<WidgetModel> Widgets { get; set; }
         public DbSet<ApiWidgetModel> ApiWidgets { get; set; }
+        public DbSet<ConfigurationModel> Configurations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +39,7 @@ namespace ApiScanner.DataAccess
             builder.Entity<ApiLogModel>(Configure);
             builder.Entity<WidgetModel>(Configure);
             builder.Entity<ApiWidgetModel>(Configure);
+            builder.Entity<ConfigurationModel>(Configure);
             base.OnModelCreating(builder);
         }
 
@@ -49,6 +51,15 @@ namespace ApiScanner.DataAccess
         {
             entity.HasKey(e => e.Id);
             entity.HasMany<ApiModel>(e => e.Apis).WithOne(e => e.User);
+        }
+
+        /// <summary>
+        /// Configure configurations.
+        /// </summary>
+        /// <param name="entity"></param>
+        private static void Configure(EntityTypeBuilder<ConfigurationModel> entity)
+        {
+            entity.HasKey(e => e.Name);
         }
 
         /// <summary>
