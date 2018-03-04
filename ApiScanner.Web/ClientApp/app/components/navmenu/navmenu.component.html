@@ -16,15 +16,20 @@
             <a mat-menu-item [routerLink]="['/widgets/create']">{{ 'CreateWidgetNew' | translate }}</a>
         </mat-menu>
 
+        <button *ngIf="loggedIn && account.isAdmin" mat-button class="menu-item" [matMenuTriggerFor]="menuAdmin">{{ 'Admin' | translate }}</button>
+        <mat-menu #menuAdmin="matMenu">
+            <a mat-menu-item [routerLink]="['/admin/configuration']">{{ 'ConfigurationList' | translate }}</a>
+        </mat-menu>
+
         <span class="menu-spacer"></span>
 
         <button mat-button class="menu-item" [matMenuTriggerFor]="menuAccount">
-            <mat-icon class="menu-subicon">account_box</mat-icon>{{ myUser ? myUser.userName : 'Account' }}
+            <mat-icon class="menu-subicon">account_box</mat-icon>{{ account ? account.userName : 'Account' }}
         </button>
         <mat-menu #menuAccount="matMenu">
             <a *ngIf="!loggedIn" mat-menu-item [routerLink]="['/login']">{{ 'Login' | translate }}</a>
             <a *ngIf="!loggedIn" mat-menu-item [routerLink]="['/register']">{{ 'Register' | translate }}</a>
-            <button *ngIf="loggedIn && !myUser.windowsLogin" mat-menu-item (click)="logout()">{{ 'Logout' | translate }}</button>
+            <button *ngIf="loggedIn && !account.windowsLogin" mat-menu-item (click)="logout()">{{ 'Logout' | translate }}</button>
         </mat-menu>
         <button *ngIf="myLanguage" mat-button class="menu-item" [matMenuTriggerFor]="menuLanguage">
             <mat-icon class="menu-subicon">language</mat-icon>{{ 'Lang_' + myLanguage | translate }}

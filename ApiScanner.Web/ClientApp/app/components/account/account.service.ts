@@ -23,6 +23,10 @@ export class AccountService {
         return this._http.get(`${this._baseUrl}/api/account/logged`);
     }
 
+    public isAdmin() {
+        return this._http.get(`${this._baseUrl}/api/account/admin`);
+    }
+
     public logout() {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(`${this._baseUrl}/api/account/logout`, { headers: headers });

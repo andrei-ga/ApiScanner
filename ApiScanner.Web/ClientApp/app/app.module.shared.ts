@@ -17,6 +17,7 @@ import { ApiListComponent } from './components/api/api-list.component';
 import { WidgetEditComponent } from './components/widget/widget-edit.component';
 import { WidgetListComponent } from './components/widget/widget-list.component';
 import { WidgetComponent } from './components/widget/widget.component';
+import { AdminConfigurationComponent } from './components/admin/configuration/configuration.component';
 
 import { AccountService } from './components/account/account.service';
 import { AccountDataService } from './components/account/account-data.service';
@@ -25,7 +26,7 @@ import { ApiService } from './components/api/api.service';
 import { WidgetService } from './components/widget/widget.service';
 import { ApiLogService } from './components/api-log/api-log.service';
 import { LocationService } from './components/location/location.service';
-import { GuardLogin, GuardLoggedIn, GuardSeeApi, GuardSeeWidget } from './components/account/auth.guard';
+import { GuardLogin, GuardLoggedIn, GuardSeeApi, GuardSeeWidget, GuardAdmin } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
 import { PageHeaderService } from './components/shared/services/page-header.service';
 import { MatPaginatorIntlService } from './components/shared/services/mat-paginator-intl.service';
@@ -120,6 +121,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         WidgetEditComponent,
         WidgetListComponent,
         WidgetComponent,
+        AdminConfigurationComponent,
     ],
     imports: [
         CommonModule,
@@ -140,6 +142,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             { path: 'widgets/:id/edit', component: WidgetEditComponent, data: { title: 'Edit widget - Api Scanner', pageHeader: { pageTitle: 'EditWidget', links: [{ name: 'ListWidgets', url: '/widgets/list' }] } }, canActivate: [GuardSeeWidget] },
             { path: 'register', component: RegisterComponent, data: { title: 'Register - Api Scanner', pageHeader: { pageTitle: 'NewAccount', links: [] } }, canActivate: [GuardLogin] },
             { path: 'login', component: LoginComponent, data: { title: 'Login - Api Scanner', pageHeader: { pageTitle: 'SignIn', links: [] } }, canActivate: [GuardLogin] },
+            { path: 'admin/configuration', component: AdminConfigurationComponent, data: { title: 'Admin configuration - Api Scanner', pageHeader: { pageTitle: 'ConfigurationList', links: [] } }, canActivate: [GuardAdmin] },
             { path: '**', redirectTo: '' }
         ]),
         TranslateModule.forRoot({
@@ -163,6 +166,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         GuardLoggedIn,
         GuardSeeApi,
         GuardSeeWidget,
+        GuardAdmin,
         HttpClient,
         TranslateService,
         TranslationService,

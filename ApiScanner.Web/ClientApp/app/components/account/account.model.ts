@@ -7,4 +7,5 @@
     subscribe?: boolean,
     resetToken?: string,
     windowsLogin?: boolean,
+    isAdmin?: boolean
 }

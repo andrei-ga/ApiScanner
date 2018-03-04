@@ -13,5 +13,6 @@ namespace ApiScanner.Entities.DTOs
         public bool? Subscribe { get; set; }
         public string ResetToken { get; set; }
         public bool WindowsLogin { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

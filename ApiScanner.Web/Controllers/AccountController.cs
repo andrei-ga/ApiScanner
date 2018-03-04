@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using ApiScanner.Entities.Configs;
 using Microsoft.Extensions.Options;
 using ApiScanner.Entities.Models;
+using ApiScanner.Business.Managers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,11 +16,13 @@ namespace ApiScanner.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly IAccountManager _accountManager;
         private readonly AuthenticationModesOptions _authModesOptions;
 
-        public AccountController(IAccountService accountservice, IOptions<AuthenticationModesOptions> authModesOptions)
+        public AccountController(IAccountService accountservice, IAccountManager accountManager, IOptions<AuthenticationModesOptions> authModesOptions)
         {
             _accountService = accountservice;
+            _accountManager = accountManager;
             _authModesOptions = authModesOptions.Value;
         }
 
@@ -116,8 +119,20 @@ namespace ApiScanner.Web.Controllers
                 Email = user.Email,
                 Subscribe = user.Subscribe,
                 Id = user.Id,
-                WindowsLogin = windowsLogin
+                WindowsLogin = windowsLogin,
+                IsAdmin = await _accountManager.IsAdmin(user.UserName)
             });
+        }
+
+        /// <summary>
+        /// Check if current user is admin.
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet("admin")]
+        public async Task<IActionResult> IsAdmin()
+        {
+            return Ok(await _accountManager.IsAdmin(User.Identity?.Name?.Substring(User.Identity.Name.IndexOf('\\') + 1)));
         }
 
         /// <summary>

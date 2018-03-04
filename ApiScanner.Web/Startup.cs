@@ -42,6 +42,8 @@ namespace ApiScanner.Web
             services.AddScoped<ILocationManager, LocationManager>();
             services.AddScoped<IApiLogManager, ApiLogManager>();
             services.AddScoped<IWidgetManager, WidgetManager>();
+            services.AddScoped<IAccountManager, AccountManager>();
+            services.AddScoped<IConfigurationManager, ConfigurationManager>();
 
             services.AddTransient<IApiRepository, ApiRepository>();
             services.AddTransient<IApiLogRepository, ApiLogRepository>();
@@ -49,6 +51,7 @@ namespace ApiScanner.Web
             services.AddTransient<ILocationRepository, LocationRepository>();
             services.AddTransient<IApiLogRepository, ApiLogRepository>();
             services.AddTransient<IWidgetRepository, WidgetRepository>();
+            services.AddTransient<IConfigurationRepository, ConfigurationRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {

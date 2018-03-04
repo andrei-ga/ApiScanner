@@ -1,4 +1,5 @@
 ﻿{
+  "Admin": "Admin",
   "AnyoneCanSee": "Oricine poate vedea",
   "AnyoneCanEdit": "Oricine poate modifica",
   "Api": "Api",
@@ -19,6 +20,7 @@
   "ConditionType_Header": "Antet",
   "ConditionType_ResponseTime": "Timp răspuns",
   "ConditionType_StatusCode": "Cod răspuns",
+  "ConfigurationList": "Listă configurare",
   "CompareType": "Tip comparație",
   "CompareType_Equals": "Egal",
   "CompareType_Different": "Diferit",

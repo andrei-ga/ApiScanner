@@ -18,7 +18,7 @@ import { TranslationService } from '../shared/services/translation.service';
     styleUrls: ['./navmenu.component.css']
 })
 export class NavMenuComponent implements OnDestroy {
-    public myUser?: AccountModel = undefined;
+    public account?: AccountModel = undefined;
     public loggedIn: boolean = false;
     public myLanguage: string;
 
@@ -39,10 +39,10 @@ export class NavMenuComponent implements OnDestroy {
             .subscribe(
             data => {
                 if (data.email) {
-                    this.myUser = data;
+                    this.account = data;
                     this.loggedIn = true;
                 } else {
-                    this.myUser = undefined;
+                    this.account = undefined;
                     this.loggedIn = false;
                 }
             });

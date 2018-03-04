@@ -83,3 +83,22 @@ export class GuardSeeWidget implements CanActivate {
         });
     }
 }
+
+@Injectable()
+export class GuardAdmin implements CanActivate {
+
+    constructor(
+        private _router: Router,
+        private _accountService: AccountService) { }
+
+    canActivate(): Observable<boolean> {
+        return this._accountService.isAdmin().map(data => {
+            if (data)
+                return true;
+            else {
+                this._router.navigateByUrl('/');
+                return false;
+            }
+        });
+    }
+}

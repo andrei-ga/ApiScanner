@@ -1,4 +1,5 @@
 ﻿{
+  "Admin": "Admin",
   "AnyoneCanSee": "Anyone can see",
   "AnyoneCanEdit": "Anyone can edit",
   "Api": "Api",
@@ -19,6 +20,7 @@
   "ConditionType_Header": "Header",
   "ConditionType_ResponseTime": "Response time",
   "ConditionType_StatusCode": "Status code",
+  "ConfigurationList": "Configuration list",
   "CompareType": "Compare type",
   "CompareType_Equals": "Equals",
   "CompareType_Different": "Different",
