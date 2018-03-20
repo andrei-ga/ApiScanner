@@ -33,6 +33,8 @@
     <None Remove="ClientApp\app\components\account\login.component.ts" />
     <None Remove="ClientApp\app\components\account\register.component.ts" />
     <None Remove="ClientApp\app\components\admin\configuration\configuration.component.ts" />
+    <None Remove="ClientApp\app\components\admin\configuration\configuration.model.ts" />
+    <None Remove="ClientApp\app\components\admin\configuration\configuration.service.ts" />
     <None Remove="ClientApp\app\components\api-log\api-log.service.ts" />
     <None Remove="ClientApp\app\components\api\api-list.component.ts" />
     <None Remove="ClientApp\app\components\api\api-log.model.ts" />
@@ -85,6 +87,8 @@
     <TypeScriptCompile Include="ClientApp\app\components\account\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\account\register.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\admin\configuration\configuration.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\admin\configuration\configuration.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\admin\configuration\configuration.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api-log\api-log.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api-log\api-log.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\api\api.component.ts" />
