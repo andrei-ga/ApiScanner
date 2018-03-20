@@ -18,9 +18,6 @@ namespace ApiScanner.Business.Managers
             if (string.IsNullOrWhiteSpace(accountName))
                 return false;
             var admins = await _configManager.GetConfigValueAsync(ConfigurationConst.Admins);
-            // treat everyone as admin at initial startup
-            if (string.IsNullOrWhiteSpace(admins))
-                return true;
 
             var adminsList = admins.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             foreach(string admin in adminsList)
