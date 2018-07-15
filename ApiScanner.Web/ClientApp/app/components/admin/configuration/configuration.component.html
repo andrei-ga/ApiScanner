@@ -1,1 +1,10 @@
-﻿
+﻿<div class="container">
+    <mat-form-field *ngFor="let config of configs" class="full-width">
+        <input matInput placeholder="{{ config.name }}" maxlength="250" [(ngModel)]="config.value">
+        <mat-hint align="end">{{ config.value?.length || 0 }}/250</mat-hint>
+    </mat-form-field>
+
+    <section class="m-top-10">
+        <button mat-raised-button color="primary" (click)="saveConfigs()" [disabled]="processing">{{ 'Save' | translate }}</button>
+    </section>
+</div>

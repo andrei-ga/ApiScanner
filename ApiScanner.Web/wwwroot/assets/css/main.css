@@ -37,6 +37,10 @@ body {
     margin-right: 10px;
 }
 
+.m-top-10 {
+    margin-top: 10px;
+}
+
 .mat-row.selected {
     background: #e4e4e4;
 }

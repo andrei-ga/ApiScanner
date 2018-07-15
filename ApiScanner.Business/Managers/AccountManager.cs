@@ -1,5 +1,6 @@
 ﻿using ApiScanner.Entities.Constants;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApiScanner.Business.Managers
@@ -18,14 +19,11 @@ namespace ApiScanner.Business.Managers
             if (string.IsNullOrWhiteSpace(accountName))
                 return false;
             var admins = await _configManager.GetConfigValueAsync(ConfigurationConst.Admins);
-            // treat everyone as admin at initial startup
-            if (string.IsNullOrWhiteSpace(admins))
-                return true;
 
-            var adminsList = admins.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var adminsList = admins.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(e => e.Trim());
             foreach(string admin in adminsList)
             {
-                if (accountName.Equals(admin.Trim(), StringComparison.InvariantCultureIgnoreCase))
+                if (accountName.Equals(admin, StringComparison.InvariantCultureIgnoreCase))
                     return true;
             }
             return false;

@@ -26,6 +26,7 @@ import { ApiService } from './components/api/api.service';
 import { WidgetService } from './components/widget/widget.service';
 import { ApiLogService } from './components/api-log/api-log.service';
 import { LocationService } from './components/location/location.service';
+import { ConfigurationService } from './components/admin/configuration/configuration.service';
 import { GuardLogin, GuardLoggedIn, GuardSeeApi, GuardSeeWidget, GuardAdmin } from './components/account/auth.guard';
 import { TranslationService } from './components/shared/services/translation.service';
 import { PageHeaderService } from './components/shared/services/page-header.service';
@@ -162,6 +163,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         WidgetService,
         ApiLogService,
         LocationService,
+        ConfigurationService,
         GuardLogin,
         GuardLoggedIn,
         GuardSeeApi,

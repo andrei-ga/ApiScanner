@@ -22,6 +22,6 @@ If you receive any rendering error you may need to fully compile webpack with
 
 `webpack --config webpack.config.vendor.js`
 
-You need to have webpack installed:
+You must have webpack installed:
 
 `npm install -g webpack`
